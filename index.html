@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +19,7 @@
             padding-bottom: 40px;
         }
 
-        /* Login Screen Styles */
+        /* Login Screen */
         #loginScreen {
             display: flex;
             min-height: 100vh;
@@ -29,11 +30,11 @@
         }
 
         .login-card {
-            background: white;
+            background: #ffffff;
             width: 100%;
             max-width: 400px;
             border-radius: 16px;
-            padding: 26px 20px;
+            padding: 24px 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             text-align: center;
         }
@@ -50,9 +51,28 @@
             margin-bottom: 20px;
         }
 
-        /* Main App Header & Containers */
+        .otp-display-box {
+            background: #e0f2fe;
+            border: 2px dashed #0284c7;
+            color: #0369a1;
+            padding: 14px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .otp-number {
+            display: block;
+            font-size: 28px;
+            letter-spacing: 6px;
+            color: #0284c7;
+            margin-top: 6px;
+        }
+
+        /* Store App Screen */
         #mainAppScreen {
-            display: none; /* Hidden until verified */
+            display: none;
         }
 
         .header {
@@ -60,7 +80,6 @@
             color: white;
             padding: 20px 16px;
             text-align: center;
-            position: relative;
         }
 
         .header h1 {
@@ -78,9 +97,9 @@
             margin-top: 10px;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             background: #1e293b;
-            padding: 4px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
             font-size: 12px;
             color: #38bdf8;
@@ -270,41 +289,47 @@
 </head>
 <body>
 
-    <!-- ================= 1. LOGIN / OTP SCREEN ================= -->
+    <!-- ================= 1. LOGIN & OTP SCREEN ================= -->
     <div id="loginScreen">
         <div class="login-card">
             <h2>DIP URJA STORE</h2>
-            <p>Self Mobile Number & OTP Verification</p>
+            <p>Mobile Number Verification</p>
 
             <!-- Step A: Enter Phone Number -->
             <div id="phoneStep">
                 <div class="form-group">
-                    <label>Mobile Number</label>
-                    <input type="tel" id="userPhone" placeholder="Enter 10-digit number" maxlength="10">
+                    <label>Enter Mobile Number</label>
+                    <input type="tel" id="userPhone" placeholder="10-digit mobile number" maxlength="10" inputmode="numeric">
                 </div>
-                <button class="btn-submit" onclick="requestOTP()">Send OTP</button>
+                <button class="btn-submit" onclick="generateOTP()">Generate OTP</button>
             </div>
 
-            <!-- Step B: Enter Received OTP -->
+            <!-- Step B: Display Generated OTP & Verify -->
             <div id="otpStep" style="display: none;">
+                <div class="otp-display-box">
+                    <span>SECURITY CODE / OTP:</span>
+                    <span class="otp-number" id="boxOtp">----</span>
+                    <small style="color: #64748b; font-weight: normal;">Type this 4-digit code below to enter</small>
+                </div>
+
                 <div class="form-group">
                     <label>Enter 4-Digit OTP</label>
-                    <input type="number" id="userOTP" placeholder="Enter OTP" maxlength="4">
+                    <input type="tel" id="userOTP" placeholder="Enter the OTP above" maxlength="4" inputmode="numeric">
                 </div>
                 <button class="btn-submit" style="background:#16a34a;" onclick="verifyAndLogin()">Verify & Login</button>
-                <button class="btn-submit btn-secondary" onclick="changePhoneNumber()">Change Mobile Number</button>
+                <button class="btn-submit btn-secondary" onclick="changePhoneNumber()">Change Phone Number</button>
             </div>
         </div>
     </div>
 
-    <!-- ================= 2. MAIN STORE APPLICATION ================= -->
+    <!-- ================= 2. MAIN APPLICATION ================= -->
     <div id="mainAppScreen">
 
         <div class="header">
             <h1>DIP URJA POWER SOLUTIONS</h1>
             <p>STORE & MATERIAL MANAGEMENT SYSTEM</p>
             <div class="user-badge">
-                <span>📱 Logged In: <b id="displayPhone"></b></span>
+                <span>📱 Operator: <b id="displayPhone"></b></span>
                 <span class="logout-link" onclick="logout()">Logout</span>
             </div>
         </div>
@@ -351,23 +376,23 @@
 
     </div>
 
-    <!-- Modals -->
-    <!-- Modal 1: Material Master -->
+    <!-- MODALS -->
+    <!-- Modal 1: Master Item -->
     <div id="modalItemMaster" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Add New Product Master</h2>
+                <h2>Add Product to Master</h2>
                 <button class="close-btn" onclick="closeModal('modalItemMaster')">&times;</button>
             </div>
             <div class="form-group">
-                <label>Product Name</label>
-                <input type="text" id="masterItemName" placeholder="e.g. Solar Panel 540W">
+                <label>Product / Item Name</label>
+                <input type="text" id="masterItemName" placeholder="e.g. Solar Panel 540W / Lift Inverter">
             </div>
             <div class="form-group">
                 <label>Category</label>
-                <input type="text" id="masterCategory" placeholder="e.g. Solar / Power Backup / Cabling">
+                <input type="text" id="masterCategory" placeholder="e.g. Solar / Power Backup / Structure">
             </div>
-            <button class="btn-submit" onclick="saveMasterItem()">Save to Master</button>
+            <button class="btn-submit" onclick="saveMasterItem()">Save Product</button>
         </div>
     </div>
 
@@ -387,8 +412,8 @@
                 <input type="number" id="stockInQty" placeholder="Quantity">
             </div>
             <div class="form-group">
-                <label>Invoice No / Supplier Name</label>
-                <input type="text" id="stockInRemarks" placeholder="Invoice or Supplier">
+                <label>Invoice / Supplier Reference</label>
+                <input type="text" id="stockInRemarks" placeholder="Invoice No or Supplier Name">
             </div>
             <button class="btn-submit" style="background:#16a34a;" onclick="recordStock('IN')">Confirm Stock In</button>
         </div>
@@ -410,8 +435,8 @@
                 <input type="number" id="stockOutQty" placeholder="Quantity">
             </div>
             <div class="form-group">
-                <label>Issued To / Site Name</label>
-                <input type="text" id="stockOutSite" placeholder="Site name or Team Leader">
+                <label>Site Name / Team Leader</label>
+                <input type="text" id="stockOutSite" placeholder="Project name or Receiver">
             </div>
             <button class="btn-submit" style="background:#dc2626;" onclick="recordStock('OUT')">Confirm Stock Out</button>
         </div>
@@ -441,7 +466,7 @@
     <div id="modalReports" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Transaction Log</h2>
+                <h2>Transaction History</h2>
                 <button class="close-btn" onclick="closeModal('modalReports')">&times;</button>
             </div>
             <table class="stock-table">
@@ -451,7 +476,7 @@
                         <th>Item</th>
                         <th>Type</th>
                         <th>Qty</th>
-                        <th>By Phone</th>
+                        <th>Operator</th>
                     </tr>
                 </thead>
                 <tbody id="reportsTableBody"></tbody>
@@ -460,14 +485,13 @@
     </div>
 
     <script>
-        // State Keys
         const AUTH_USER_KEY = 'store_logged_in_phone';
         const STORE_ITEMS_KEY = 'dip_urja_inventory_items';
         const STORE_LOGS_KEY = 'dip_urja_inventory_logs';
 
-        let generatedOtp = null;
+        let currentGeneratedOtp = null;
 
-        // Auto-check authentication state on page load
+        // Auto-check authentication state
         window.addEventListener('DOMContentLoaded', () => {
             const loggedInUser = localStorage.getItem(AUTH_USER_KEY);
             if (loggedInUser) {
@@ -478,34 +502,33 @@
             }
         });
 
-        // 1. Send OTP Logic
-        function requestOTP() {
+        // 1. Generate OTP and Display on Screen
+        function generateOTP() {
             const phone = document.getElementById('userPhone').value.trim();
             if (phone.length !== 10 || isNaN(phone)) {
                 alert('Please enter a valid 10-digit mobile number.');
                 return;
             }
 
-            // Generate a random 4-digit OTP
-            generatedOtp = Math.floor(1000 + Math.random() * 9000).toString();
-            
-            // Show OTP prompt to simulate SMS
-            alert(`Your OTP code for ${phone} is: ${generatedOtp}`);
+            // Create a 4-digit code
+            currentGeneratedOtp = Math.floor(1000 + Math.random() * 9000).toString();
 
+            // Display in the box
+            document.getElementById('boxOtp').innerText = currentGeneratedOtp;
             document.getElementById('phoneStep').style.display = 'none';
             document.getElementById('otpStep').style.display = 'block';
         }
 
-        // 2. Verify OTP & Log In
+        // 2. Verify OTP
         function verifyAndLogin() {
             const enteredOtp = document.getElementById('userOTP').value.trim();
             const phone = document.getElementById('userPhone').value.trim();
 
-            if (enteredOtp === generatedOtp) {
+            if (enteredOtp === currentGeneratedOtp) {
                 localStorage.setItem(AUTH_USER_KEY, phone);
                 showMainApp(phone);
             } else {
-                alert('Invalid OTP. Please check and try again.');
+                alert('Incorrect OTP. Please enter the 4 digits shown in the blue box.');
             }
         }
 
@@ -513,7 +536,7 @@
             document.getElementById('otpStep').style.display = 'none';
             document.getElementById('phoneStep').style.display = 'block';
             document.getElementById('userOTP').value = '';
-            generatedOtp = null;
+            currentGeneratedOtp = null;
         }
 
         function showMainApp(phone) {
@@ -524,7 +547,7 @@
         }
 
         function logout() {
-            if (confirm("Are you sure you want to log out?")) {
+            if (confirm("Log out from the store app?")) {
                 localStorage.removeItem(AUTH_USER_KEY);
                 document.getElementById('userPhone').value = '';
                 document.getElementById('userOTP').value = '';
@@ -534,7 +557,7 @@
             }
         }
 
-        // Inventory Storage Helpers
+        // Inventory Data Handlers
         function loadItems() {
             return JSON.parse(localStorage.getItem(STORE_ITEMS_KEY)) || [
                 { id: 1, name: "Solar Panel 540W", category: "Solar", quantity: 0 },
@@ -603,7 +626,7 @@
             const category = document.getElementById('masterCategory').value.trim() || 'General';
 
             if (!name) {
-                alert('Please enter an item name');
+                alert('Please enter a product name');
                 return;
             }
 
@@ -614,7 +637,7 @@
             document.getElementById('masterItemName').value = '';
             document.getElementById('masterCategory').value = '';
             closeModal('modalItemMaster');
-            alert('Item added to Master successfully!');
+            alert('Product added to Master successfully!');
         }
 
         function recordStock(type) {
@@ -693,3 +716,4 @@
     </script>
 </body>
 </html>
+
