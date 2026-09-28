@@ -10,7 +10,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
-    <!-- Stylish Fonts: Montserrat for Brand Name, Plus Jakarta Sans for App UI -->
+    <!-- Google Fonts: Montserrat (Stylish Brand Font) & Plus Jakarta Sans -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
@@ -45,7 +45,7 @@
             padding-bottom: 50px;
         }
 
-        /* Login Screen */
+        /* 1. Login Screen */
         #loginScreen {
             display: flex;
             min-height: 100vh;
@@ -88,12 +88,11 @@
             display: none;
         }
 
-        /* Beautiful Image Background Header */
+        /* Top Header Styling */
         .header {
-            /* Loads a beautiful Solar Panel background image with a dark glassy overlay */
             background: linear-gradient(180deg, rgba(10, 15, 29, 0.88), rgba(10, 15, 29, 0.98)), 
                         url('https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&q=80&w=1000') center/cover no-repeat;
-            padding: 28px 20px 24px;
+            padding: 26px 20px 22px;
             border-bottom: 2px solid var(--primary);
             position: sticky;
             top: 0;
@@ -103,40 +102,40 @@
         }
 
         .spiritual-text {
-            color: #fbbf24; 
-            font-size: 15px; 
-            font-weight: 800; 
-            letter-spacing: 1.5px; 
+            color: #fbbf24;
+            font-size: 15px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
             text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
 
         .brand-logo-container {
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            gap: 12px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
             margin-bottom: 2px;
         }
 
         .brand-title {
-            font-family: 'Montserrat', sans-serif; 
-            font-size: 28px; 
-            font-weight: 900; 
-            background: linear-gradient(135deg, #38bdf8, #0ea5e9, #fbbf24); 
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent; 
-            text-transform: uppercase; 
-            letter-spacing: 1px; 
-            margin: 0; 
+            font-family: 'Montserrat', sans-serif;
+            font-size: 28px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #38bdf8, #0ea5e9, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
             line-height: 1;
         }
 
         .brand-subtitle {
-            font-size: 12px; 
-            color: #e2e8f0; 
-            letter-spacing: 4px; 
-            font-weight: 600; 
-            margin: 0 0 16px 0; 
+            font-size: 12px;
+            color: #e2e8f0;
+            letter-spacing: 4px;
+            font-weight: 600;
+            margin: 0 0 16px 0;
             text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
 
@@ -357,14 +356,14 @@
         <div class="login-card">
             
             <!-- Spiritual Header on Login -->
-            <div style="text-align: center; margin-bottom: 18px;">
-                <img src="swami.jpg" alt="Shree Swami Samarth" style="width: 56px; height: 56px; border-radius: 50%; border: 2px solid #fbbf24; object-fit: cover; margin-bottom: 6px; box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/10543/10543085.png';">
+            <div style="text-align: center; margin-bottom: 14px;">
+                <img src="swami" alt="श्री स्वामी समर्थ" style="width: 58px; height: 58px; border-radius: 50%; border: 2px solid #fbbf24; object-fit: cover; margin-bottom: 4px; box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);" onerror="this.onerror=null; this.src='swami.jpg';">
                 <div class="spiritual-text">॥ श्री स्वामी समर्थ ॥</div>
             </div>
 
-            <!-- Brand Name & Logo -->
+            <!-- Brand Logo & Name -->
             <div class="brand-logo-container">
-                <img src="logo.png" alt="DIP URJA Logo" style="width: 34px; height: 34px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/3563/3563393.png';">
+                <img src="logo" alt="DIP URJA Logo" style="width: 38px; height: 38px; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));" onerror="this.onerror=null; this.src='logo.png';">
                 <h2 class="brand-title" style="font-size: 24px;">DIP URJA</h2>
             </div>
             <p class="brand-subtitle" style="margin-bottom: 24px;">POWER SOLUTIONS</p>
@@ -394,25 +393,25 @@
 
     <!-- 2. MAIN DASHBOARD -->
     <div id="mainAppScreen">
-        <!-- Beautiful Image Header -->
+        <!-- Top Image Header -->
         <div class="header">
             
             <!-- Spiritual Top Area -->
-            <div style="text-align: center; margin-bottom: 18px;">
-                <img src="swami.jpg" alt="Shree Swami Samarth" style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid #fbbf24; object-fit: cover; margin-bottom: 4px; box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/10543/10543085.png';">
+            <div style="text-align: center; margin-bottom: 14px;">
+                <img src="swami" alt="श्री स्वामी समर्थ" style="width: 58px; height: 58px; border-radius: 50%; border: 2px solid #fbbf24; object-fit: cover; margin-bottom: 4px; box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);" onerror="this.onerror=null; this.src='swami.jpg';">
                 <div class="spiritual-text">॥ श्री स्वामी समर्थ ॥</div>
             </div>
 
             <!-- Brand Logo and Stylish Name -->
-            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 18px;">
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 16px;">
                 <div class="brand-logo-container">
-                    <img src="logo.png" alt="DIP URJA Logo" style="width: 42px; height: 42px; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6));" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/3563/3563393.png';">
+                    <img src="logo" alt="DIP URJA Logo" style="width: 44px; height: 44px; object-fit: contain; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6));" onerror="this.onerror=null; this.src='logo.png';">
                     <h1 class="brand-title">DIP URJA</h1>
                 </div>
                 <h2 class="brand-subtitle">POWER SOLUTIONS</h2>
             </div>
 
-            <!-- Operator Pill Centered at Bottom of Header -->
+            <!-- Operator Pill -->
             <div style="display: flex; justify-content: center;">
                 <div class="operator-pill">
                     <span>📱 <span id="displayPhone"></span></span>
@@ -711,9 +710,9 @@
 
     <script>
         const AUTH_USER_KEY = 'store_logged_in_phone';
-        const STORE_ITEMS_KEY = 'dip_urja_inventory_items_v10';
-        const STORE_LOGS_KEY = 'dip_urja_inventory_logs_v10';
-        const STORE_REQ_KEY = 'dip_urja_requisitions_v10';
+        const STORE_ITEMS_KEY = 'dip_urja_inventory_items_v11';
+        const STORE_LOGS_KEY = 'dip_urja_inventory_logs_v11';
+        const STORE_REQ_KEY = 'dip_urja_requisitions_v11';
 
         // Keys for customizable dropdown lists
         const LIST_CUSTOMERS_KEY = 'dip_urja_custom_customers';
@@ -821,7 +820,7 @@
             }
         }
 
-        // Storage Loaders
+        // Storage Handlers
         function loadItems() { return JSON.parse(localStorage.getItem(STORE_ITEMS_KEY)) || DEFAULT_PRODUCTS; }
         function loadLogs() { return JSON.parse(localStorage.getItem(STORE_LOGS_KEY)) || []; }
         function loadRequisitions() { return JSON.parse(localStorage.getItem(STORE_REQ_KEY)) || []; }
@@ -877,7 +876,7 @@
             });
         }
 
-        // ================= DYNAMIC DROPDOWN MANAGER LOGIC =================
+        // ================= DYNAMIC DROPDOWN MANAGER =================
         function openDropdownManagerModal() {
             renderManagerList();
             document.getElementById('modalDropdownManager').style.display = 'flex';
@@ -937,7 +936,7 @@
             }
         }
 
-        // ================= POPULATE REQUISITION DROPDOWNS DYNAMICALLY =================
+        // ================= REQUISITION LOGIC =================
         function openRequisitionModal() {
             const customers = loadList(LIST_CUSTOMERS_KEY, DEFAULT_CUSTOMERS);
             const custSelect = document.getElementById('reqCustomerSelect');
