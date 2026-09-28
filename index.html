@@ -22,6 +22,7 @@
             --green: #10b981;
             --red: #f43f5e;
             --purple: #a855f7;
+            --cyan: #06b6d4;
             --radius-xl: 20px;
             --radius-md: 12px;
         }
@@ -163,7 +164,7 @@
 
         .container {
             padding: 20px 16px;
-            max-width: 650px;
+            max-width: 680px;
             margin: auto;
         }
 
@@ -194,8 +195,8 @@
             border-left: 4px solid var(--purple);
         }
         .stat-card.card-4 {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(244, 63, 94, 0.15));
-            border-left: 4px solid var(--red);
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(16, 185, 129, 0.15));
+            border-left: 4px solid var(--green);
         }
 
         .stat-card .label {
@@ -380,6 +381,7 @@
         .btn-purple { background: linear-gradient(135deg, #a855f7, #7e22ce); color: white; }
         .btn-success { background: linear-gradient(135deg, #10b981, #059669); color: white; }
         .btn-danger { background: linear-gradient(135deg, #f43f5e, #e11d48); color: white; }
+        .btn-cyan { background: linear-gradient(135deg, #06b6d4, #0891b2); color: white; }
         .btn-ghost { background: rgba(255, 255, 255, 0.08); color: #cbd5e1; margin-top: 8px; border: 1px solid var(--card-border); }
 
         .modal {
@@ -398,7 +400,7 @@
             background: #0f172a;
             border: 1px solid var(--card-border);
             width: 100%;
-            max-width: 520px;
+            max-width: 580px;
             border-radius: 22px;
             padding: 24px;
             box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8);
@@ -427,20 +429,52 @@
             color: #94a3b8;
         }
 
-        .req-card {
-            background: rgba(30, 41, 59, 0.85);
-            border: 1px solid var(--card-border);
+        /* Filter Panel */
+        .filter-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            background: rgba(15, 23, 42, 0.7);
+            padding: 12px;
             border-radius: var(--radius-md);
-            padding: 16px;
+            border: 1px solid var(--card-border);
             margin-bottom: 16px;
-            font-size: 13px;
         }
 
-        .req-card-header {
+        .filter-item label {
+            display: block;
+            font-size: 10px;
+            font-weight: 700;
+            color: #94a3b8;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        .filter-item select, .filter-item input {
+            width: 100%;
+            padding: 8px 10px;
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid var(--card-border);
+            color: white;
+            border-radius: 8px;
+            font-size: 12px;
+        }
+
+        /* Record & Dispatch Cards */
+        .record-card {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-md);
+            padding: 14px;
+            margin-bottom: 12px;
+            font-size: 12px;
+        }
+
+        .record-card-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
+            align-items: flex-start;
+            margin-bottom: 6px;
         }
 
         .qty-badge {
@@ -498,13 +532,13 @@
 
         .approvers-bottom-bar {
             border-top: 1px dashed rgba(255,255,255,0.15);
-            margin-top: 12px;
-            padding-top: 10px;
+            margin-top: 10px;
+            padding-top: 8px;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 6px;
             text-align: center;
-            font-size: 11px;
+            font-size: 10px;
         }
 
         .approver-tag {
@@ -520,10 +554,6 @@
             text-transform: uppercase;
             font-weight: 700;
             margin-bottom: 2px;
-        }
-
-        .approver-tag .status {
-            font-weight: 800;
         }
 
         .status-red { color: #fb7185; }
@@ -572,7 +602,7 @@
         </div>
     </div>
 
-    <!-- 2. STORE APP DASHBOARD -->
+    <!-- 2. MAIN DASHBOARD -->
     <div id="mainAppScreen">
         <div class="header">
             <div class="brand-row">
@@ -602,8 +632,8 @@
                     <span class="value" id="dashPendingReq">0</span>
                 </div>
                 <div class="stat-card card-4">
-                    <span class="label">Issued Logs</span>
-                    <span class="value" id="dashStockOutCount">0</span>
+                    <span class="label">Total Dispatched</span>
+                    <span class="value" id="dashTotalDispatched">0</span>
                 </div>
             </div>
 
@@ -617,12 +647,20 @@
                     <span class="ops-icon" style="background:rgba(245,158,11,0.25); color:#fbbf24;">⏳</span>
                     <span>Approvals & Dispatch</span>
                 </button>
+                <button type="button" class="ops-btn" onclick="openMaterialRecordModal()">
+                    <span class="ops-icon" style="background:rgba(6,182,212,0.25); color:#22d3ee;">📊</span>
+                    <span>Material Register (Filter)</span>
+                </button>
+                <button type="button" class="ops-btn" onclick="openDispatchLogsModal()">
+                    <span class="ops-icon" style="background:rgba(16,185,129,0.25); color:#34d399;">🚚</span>
+                    <span>Dispatch Logs</span>
+                </button>
                 <button type="button" class="ops-btn" onclick="openStockInModal()">
-                    <span class="ops-icon" style="background:rgba(16,185,129,0.25); color:#34d399;">➕</span>
+                    <span class="ops-icon" style="background:rgba(14,165,233,0.25); color:#38bdf8;">➕</span>
                     <span>Stock In (Receipt)</span>
                 </button>
                 <button type="button" class="ops-btn" onclick="openItemMasterModal()">
-                    <span class="ops-icon" style="background:rgba(14,165,233,0.25); color:#38bdf8;">📦</span>
+                    <span class="ops-icon" style="background:rgba(245,158,11,0.25); color:#f59e0b;">📦</span>
                     <span>Add New Product</span>
                 </button>
             </div>
@@ -649,18 +687,39 @@
             </div>
             
             <div class="form-group">
-                <label>Customer Name</label>
-                <input type="text" id="reqCustomerName" class="form-control" placeholder="e.g. Mahavir Residency / Rahul Patil">
+                <label>Customer / Client Project</label>
+                <select id="reqCustomerSelect" class="form-control">
+                    <option value="Mahavir Residency - Solar 10kW">Mahavir Residency - Solar 10kW</option>
+                    <option value="Kalyan Commercial Complex - Lift UPS">Kalyan Commercial Complex - Lift UPS</option>
+                    <option value="Suyojit Gardens - Solar Rooftop">Suyojit Gardens - Solar Rooftop</option>
+                    <option value="Hotel Grand Palace - Power Backup">Hotel Grand Palace - Power Backup</option>
+                    <option value="Apex Industries - Solar Grid Tie">Apex Industries - Solar Grid Tie</option>
+                    <option value="General Store Inventory Transfer">General Store Inventory Transfer</option>
+                </select>
             </div>
 
             <div class="form-group">
                 <label>Site Location</label>
-                <input type="text" id="reqSiteLocation" class="form-control" placeholder="e.g. Plot 42, Gangapur Road, Nashik">
+                <select id="reqSiteSelect" class="form-control">
+                    <option value="Gangapur Road, Nashik">Gangapur Road, Nashik</option>
+                    <option value="College Road, Nashik">College Road, Nashik</option>
+                    <option value="Ambad MIDC, Nashik">Ambad MIDC, Nashik</option>
+                    <option value="Satpur MIDC, Nashik">Satpur MIDC, Nashik</option>
+                    <option value="Indira Nagar, Nashik">Indira Nagar, Nashik</option>
+                    <option value="Panchavati, Nashik">Panchavati, Nashik</option>
+                    <option value="Main Warehouse / Store">Main Warehouse / Store</option>
+                </select>
             </div>
 
             <div class="form-group">
                 <label>Material Requested By</label>
-                <input type="text" id="reqRequestedBy" class="form-control" placeholder="e.g. Team Leader / Site Engineer">
+                <select id="reqRequestedBySelect" class="form-control">
+                    <option value="Nilesh Jadhav (Team Leader)">Nilesh Jadhav (Team Leader)</option>
+                    <option value="Sagar Patil (Site Engineer)">Sagar Patil (Site Engineer)</option>
+                    <option value="Rahul Shinde (Solar Technician)">Rahul Shinde (Solar Technician)</option>
+                    <option value="Ganesh Pawar (Electrician)">Ganesh Pawar (Electrician)</option>
+                    <option value="Sachin More (Installation Lead)">Sachin More (Installation Lead)</option>
+                </select>
             </div>
 
             <div class="form-group">
@@ -674,8 +733,8 @@
             </div>
 
             <div class="form-group">
-                <label>Requested Quantity</label>
-                <input type="number" id="reqQty" class="form-control" placeholder="Number of units required">
+                <label style="color:#38bdf8;">Quantity Needed (Manual Input)</label>
+                <input type="number" id="reqQty" class="form-control" placeholder="Enter quantity" min="1">
             </div>
 
             <button type="button" class="btn btn-purple" onclick="submitRequisition()">Submit Requisition</button>
@@ -693,7 +752,81 @@
         </div>
     </div>
 
-    <!-- MODAL 3: ADD PRODUCT -->
+    <!-- MODAL 3: MATERIAL RECORD (FILTER DATEWISE, CUSTOMERWISE, REQUESTERWISE) -->
+    <div id="modalMaterialRecord" class="modal">
+        <div class="modal-body" style="max-width: 620px;">
+            <div class="modal-header">
+                <h3>Material Register (Filter Records)</h3>
+                <button type="button" class="close-btn" onclick="closeModal('modalMaterialRecord')">&times;</button>
+            </div>
+
+            <!-- Filters -->
+            <div class="filter-grid">
+                <div class="filter-item">
+                    <label>Filter Customer</label>
+                    <select id="filterCustomer" onchange="renderFilteredRecords()">
+                        <option value="ALL">All Customers</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label>Filter Requester</label>
+                    <select id="filterRequester" onchange="renderFilteredRecords()">
+                        <option value="ALL">All Requesters</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label>Filter Date (Search)</label>
+                    <input type="text" id="filterDateText" placeholder="e.g. 28 Sep 2026" oninput="renderFilteredRecords()">
+                </div>
+                <div class="filter-item">
+                    <label>Status</label>
+                    <select id="filterStatus" onchange="renderFilteredRecords()">
+                        <option value="ALL">All Statuses</option>
+                        <option value="SUBMITTED">Pending Approval</option>
+                        <option value="DISPATCHED">Dispatched</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="filteredRecordsContainer"></div>
+        </div>
+    </div>
+
+    <!-- MODAL 4: DISPATCH LOGS -->
+    <div id="modalDispatchLogs" class="modal">
+        <div class="modal-body" style="max-width: 620px;">
+            <div class="modal-header">
+                <h3>Dispatched Material Audit Logs</h3>
+                <button type="button" class="close-btn" onclick="closeModal('modalDispatchLogs')">&times;</button>
+            </div>
+            <div id="dispatchLogsContainer"></div>
+        </div>
+    </div>
+
+    <!-- MODAL 5: STOCK IN -->
+    <div id="modalStockIn" class="modal">
+        <div class="modal-body">
+            <div class="modal-header">
+                <h3>Record Stock In (Receipt)</h3>
+                <button type="button" class="close-btn" onclick="closeModal('modalStockIn')">&times;</button>
+            </div>
+            <div class="form-group">
+                <label>Select Item</label>
+                <select id="stockInSelect" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label>Quantity In</label>
+                <input type="number" id="stockInQty" class="form-control" placeholder="Units received">
+            </div>
+            <div class="form-group">
+                <label>Supplier / Invoice Ref</label>
+                <input type="text" id="stockInRemarks" class="form-control" placeholder="e.g. Inv #8492">
+            </div>
+            <button type="button" class="btn btn-success" onclick="recordStockIn()">Confirm Stock Entry</button>
+        </div>
+    </div>
+
+    <!-- MODAL 6: ADD PRODUCT -->
     <div id="modalItemMaster" class="modal">
         <div class="modal-body">
             <div class="modal-header">
@@ -722,30 +855,7 @@
         </div>
     </div>
 
-    <!-- MODAL 4: STOCK IN -->
-    <div id="modalStockIn" class="modal">
-        <div class="modal-body">
-            <div class="modal-header">
-                <h3>Record Stock In (Receipt)</h3>
-                <button type="button" class="close-btn" onclick="closeModal('modalStockIn')">&times;</button>
-            </div>
-            <div class="form-group">
-                <label>Select Item</label>
-                <select id="stockInSelect" class="form-control"></select>
-            </div>
-            <div class="form-group">
-                <label>Quantity In</label>
-                <input type="number" id="stockInQty" class="form-control" placeholder="Units received">
-            </div>
-            <div class="form-group">
-                <label>Supplier / Invoice Ref</label>
-                <input type="text" id="stockInRemarks" class="form-control" placeholder="e.g. Inv #8492">
-            </div>
-            <button type="button" class="btn btn-success" onclick="recordStockIn()">Confirm Stock Entry</button>
-        </div>
-    </div>
-
-    <!-- MODAL 5: EDIT / UPDATE STOCK & DETAILS -->
+    <!-- MODAL 7: EDIT / UPDATE STOCK -->
     <div id="modalEditProduct" class="modal">
         <div class="modal-body">
             <div class="modal-header">
@@ -784,9 +894,9 @@
 
     <script>
         const AUTH_USER_KEY = 'store_logged_in_phone';
-        const STORE_ITEMS_KEY = 'dip_urja_inventory_items_v7';
-        const STORE_LOGS_KEY = 'dip_urja_inventory_logs_v7';
-        const STORE_REQ_KEY = 'dip_urja_requisitions_v7';
+        const STORE_ITEMS_KEY = 'dip_urja_inventory_items_v9';
+        const STORE_LOGS_KEY = 'dip_urja_inventory_logs_v9';
+        const STORE_REQ_KEY = 'dip_urja_requisitions_v9';
 
         let currentGeneratedOtp = null;
 
@@ -873,7 +983,6 @@
 
         function renderInventory() {
             const items = loadItems();
-            const logs = loadLogs();
             const reqs = loadRequisitions();
 
             document.getElementById('dashTotalItems').innerText = items.length;
@@ -881,8 +990,10 @@
             document.getElementById('dashTotalQty').innerText = totalQty;
 
             const pendingCount = reqs.filter(r => r.status !== 'DISPATCHED').length;
+            const dispatchedCount = reqs.filter(r => r.status === 'DISPATCHED').length;
+
             document.getElementById('dashPendingReq').innerText = pendingCount;
-            document.getElementById('dashStockOutCount').innerText = logs.filter(l => l.type === 'OUT').length;
+            document.getElementById('dashTotalDispatched').innerText = dispatchedCount;
 
             const container = document.getElementById('productListContainer');
             container.innerHTML = '';
@@ -915,7 +1026,7 @@
             });
         }
 
-        // ================= REQUISITION LOGIC =================
+        // ================= REQUISITION & DISPATCH LOGIC =================
         function openRequisitionModal() {
             const items = loadItems();
             const select = document.getElementById('reqItemSelect');
@@ -929,21 +1040,17 @@
             });
 
             document.getElementById('reqDateTime').value = getFormattedCurrentDateTime();
+            document.getElementById('reqQty').value = '';
             document.getElementById('modalRequisition').style.display = 'flex';
         }
 
         function submitRequisition() {
-            const customer = document.getElementById('reqCustomerName').value.trim();
-            const location = document.getElementById('reqSiteLocation').value.trim();
-            const requestedBy = document.getElementById('reqRequestedBy').value.trim();
+            const customer = document.getElementById('reqCustomerSelect').value;
+            const location = document.getElementById('reqSiteSelect').value;
+            const requestedBy = document.getElementById('reqRequestedBySelect').value;
             const requestDate = document.getElementById('reqDateTime').value;
             const itemId = parseInt(document.getElementById('reqItemSelect').value);
             const qty = parseInt(document.getElementById('reqQty').value);
-
-            if (!customer || !location || !requestedBy) {
-                alert('Please enter Customer Name, Site Location, and Requester Name.');
-                return;
-            }
 
             if (!qty || qty <= 0) {
                 alert('Please enter a valid requested quantity.');
@@ -974,13 +1081,9 @@
             });
 
             saveRequisitions(reqs);
-
-            document.getElementById('reqCustomerName').value = '';
-            document.getElementById('reqSiteLocation').value = '';
-            document.getElementById('reqRequestedBy').value = '';
             document.getElementById('reqQty').value = '';
             closeModal('modalRequisition');
-            alert('Material Requisition created! It is now pending Accounts and MD approval.');
+            alert('Requisition generated! Pending Accounts & MD approvals.');
         }
 
         function openPendingReqModal() {
@@ -996,21 +1099,21 @@
                     const isDispatched = req.status === 'DISPATCHED';
 
                     const card = document.createElement('div');
-                    card.className = 'req-card';
+                    card.className = 'record-card';
                     card.innerHTML = `
-                        <div class="req-card-header">
+                        <div class="record-card-header">
                             <div>
-                                <span style="font-weight:800; color:#ffffff; font-size:15px;">${req.customerName}</span>
-                                <div style="color:#94a3b8; font-size:11px;">📍 Site: ${req.siteLocation}</div>
+                                <span style="font-weight:800; color:#ffffff; font-size:14px;">${req.customerName}</span>
+                                <div style="color:#94a3b8; font-size:11px;">📍 ${req.siteLocation}</div>
                             </div>
                             <div>
                                 ${isFullyApproved ? `
                                     <span class="qty-badge qty-approved">
-                                        ${req.qty} Units <span style="font-size:16px;">✅</span>
+                                        ${req.qty} Units <span style="font-size:15px;">✅</span>
                                     </span>
                                 ` : `
                                     <span class="qty-badge qty-pending">
-                                        ${req.qty} Units (Pending Approval)
+                                        ${req.qty} Units (Pending)
                                     </span>
                                 `}
                             </div>
@@ -1019,17 +1122,17 @@
                         <div style="color:#cbd5e1; margin:6px 0;">📦 <b>Item:</b> ${req.itemName}</div>
                         <div style="color:#94a3b8;">👷 <b>Requested By:</b> ${req.requestedBy}</div>
                         <div style="color:#64748b; font-size:11px; margin-top:2px;">🕒 <b>Request Date:</b> ${req.requestDate}</div>
-                        ${req.issueDate ? `<div style="color:#34d399; font-size:11px; margin-top:2px;">🚚 <b>Issue/Dispatch Date:</b> ${req.issueDate}</div>` : ''}
+                        ${req.issueDate ? `<div style="color:#34d399; font-size:11px; margin-top:2px;">🚚 <b>Dispatched On:</b> ${req.issueDate}</div>` : ''}
 
                         <div class="approval-pipeline">
                             <button class="approval-check-btn ${req.accountsApproved ? 'signed' : ''}" 
                                 onclick="toggleAccountsApproval(${req.id})" ${isDispatched ? 'disabled' : ''}>
-                                <span>🏦 Accounts Dept</span>
+                                <span>🏦 Accounts</span>
                                 <span>${req.accountsApproved ? 'APPROVED ✓' : 'APPROVE'}</span>
                             </button>
                             <button class="approval-check-btn ${req.mdApproved ? 'signed' : ''}" 
                                 onclick="toggleMdApproval(${req.id})" ${isDispatched ? 'disabled' : ''}>
-                                <span>👔 Managing Director</span>
+                                <span>👔 MD</span>
                                 <span>${req.mdApproved ? 'APPROVED ✓' : 'APPROVE'}</span>
                             </button>
                         </div>
@@ -1048,20 +1151,20 @@
 
                         <div class="approvers-bottom-bar">
                             <div class="approver-tag">
-                                <div class="role">Accounts Dept</div>
-                                <div class="status ${req.accountsApproved ? 'status-green' : 'status-red'}">
-                                    ${req.accountsApproved ? req.accountsName : '⏳ Not Approved'}
+                                <div class="role">Accounts</div>
+                                <div class="${req.accountsApproved ? 'status-green' : 'status-red'}">
+                                    ${req.accountsApproved ? req.accountsName : '⏳ Pending'}
                                 </div>
                             </div>
                             <div class="approver-tag">
-                                <div class="role">Managing Director</div>
-                                <div class="status ${req.mdApproved ? 'status-green' : 'status-red'}">
-                                    ${req.mdApproved ? req.mdName : '⏳ Not Approved'}
+                                <div class="role">MD</div>
+                                <div class="${req.mdApproved ? 'status-green' : 'status-red'}">
+                                    ${req.mdApproved ? req.mdName : '⏳ Pending'}
                                 </div>
                             </div>
                             <div class="approver-tag">
                                 <div class="role">Store Incharge</div>
-                                <div class="status ${isDispatched ? 'status-green' : 'status-red'}">
+                                <div class="${isDispatched ? 'status-green' : 'status-red'}">
                                     ${isDispatched ? req.storeInchargeName : '⏳ Pending'}
                                 </div>
                             </div>
@@ -1110,22 +1213,26 @@
             const item = items.find(i => i.id === req.itemId);
 
             if (!item || item.quantity < req.qty) {
-                alert(`Insufficient stock in store! In store: ${item ? item.quantity : 0}, Requested: ${req.qty}`);
+                alert(`Insufficient stock! In store: ${item ? item.quantity : 0}, Requested: ${req.qty}`);
                 return;
             }
 
             item.quantity -= req.qty;
             req.issueDate = getFormattedCurrentDateTime();
             req.status = 'DISPATCHED';
-            req.storeInchargeName = "Store Dispatched";
+            req.storeInchargeName = "Dispatched by Store";
 
             const logs = loadLogs();
             logs.unshift({
                 date: req.issueDate,
+                customer: req.customerName,
+                site: req.siteLocation,
+                requestedBy: req.requestedBy,
                 itemName: req.itemName,
-                type: 'OUT',
                 qty: req.qty,
-                ref: `${req.customerName} - ${req.siteLocation} (Approved by MD & Accounts)`
+                accounts: req.accountsName,
+                md: req.mdName,
+                type: 'DISPATCH'
             });
 
             saveItems(items);
@@ -1136,7 +1243,147 @@
             alert(`Stock issued and dispatched on ${req.issueDate}!`);
         }
 
-        // ================= EDIT & UPDATE STOCK LOGIC =================
+        // ================= 3. MATERIAL REGISTER (FILTERABLE DATE, CUSTOMER, REQUESTER) =================
+        function openMaterialRecordModal() {
+            const reqs = loadRequisitions();
+            
+            // Populate Customer Filter Dropdown
+            const custSelect = document.getElementById('filterCustomer');
+            custSelect.innerHTML = '<option value="ALL">All Customers</option>';
+            const customers = [...new Set(reqs.map(r => r.customerName))];
+            customers.forEach(c => {
+                const opt = document.createElement('option');
+                opt.value = c;
+                opt.textContent = c;
+                custSelect.appendChild(opt);
+            });
+
+            // Populate Requester Filter Dropdown
+            const reqSelect = document.getElementById('filterRequester');
+            reqSelect.innerHTML = '<option value="ALL">All Requesters</option>';
+            const requesters = [...new Set(reqs.map(r => r.requestedBy))];
+            requesters.forEach(r => {
+                const opt = document.createElement('option');
+                opt.value = r;
+                opt.textContent = r;
+                reqSelect.appendChild(opt);
+            });
+
+            renderFilteredRecords();
+            document.getElementById('modalMaterialRecord').style.display = 'flex';
+        }
+
+        function renderFilteredRecords() {
+            const reqs = loadRequisitions();
+            const customerFilter = document.getElementById('filterCustomer').value;
+            const requesterFilter = document.getElementById('filterRequester').value;
+            const dateFilterText = document.getElementById('filterDateText').value.trim().toLowerCase();
+            const statusFilter = document.getElementById('filterStatus').value;
+
+            const container = document.getElementById('filteredRecordsContainer');
+            container.innerHTML = '';
+
+            const filtered = reqs.filter(r => {
+                const matchCustomer = (customerFilter === 'ALL' || r.customerName === customerFilter);
+                const matchRequester = (requesterFilter === 'ALL' || r.requestedBy === requesterFilter);
+                const matchDate = (!dateFilterText || r.requestDate.toLowerCase().includes(dateFilterText) || (r.issueDate && r.issueDate.toLowerCase().includes(dateFilterText)));
+                const matchStatus = (statusFilter === 'ALL' || r.status === statusFilter);
+                return matchCustomer && matchRequester && matchDate && matchStatus;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = '<div style="text-align:center; color:#94a3b8; padding:20px;">No matching records found.</div>';
+                return;
+            }
+
+            filtered.forEach(req => {
+                const card = document.createElement('div');
+                card.className = 'record-card';
+                card.innerHTML = `
+                    <div class="record-card-header">
+                        <div>
+                            <span style="font-weight:800; color:#38bdf8; font-size:14px;">${req.customerName}</span>
+                            <div style="color:#94a3b8; font-size:11px;">📍 Site: ${req.siteLocation}</div>
+                        </div>
+                        <span class="stock-badge ${req.status === 'DISPATCHED' ? 'in-stock' : 'low-stock'}">
+                            ${req.status}
+                        </span>
+                    </div>
+
+                    <div style="color:#ffffff; margin:6px 0;">📦 <b>Item:</b> ${req.itemName} &bull; <b>Qty:</b> <span style="color:#38bdf8; font-weight:800;">${req.qty} units</span></div>
+                    <div style="color:#cbd5e1;">👷 <b>Requested By:</b> ${req.requestedBy}</div>
+                    <div style="color:#94a3b8; font-size:11px; margin-top:2px;">📅 <b>Request Date:</b> ${req.requestDate}</div>
+                    ${req.issueDate ? `<div style="color:#34d399; font-size:11px; margin-top:2px;">🚚 <b>Dispatched Date:</b> ${req.issueDate}</div>` : ''}
+
+                    <div class="approvers-bottom-bar">
+                        <div class="approver-tag">
+                            <div class="role">Accounts</div>
+                            <div class="${req.accountsApproved ? 'status-green' : 'status-red'}">${req.accountsApproved ? req.accountsName : 'Pending'}</div>
+                        </div>
+                        <div class="approver-tag">
+                            <div class="role">MD</div>
+                            <div class="${req.mdApproved ? 'status-green' : 'status-red'}">${req.mdApproved ? req.mdName : 'Pending'}</div>
+                        </div>
+                        <div class="approver-tag">
+                            <div class="role">Store Status</div>
+                            <div class="${req.status === 'DISPATCHED' ? 'status-green' : 'status-red'}">${req.status === 'DISPATCHED' ? 'Dispatched' : 'Pending'}</div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // ================= 4. MATERIAL DISPATCH AUDIT LOGS =================
+        function openDispatchLogsModal() {
+            const reqs = loadRequisitions();
+            const dispatched = reqs.filter(r => r.status === 'DISPATCHED');
+            const container = document.getElementById('dispatchLogsContainer');
+            container.innerHTML = '';
+
+            if (dispatched.length === 0) {
+                container.innerHTML = '<div style="text-align:center; color:#94a3b8; padding:20px;">No dispatched material records yet.</div>';
+            } else {
+                dispatched.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'record-card';
+                    card.style.borderLeft = '4px solid #10b981';
+                    card.innerHTML = `
+                        <div class="record-card-header">
+                            <div>
+                                <span style="font-weight:800; color:#34d399; font-size:14px;">🚚 DISPATCHED: ${item.itemName}</span>
+                                <div style="color:#ffffff; font-weight:700; margin-top:2px;">Customer: ${item.customerName}</div>
+                            </div>
+                            <span class="qty-badge in-stock">${item.qty} Units Issued</span>
+                        </div>
+                        <div style="color:#94a3b8; margin:4px 0;">📍 <b>Site:</b> ${item.siteLocation}</div>
+                        <div style="color:#cbd5e1;">👷 <b>Requested By:</b> ${item.requestedBy}</div>
+                        <div style="color:#94a3b8; font-size:11px; margin-top:4px;">🕒 <b>Request Date:</b> ${item.requestDate}</div>
+                        <div style="color:#34d399; font-size:12px; font-weight:800; margin-top:2px;">✅ <b>Dispatch Timestamp:</b> ${item.issueDate}</div>
+                        
+                        <div class="approvers-bottom-bar">
+                            <div class="approver-tag">
+                                <div class="role">Accounts Approval</div>
+                                <div class="status-green">✓ Verified</div>
+                            </div>
+                            <div class="approver-tag">
+                                <div class="role">MD Approval</div>
+                                <div class="status-green">✓ Approved</div>
+                            </div>
+                            <div class="approver-tag">
+                                <div class="role">Store Dispatcher</div>
+                                <div class="status-green">✓ Released</div>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            }
+
+            document.getElementById('modalDispatchLogs').style.display = 'flex';
+        }
+
+        // ================= 5. EDIT PRODUCT & DIRECT STOCK UPDATE =================
         function openEditModal(itemId) {
             const items = loadItems();
             const item = items.find(i => i.id === itemId);
@@ -1167,19 +1414,6 @@
             const item = items.find(i => i.id === id);
             if (!item) return;
 
-            const diff = qty - item.quantity;
-            if (diff !== 0) {
-                const logs = loadLogs();
-                logs.unshift({
-                    date: getFormattedCurrentDateTime(),
-                    itemName: name,
-                    type: diff > 0 ? 'IN' : 'OUT',
-                    qty: Math.abs(diff),
-                    ref: 'Direct Stock Update'
-                });
-                saveLogs(logs);
-            }
-
             item.name = name;
             item.category = category;
             item.quantity = qty;
@@ -1201,7 +1435,7 @@
             }
         }
 
-        // ================= STOCK IN & MASTER LOGIC =================
+        // ================= 6. STOCK IN & MASTER LOGIC =================
         function openStockInModal() {
             const items = loadItems();
             const select = document.getElementById('stockInSelect');
@@ -1230,18 +1464,7 @@
             if (!item) return;
 
             item.quantity += qty;
-
-            const logs = loadLogs();
-            logs.unshift({
-                date: getFormattedCurrentDateTime(),
-                itemName: item.name,
-                type: 'IN',
-                qty: qty,
-                ref: ref || 'Warehouse In'
-            });
-
             saveItems(items);
-            saveLogs(logs);
 
             document.getElementById('stockInQty').value = '';
             document.getElementById('stockInRemarks').value = '';
