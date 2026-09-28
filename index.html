@@ -278,8 +278,8 @@
         }
 
         .item-img {
-            width: 64px;
-            height: 64px;
+            width: 68px;
+            height: 68px;
             border-radius: 14px;
             object-fit: cover;
             border: 2px solid rgba(255, 255, 255, 0.15);
@@ -354,6 +354,11 @@
             outline: none;
         }
 
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-glow);
+        }
+
         .form-control[readonly] {
             background: rgba(30, 41, 59, 0.6);
             color: #38bdf8;
@@ -422,7 +427,6 @@
             color: #94a3b8;
         }
 
-        /* REQUISITION CARD STYLING */
         .req-card {
             background: rgba(30, 41, 59, 0.85);
             border: 1px solid var(--card-border);
@@ -441,7 +445,7 @@
 
         .qty-badge {
             font-weight: 800;
-            font-size: 14px;
+            font-size: 13px;
             padding: 4px 10px;
             border-radius: 8px;
             display: inline-flex;
@@ -461,7 +465,6 @@
             border: 1px solid #10b981;
         }
 
-        /* Approver Pipeline Box */
         .approval-pipeline {
             background: rgba(15, 23, 42, 0.85);
             border: 1px solid var(--card-border);
@@ -493,7 +496,6 @@
             color: #34d399;
         }
 
-        /* Bottom Approver Stamp List */
         .approvers-bottom-bar {
             border-top: 1px dashed rgba(255,255,255,0.15);
             margin-top: 12px;
@@ -596,7 +598,7 @@
                     <span class="value" id="dashTotalQty">0</span>
                 </div>
                 <div class="stat-card card-3">
-                    <span class="label">Requisitions</span>
+                    <span class="label">Pending Requisitions</span>
                     <span class="value" id="dashPendingReq">0</span>
                 </div>
                 <div class="stat-card card-4">
@@ -743,11 +745,48 @@
         </div>
     </div>
 
+    <!-- MODAL 5: EDIT / UPDATE STOCK & DETAILS -->
+    <div id="modalEditProduct" class="modal">
+        <div class="modal-body">
+            <div class="modal-header">
+                <h3>Edit / Update Product Stock</h3>
+                <button type="button" class="close-btn" onclick="closeModal('modalEditProduct')">&times;</button>
+            </div>
+            <input type="hidden" id="editItemId">
+            
+            <div class="form-group">
+                <label>Product Name</label>
+                <input type="text" id="editItemName" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Category</label>
+                <select id="editCategory" class="form-control">
+                    <option value="Solar Panel">Solar Panel</option>
+                    <option value="Inverter / UPS">Inverter / UPS</option>
+                    <option value="Battery">Battery</option>
+                    <option value="Electrical Cable">Electrical Cable</option>
+                    <option value="Mounting Structure">Mounting Structure</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Correct / Set Stock Quantity</label>
+                <input type="number" id="editItemQty" class="form-control" placeholder="Directly set stock count">
+            </div>
+            <div class="form-group">
+                <label>Product Image Link</label>
+                <input type="text" id="editItemImage" class="form-control" placeholder="Image URL">
+            </div>
+
+            <button type="button" class="btn btn-primary" onclick="saveUpdatedProduct()">Save Changes</button>
+            <button type="button" class="btn btn-danger" style="margin-top:8px;" onclick="deleteProduct()">Delete Product</button>
+        </div>
+    </div>
+
     <script>
         const AUTH_USER_KEY = 'store_logged_in_phone';
-        const STORE_ITEMS_KEY = 'dip_urja_inventory_items_v6';
-        const STORE_LOGS_KEY = 'dip_urja_inventory_logs_v6';
-        const STORE_REQ_KEY = 'dip_urja_requisitions_v6';
+        const STORE_ITEMS_KEY = 'dip_urja_inventory_items_v7';
+        const STORE_LOGS_KEY = 'dip_urja_inventory_logs_v7';
+        const STORE_REQ_KEY = 'dip_urja_requisitions_v7';
 
         let currentGeneratedOtp = null;
 
@@ -859,6 +898,9 @@
                     <div class="item-details">
                         <h4>${item.name}</h4>
                         <p>${item.category}</p>
+                        <button type="button" onclick="openEditModal(${item.id})" style="background:none; border:none; color:var(--primary); font-size:11px; font-weight:700; cursor:pointer; padding:0; margin-top:4px;">
+                            ✏️ Edit Product / Stock
+                        </button>
                     </div>
                     <div class="item-stock">
                         <span class="stock-badge ${isLow ? 'low-stock' : 'in-stock'}">
@@ -928,7 +970,7 @@
                 mdApproved: false,
                 mdName: "Pending",
                 storeInchargeName: "Pending",
-                status: 'SUBMITTED' // SUBMITTED -> APPROVED -> DISPATCHED
+                status: 'SUBMITTED'
             });
 
             saveRequisitions(reqs);
@@ -961,7 +1003,6 @@
                                 <span style="font-weight:800; color:#ffffff; font-size:15px;">${req.customerName}</span>
                                 <div style="color:#94a3b8; font-size:11px;">📍 Site: ${req.siteLocation}</div>
                             </div>
-                            <!-- Quantity Color stays RED until both Accounts and MD approve, then GREEN with TICK -->
                             <div>
                                 ${isFullyApproved ? `
                                     <span class="qty-badge qty-approved">
@@ -980,7 +1021,6 @@
                         <div style="color:#64748b; font-size:11px; margin-top:2px;">🕒 <b>Request Date:</b> ${req.requestDate}</div>
                         ${req.issueDate ? `<div style="color:#34d399; font-size:11px; margin-top:2px;">🚚 <b>Issue/Dispatch Date:</b> ${req.issueDate}</div>` : ''}
 
-                        <!-- Approvals Row -->
                         <div class="approval-pipeline">
                             <button class="approval-check-btn ${req.accountsApproved ? 'signed' : ''}" 
                                 onclick="toggleAccountsApproval(${req.id})" ${isDispatched ? 'disabled' : ''}>
@@ -994,7 +1034,6 @@
                             </button>
                         </div>
 
-                        <!-- Store Incharge Dispatch Button -->
                         ${!isDispatched ? `
                             <button type="button" class="btn ${isFullyApproved ? 'btn-success' : 'btn-ghost'}" 
                                 style="${!isFullyApproved ? 'opacity:0.6; cursor:not-allowed;' : ''}"
@@ -1007,7 +1046,6 @@
                             </div>
                         `}
 
-                        <!-- BOTTOM APPROVER NAMES BAR -->
                         <div class="approvers-bottom-bar">
                             <div class="approver-tag">
                                 <div class="role">Accounts Dept</div>
@@ -1036,7 +1074,6 @@
             document.getElementById('modalPendingReq').style.display = 'flex';
         }
 
-        // Approval toggles
         function toggleAccountsApproval(reqId) {
             const reqs = loadRequisitions();
             const req = reqs.find(r => r.id === reqId);
@@ -1059,7 +1096,6 @@
             openPendingReqModal();
         }
 
-        // Store Incharge Dispatch
         function dispatchStock(reqId) {
             const reqs = loadRequisitions();
             const req = reqs.find(r => r.id === reqId);
@@ -1100,7 +1136,72 @@
             alert(`Stock issued and dispatched on ${req.issueDate}!`);
         }
 
-        // Stock IN
+        // ================= EDIT & UPDATE STOCK LOGIC =================
+        function openEditModal(itemId) {
+            const items = loadItems();
+            const item = items.find(i => i.id === itemId);
+            if (!item) return;
+
+            document.getElementById('editItemId').value = item.id;
+            document.getElementById('editItemName').value = item.name;
+            document.getElementById('editCategory').value = item.category;
+            document.getElementById('editItemQty').value = item.quantity;
+            document.getElementById('editItemImage').value = item.image || '';
+
+            document.getElementById('modalEditProduct').style.display = 'flex';
+        }
+
+        function saveUpdatedProduct() {
+            const id = parseInt(document.getElementById('editItemId').value);
+            const name = document.getElementById('editItemName').value.trim();
+            const category = document.getElementById('editCategory').value;
+            const qty = parseInt(document.getElementById('editItemQty').value);
+            const image = document.getElementById('editItemImage').value.trim();
+
+            if (!name || isNaN(qty) || qty < 0) {
+                alert('Please enter a valid product name and positive stock quantity.');
+                return;
+            }
+
+            const items = loadItems();
+            const item = items.find(i => i.id === id);
+            if (!item) return;
+
+            const diff = qty - item.quantity;
+            if (diff !== 0) {
+                const logs = loadLogs();
+                logs.unshift({
+                    date: getFormattedCurrentDateTime(),
+                    itemName: name,
+                    type: diff > 0 ? 'IN' : 'OUT',
+                    qty: Math.abs(diff),
+                    ref: 'Direct Stock Update'
+                });
+                saveLogs(logs);
+            }
+
+            item.name = name;
+            item.category = category;
+            item.quantity = qty;
+            item.image = image || null;
+
+            saveItems(items);
+            closeModal('modalEditProduct');
+            alert('Product stock updated successfully!');
+        }
+
+        function deleteProduct() {
+            const id = parseInt(document.getElementById('editItemId').value);
+            if (confirm("Are you sure you want to permanently delete this product?")) {
+                let items = loadItems();
+                items = items.filter(i => i.id !== id);
+                saveItems(items);
+                closeModal('modalEditProduct');
+                alert('Product removed from store master.');
+            }
+        }
+
+        // ================= STOCK IN & MASTER LOGIC =================
         function openStockInModal() {
             const items = loadItems();
             const select = document.getElementById('stockInSelect');
