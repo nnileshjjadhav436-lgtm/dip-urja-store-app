@@ -429,7 +429,30 @@
             color: #94a3b8;
         }
 
-        /* Filter Panel */
+        /* Dropdown Manage List Items */
+        .list-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.7);
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin-bottom: 6px;
+            border: 1px solid var(--card-border);
+            font-size: 13px;
+        }
+
+        .btn-del-sm {
+            background: rgba(244, 63, 94, 0.2);
+            color: #fb7185;
+            border: 1px solid #f43f5e;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
         .filter-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -460,7 +483,6 @@
             font-size: 12px;
         }
 
-        /* Record & Dispatch Cards */
         .record-card {
             background: rgba(30, 41, 59, 0.8);
             border: 1px solid var(--card-border);
@@ -655,6 +677,11 @@
                     <span class="ops-icon" style="background:rgba(16,185,129,0.25); color:#34d399;">🚚</span>
                     <span>Dispatch Logs</span>
                 </button>
+                <!-- DYNAMIC DROPDOWN MANAGER BUTTON -->
+                <button type="button" class="ops-btn" onclick="openDropdownManagerModal()">
+                    <span class="ops-icon" style="background:rgba(245,158,11,0.25); color:#fbbf24;">⚙️</span>
+                    <span>Manage Dropdown Lists</span>
+                </button>
                 <button type="button" class="ops-btn" onclick="openStockInModal()">
                     <span class="ops-icon" style="background:rgba(14,165,233,0.25); color:#38bdf8;">➕</span>
                     <span>Stock In (Receipt)</span>
@@ -688,42 +715,21 @@
             
             <div class="form-group">
                 <label>Customer / Client Project</label>
-                <select id="reqCustomerSelect" class="form-control">
-                    <option value="Mahavir Residency - Solar 10kW">Mahavir Residency - Solar 10kW</option>
-                    <option value="Kalyan Commercial Complex - Lift UPS">Kalyan Commercial Complex - Lift UPS</option>
-                    <option value="Suyojit Gardens - Solar Rooftop">Suyojit Gardens - Solar Rooftop</option>
-                    <option value="Hotel Grand Palace - Power Backup">Hotel Grand Palace - Power Backup</option>
-                    <option value="Apex Industries - Solar Grid Tie">Apex Industries - Solar Grid Tie</option>
-                    <option value="General Store Inventory Transfer">General Store Inventory Transfer</option>
-                </select>
+                <select id="reqCustomerSelect" class="form-control"></select>
             </div>
 
             <div class="form-group">
                 <label>Site Location</label>
-                <select id="reqSiteSelect" class="form-control">
-                    <option value="Gangapur Road, Nashik">Gangapur Road, Nashik</option>
-                    <option value="College Road, Nashik">College Road, Nashik</option>
-                    <option value="Ambad MIDC, Nashik">Ambad MIDC, Nashik</option>
-                    <option value="Satpur MIDC, Nashik">Satpur MIDC, Nashik</option>
-                    <option value="Indira Nagar, Nashik">Indira Nagar, Nashik</option>
-                    <option value="Panchavati, Nashik">Panchavati, Nashik</option>
-                    <option value="Main Warehouse / Store">Main Warehouse / Store</option>
-                </select>
+                <select id="reqSiteSelect" class="form-control"></select>
             </div>
 
             <div class="form-group">
                 <label>Material Requested By</label>
-                <select id="reqRequestedBySelect" class="form-control">
-                    <option value="Nilesh Jadhav (Team Leader)">Nilesh Jadhav (Team Leader)</option>
-                    <option value="Sagar Patil (Site Engineer)">Sagar Patil (Site Engineer)</option>
-                    <option value="Rahul Shinde (Solar Technician)">Rahul Shinde (Solar Technician)</option>
-                    <option value="Ganesh Pawar (Electrician)">Ganesh Pawar (Electrician)</option>
-                    <option value="Sachin More (Installation Lead)">Sachin More (Installation Lead)</option>
-                </select>
+                <select id="reqRequestedBySelect" class="form-control"></select>
             </div>
 
             <div class="form-group">
-                <label>Request Date & Time (Current Live Time)</label>
+                <label>Request Date & Time (Live Automatic)</label>
                 <input type="text" id="reqDateTime" class="form-control" readonly>
             </div>
 
@@ -741,7 +747,38 @@
         </div>
     </div>
 
-    <!-- MODAL 2: APPROVALS & DISPATCH LIST -->
+    <!-- MODAL 2: DROPDOWN MANAGER (ADD/DELETE CUSTOMERS, SITES, PERSONS) -->
+    <div id="modalDropdownManager" class="modal">
+        <div class="modal-body" style="max-width: 540px;">
+            <div class="modal-header">
+                <h3>Manage Dropdown Lists</h3>
+                <button type="button" class="close-btn" onclick="closeModal('modalDropdownManager')">&times;</button>
+            </div>
+
+            <div class="form-group">
+                <label>Select List Category to Edit</label>
+                <select id="managerCategorySelect" class="form-control" onchange="renderManagerList()">
+                    <option value="customers">Customer / Projects List</option>
+                    <option value="sites">Site Locations List</option>
+                    <option value="requesters">Requesters / Team Members List</option>
+                </select>
+            </div>
+
+            <!-- Add New Item Row -->
+            <div style="display:flex; gap:8px; margin-bottom:16px;">
+                <input type="text" id="newListItemInput" class="form-control" placeholder="Type new name to add...">
+                <button type="button" class="btn btn-success" style="width:110px; margin-top:0;" onclick="addNewListItem()">+ Add</button>
+            </div>
+
+            <div class="section-header" style="margin-top:0;">
+                <h4 style="font-size:13px; color:#94a3b8; text-transform:uppercase;">Current Entries in List:</h4>
+            </div>
+
+            <div id="managerListContainer" style="max-height:260px; overflow-y:auto;"></div>
+        </div>
+    </div>
+
+    <!-- MODAL 3: APPROVALS & DISPATCH LIST -->
     <div id="modalPendingReq" class="modal">
         <div class="modal-body" style="max-width: 540px;">
             <div class="modal-header">
@@ -752,7 +789,7 @@
         </div>
     </div>
 
-    <!-- MODAL 3: MATERIAL RECORD (FILTER DATEWISE, CUSTOMERWISE, REQUESTERWISE) -->
+    <!-- MODAL 4: MATERIAL RECORD (FILTER DATEWISE, CUSTOMERWISE, REQUESTERWISE) -->
     <div id="modalMaterialRecord" class="modal">
         <div class="modal-body" style="max-width: 620px;">
             <div class="modal-header">
@@ -760,7 +797,6 @@
                 <button type="button" class="close-btn" onclick="closeModal('modalMaterialRecord')">&times;</button>
             </div>
 
-            <!-- Filters -->
             <div class="filter-grid">
                 <div class="filter-item">
                     <label>Filter Customer</label>
@@ -792,7 +828,7 @@
         </div>
     </div>
 
-    <!-- MODAL 4: DISPATCH LOGS -->
+    <!-- MODAL 5: DISPATCH LOGS -->
     <div id="modalDispatchLogs" class="modal">
         <div class="modal-body" style="max-width: 620px;">
             <div class="modal-header">
@@ -803,7 +839,7 @@
         </div>
     </div>
 
-    <!-- MODAL 5: STOCK IN -->
+    <!-- MODAL 6: STOCK IN -->
     <div id="modalStockIn" class="modal">
         <div class="modal-body">
             <div class="modal-header">
@@ -826,7 +862,7 @@
         </div>
     </div>
 
-    <!-- MODAL 6: ADD PRODUCT -->
+    <!-- MODAL 7: ADD PRODUCT -->
     <div id="modalItemMaster" class="modal">
         <div class="modal-body">
             <div class="modal-header">
@@ -855,7 +891,7 @@
         </div>
     </div>
 
-    <!-- MODAL 7: EDIT / UPDATE STOCK -->
+    <!-- MODAL 8: EDIT / UPDATE STOCK -->
     <div id="modalEditProduct" class="modal">
         <div class="modal-body">
             <div class="modal-header">
@@ -894,11 +930,42 @@
 
     <script>
         const AUTH_USER_KEY = 'store_logged_in_phone';
-        const STORE_ITEMS_KEY = 'dip_urja_inventory_items_v9';
-        const STORE_LOGS_KEY = 'dip_urja_inventory_logs_v9';
-        const STORE_REQ_KEY = 'dip_urja_requisitions_v9';
+        const STORE_ITEMS_KEY = 'dip_urja_inventory_items_v10';
+        const STORE_LOGS_KEY = 'dip_urja_inventory_logs_v10';
+        const STORE_REQ_KEY = 'dip_urja_requisitions_v10';
+
+        // Keys for customizable dropdown lists
+        const LIST_CUSTOMERS_KEY = 'dip_urja_custom_customers';
+        const LIST_SITES_KEY = 'dip_urja_custom_sites';
+        const LIST_REQUESTERS_KEY = 'dip_urja_custom_requesters';
 
         let currentGeneratedOtp = null;
+
+        const DEFAULT_CUSTOMERS = [
+            "Mahavir Residency - Solar 10kW",
+            "Kalyan Commercial Complex - Lift UPS",
+            "Suyojit Gardens - Solar Rooftop",
+            "Hotel Grand Palace - Power Backup",
+            "Apex Industries - Solar Grid Tie",
+            "General Store Transfer"
+        ];
+
+        const DEFAULT_SITES = [
+            "Gangapur Road, Nashik",
+            "College Road, Nashik",
+            "Ambad MIDC, Nashik",
+            "Satpur MIDC, Nashik",
+            "Indira Nagar, Nashik",
+            "Main Warehouse"
+        ];
+
+        const DEFAULT_REQUESTERS = [
+            "Nilesh Jadhav (Team Leader)",
+            "Sagar Patil (Site Engineer)",
+            "Rahul Shinde (Solar Technician)",
+            "Ganesh Pawar (Electrician)",
+            "Sachin More (Installation Lead)"
+        ];
 
         const DEFAULT_PRODUCTS = [
             { id: 1, name: "Mono PERC 540W Solar Panel", category: "Solar Panel", quantity: 48, image: "https://images.unsplash.com/photo-1509391365360-2e959784a276?w=300&auto=format&fit=crop&q=80" },
@@ -973,13 +1040,16 @@
             }
         }
 
+        // Storage Loaders
         function loadItems() { return JSON.parse(localStorage.getItem(STORE_ITEMS_KEY)) || DEFAULT_PRODUCTS; }
         function loadLogs() { return JSON.parse(localStorage.getItem(STORE_LOGS_KEY)) || []; }
         function loadRequisitions() { return JSON.parse(localStorage.getItem(STORE_REQ_KEY)) || []; }
+        function loadList(key, defaults) { return JSON.parse(localStorage.getItem(key)) || defaults; }
 
         function saveItems(items) { localStorage.setItem(STORE_ITEMS_KEY, JSON.stringify(items)); renderInventory(); }
         function saveLogs(logs) { localStorage.setItem(STORE_LOGS_KEY, JSON.stringify(logs)); renderInventory(); }
         function saveRequisitions(reqs) { localStorage.setItem(STORE_REQ_KEY, JSON.stringify(reqs)); renderInventory(); }
+        function saveList(key, list) { localStorage.setItem(key, JSON.stringify(list)); }
 
         function renderInventory() {
             const items = loadItems();
@@ -1026,17 +1096,110 @@
             });
         }
 
-        // ================= REQUISITION & DISPATCH LOGIC =================
+        // ================= DYNAMIC DROPDOWN MANAGER LOGIC =================
+        function openDropdownManagerModal() {
+            renderManagerList();
+            document.getElementById('modalDropdownManager').style.display = 'flex';
+        }
+
+        function getActiveListMeta() {
+            const cat = document.getElementById('managerCategorySelect').value;
+            if (cat === 'customers') return { key: LIST_CUSTOMERS_KEY, defaults: DEFAULT_CUSTOMERS };
+            if (cat === 'sites') return { key: LIST_SITES_KEY, defaults: DEFAULT_SITES };
+            return { key: LIST_REQUESTERS_KEY, defaults: DEFAULT_REQUESTERS };
+        }
+
+        function renderManagerList() {
+            const { key, defaults } = getActiveListMeta();
+            const list = loadList(key, defaults);
+            const container = document.getElementById('managerListContainer');
+            container.innerHTML = '';
+
+            list.forEach((entry, index) => {
+                const row = document.createElement('div');
+                row.className = 'list-item-row';
+                row.innerHTML = `
+                    <span><b>${entry}</b></span>
+                    <button type="button" class="btn-del-sm" onclick="deleteListItem(${index})">Delete</button>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function addNewListItem() {
+            const input = document.getElementById('newListItemInput');
+            const val = input.value.trim();
+            if (!val) {
+                alert('Please type a name to add.');
+                return;
+            }
+
+            const { key, defaults } = getActiveListMeta();
+            const list = loadList(key, defaults);
+            list.push(val);
+            saveList(key, list);
+
+            input.value = '';
+            renderManagerList();
+            alert(`"${val}" has been added to the dropdown list!`);
+        }
+
+        function deleteListItem(index) {
+            const { key, defaults } = getActiveListMeta();
+            const list = loadList(key, defaults);
+            const item = list[index];
+
+            if (confirm(`Delete "${item}" from the dropdown list?`)) {
+                list.splice(index, 1);
+                saveList(key, list);
+                renderManagerList();
+            }
+        }
+
+        // ================= POPULATE REQUISITION DROPDOWNS DYNAMICALLY =================
         function openRequisitionModal() {
+            // Load dynamic customers
+            const customers = loadList(LIST_CUSTOMERS_KEY, DEFAULT_CUSTOMERS);
+            const custSelect = document.getElementById('reqCustomerSelect');
+            custSelect.innerHTML = '';
+            customers.forEach(c => {
+                const opt = document.createElement('option');
+                opt.value = c;
+                opt.textContent = c;
+                custSelect.appendChild(opt);
+            });
+
+            // Load dynamic sites
+            const sites = loadList(LIST_SITES_KEY, DEFAULT_SITES);
+            const siteSelect = document.getElementById('reqSiteSelect');
+            siteSelect.innerHTML = '';
+            sites.forEach(s => {
+                const opt = document.createElement('option');
+                opt.value = s;
+                opt.textContent = s;
+                siteSelect.appendChild(opt);
+            });
+
+            // Load dynamic requesters
+            const requesters = loadList(LIST_REQUESTERS_KEY, DEFAULT_REQUESTERS);
+            const reqSelect = document.getElementById('reqRequestedBySelect');
+            reqSelect.innerHTML = '';
+            requesters.forEach(r => {
+                const opt = document.createElement('option');
+                opt.value = r;
+                opt.textContent = r;
+                reqSelect.appendChild(opt);
+            });
+
+            // Load live items
             const items = loadItems();
-            const select = document.getElementById('reqItemSelect');
-            select.innerHTML = '';
-            
+            const itemSelect = document.getElementById('reqItemSelect');
+            itemSelect.innerHTML = '';
             items.forEach(item => {
                 const opt = document.createElement('option');
                 opt.value = item.id;
                 opt.textContent = `${item.name} (In Store: ${item.quantity})`;
-                select.appendChild(opt);
+                itemSelect.appendChild(opt);
             });
 
             document.getElementById('reqDateTime').value = getFormattedCurrentDateTime();
@@ -1152,21 +1315,15 @@
                         <div class="approvers-bottom-bar">
                             <div class="approver-tag">
                                 <div class="role">Accounts</div>
-                                <div class="${req.accountsApproved ? 'status-green' : 'status-red'}">
-                                    ${req.accountsApproved ? req.accountsName : '⏳ Pending'}
-                                </div>
+                                <div class="${req.accountsApproved ? 'status-green' : 'status-red'}">${req.accountsApproved ? req.accountsName : '⏳ Pending'}</div>
                             </div>
                             <div class="approver-tag">
                                 <div class="role">MD</div>
-                                <div class="${req.mdApproved ? 'status-green' : 'status-red'}">
-                                    ${req.mdApproved ? req.mdName : '⏳ Pending'}
-                                </div>
+                                <div class="${req.mdApproved ? 'status-green' : 'status-red'}">${req.mdApproved ? req.mdName : '⏳ Pending'}</div>
                             </div>
                             <div class="approver-tag">
                                 <div class="role">Store Incharge</div>
-                                <div class="${isDispatched ? 'status-green' : 'status-red'}">
-                                    ${isDispatched ? req.storeInchargeName : '⏳ Pending'}
-                                </div>
+                                <div class="${isDispatched ? 'status-green' : 'status-red'}">${isDispatched ? req.storeInchargeName : '⏳ Pending'}</div>
                             </div>
                         </div>
                     `;
@@ -1213,7 +1370,7 @@
             const item = items.find(i => i.id === req.itemId);
 
             if (!item || item.quantity < req.qty) {
-                alert(`Insufficient stock! In store: ${item ? item.quantity : 0}, Requested: ${req.qty}`);
+                alert(`Insufficient stock in store! In store: ${item ? item.quantity : 0}, Requested: ${req.qty}`);
                 return;
             }
 
@@ -1243,11 +1400,10 @@
             alert(`Stock issued and dispatched on ${req.issueDate}!`);
         }
 
-        // ================= 3. MATERIAL REGISTER (FILTERABLE DATE, CUSTOMER, REQUESTER) =================
+        // ================= MATERIAL REGISTER (FILTERABLE) =================
         function openMaterialRecordModal() {
             const reqs = loadRequisitions();
             
-            // Populate Customer Filter Dropdown
             const custSelect = document.getElementById('filterCustomer');
             custSelect.innerHTML = '<option value="ALL">All Customers</option>';
             const customers = [...new Set(reqs.map(r => r.customerName))];
@@ -1258,7 +1414,6 @@
                 custSelect.appendChild(opt);
             });
 
-            // Populate Requester Filter Dropdown
             const reqSelect = document.getElementById('filterRequester');
             reqSelect.innerHTML = '<option value="ALL">All Requesters</option>';
             const requesters = [...new Set(reqs.map(r => r.requestedBy))];
@@ -1334,7 +1489,7 @@
             });
         }
 
-        // ================= 4. MATERIAL DISPATCH AUDIT LOGS =================
+        // ================= DISPATCH AUDIT LOGS =================
         function openDispatchLogsModal() {
             const reqs = loadRequisitions();
             const dispatched = reqs.filter(r => r.status === 'DISPATCHED');
@@ -1383,7 +1538,7 @@
             document.getElementById('modalDispatchLogs').style.display = 'flex';
         }
 
-        // ================= 5. EDIT PRODUCT & DIRECT STOCK UPDATE =================
+        // ================= EDIT PRODUCT MASTER =================
         function openEditModal(itemId) {
             const items = loadItems();
             const item = items.find(i => i.id === itemId);
@@ -1435,7 +1590,7 @@
             }
         }
 
-        // ================= 6. STOCK IN & MASTER LOGIC =================
+        // ================= STOCK IN & MASTER LOGIC =================
         function openStockInModal() {
             const items = loadItems();
             const select = document.getElementById('stockInSelect');
