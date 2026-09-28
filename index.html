@@ -1,10 +1,17 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DIP URJA POWER SOLUTIONS - Store Management</title>
+    
+    <!-- PWA Settings -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#111827">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
     <style>
         * {
             box-sizing: border-box;
@@ -17,6 +24,29 @@
             background: #f4f6f8;
             color: #222;
             padding-bottom: 40px;
+            user-select: none;
+        }
+
+        /* Install Banner */
+        #installBanner {
+            display: none;
+            background: #0284c7;
+            color: white;
+            padding: 10px 16px;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        #installBanner button {
+            background: white;
+            color: #0284c7;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
         }
 
         /* Login Screen */
@@ -289,13 +319,18 @@
 </head>
 <body>
 
-    <!-- ================= 1. LOGIN & OTP SCREEN ================= -->
+    <!-- Install App Bar -->
+    <div id="installBanner">
+        <span>📲 Download & Install Store App</span>
+        <button id="btnInstallApp">Install Now</button>
+    </div>
+
+    <!-- 1. LOGIN & OTP SCREEN -->
     <div id="loginScreen">
         <div class="login-card">
             <h2>DIP URJA STORE</h2>
             <p>Mobile Number Verification</p>
 
-            <!-- Step A: Enter Phone Number -->
             <div id="phoneStep">
                 <div class="form-group">
                     <label>Enter Mobile Number</label>
@@ -304,7 +339,6 @@
                 <button class="btn-submit" onclick="generateOTP()">Generate OTP</button>
             </div>
 
-            <!-- Step B: Display Generated OTP & Verify -->
             <div id="otpStep" style="display: none;">
                 <div class="otp-display-box">
                     <span>SECURITY CODE / OTP:</span>
@@ -322,9 +356,8 @@
         </div>
     </div>
 
-    <!-- ================= 2. MAIN APPLICATION ================= -->
+    <!-- 2. MAIN APPLICATION -->
     <div id="mainAppScreen">
-
         <div class="header">
             <h1>DIP URJA POWER SOLUTIONS</h1>
             <p>STORE & MATERIAL MANAGEMENT SYSTEM</p>
@@ -335,7 +368,6 @@
         </div>
 
         <div class="container">
-
             <div class="section-title">Store Dashboard</div>
 
             <div class="dashboard">
@@ -371,9 +403,7 @@
                 DIP URJA POWER SOLUTIONS<br>
                 Digital Store Management System
             </div>
-
         </div>
-
     </div>
 
     <!-- MODALS -->
@@ -490,8 +520,28 @@
         const STORE_LOGS_KEY = 'dip_urja_inventory_logs';
 
         let currentGeneratedOtp = null;
+        let deferredPrompt;
 
-        // Auto-check authentication state
+        // PWA App Installation prompt
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            const banner = document.getElementById('installBanner');
+            if (banner) banner.style.display = 'flex';
+        });
+
+        document.getElementById('btnInstallApp')?.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    document.getElementById('installBanner').style.display = 'none';
+                }
+                deferredPrompt = null;
+            }
+        });
+
+        // Authentication State
         window.addEventListener('DOMContentLoaded', () => {
             const loggedInUser = localStorage.getItem(AUTH_USER_KEY);
             if (loggedInUser) {
@@ -502,7 +552,6 @@
             }
         });
 
-        // 1. Generate OTP and Display on Screen
         function generateOTP() {
             const phone = document.getElementById('userPhone').value.trim();
             if (phone.length !== 10 || isNaN(phone)) {
@@ -510,16 +559,12 @@
                 return;
             }
 
-            // Create a 4-digit code
             currentGeneratedOtp = Math.floor(1000 + Math.random() * 9000).toString();
-
-            // Display in the box
             document.getElementById('boxOtp').innerText = currentGeneratedOtp;
             document.getElementById('phoneStep').style.display = 'none';
             document.getElementById('otpStep').style.display = 'block';
         }
 
-        // 2. Verify OTP
         function verifyAndLogin() {
             const enteredOtp = document.getElementById('userOTP').value.trim();
             const phone = document.getElementById('userPhone').value.trim();
@@ -557,7 +602,7 @@
             }
         }
 
-        // Inventory Data Handlers
+        // Data helpers
         function loadItems() {
             return JSON.parse(localStorage.getItem(STORE_ITEMS_KEY)) || [
                 { id: 1, name: "Solar Panel 540W", category: "Solar", quantity: 0 },
@@ -716,4 +761,3 @@
     </script>
 </body>
 </html>
-
