@@ -22,6 +22,7 @@
             --card-border: rgba(255, 255, 255, 0.1);
             --green: #10b981;
             --red: #f43f5e;
+            --purple: #a855f7;
             --radius-xl: 20px;
             --radius-md: 12px;
         }
@@ -40,29 +41,6 @@
             color: #f8fafc;
             min-height: 100vh;
             padding-bottom: 50px;
-        }
-
-        /* Install Bar */
-        #installBanner {
-            display: none;
-            background: linear-gradient(90deg, #0284c7, #38bdf8);
-            color: #0f172a;
-            padding: 12px 18px;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 13px;
-            font-weight: 800;
-        }
-
-        #installBanner button {
-            background: #0f172a;
-            color: #38bdf8;
-            border: none;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 800;
-            cursor: pointer;
         }
 
         /* Login Screen */
@@ -104,7 +82,6 @@
         .login-card h2 {
             font-size: 22px;
             font-weight: 800;
-            letter-spacing: 0.5px;
             color: #ffffff;
         }
 
@@ -129,7 +106,6 @@
             color: #38bdf8;
             margin: 6px 0;
             display: block;
-            text-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
         }
 
         /* App Header */
@@ -195,7 +171,7 @@
             margin: auto;
         }
 
-        /* Colorful Dashboard Stat Cards */
+        /* Dashboard Overview Grid */
         .dashboard-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -205,11 +181,9 @@
 
         .stat-card {
             border-radius: var(--radius-xl);
-            padding: 18px 16px;
+            padding: 16px;
             backdrop-filter: blur(14px);
             border: 1px solid var(--card-border);
-            position: relative;
-            overflow: hidden;
         }
 
         .stat-card.card-1 {
@@ -221,8 +195,8 @@
             border-left: 4px solid var(--accent-solar);
         }
         .stat-card.card-3 {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(16, 185, 129, 0.15));
-            border-left: 4px solid var(--green);
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(168, 85, 247, 0.15));
+            border-left: 4px solid var(--purple);
         }
         .stat-card.card-4 {
             background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(244, 63, 94, 0.15));
@@ -236,7 +210,7 @@
         }
 
         .stat-card .value {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 800;
             margin-top: 6px;
             color: #ffffff;
@@ -247,7 +221,7 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
-            margin-bottom: 26px;
+            margin-bottom: 24px;
         }
 
         .ops-btn {
@@ -258,24 +232,22 @@
             padding: 14px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             font-size: 13px;
             font-weight: 700;
             color: #f8fafc;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.15s ease, border-color 0.15s ease;
         }
 
         .ops-btn:active {
-            transform: scale(0.96);
-            background: rgba(51, 65, 85, 0.8);
+            transform: scale(0.97);
         }
 
         .ops-icon {
-            font-size: 20px;
-            width: 36px;
-            height: 36px;
+            font-size: 18px;
+            width: 34px;
+            height: 34px;
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -283,23 +255,22 @@
             flex-shrink: 0;
         }
 
-        /* Visual Inventory Cards with Images */
+        /* Product Cards */
         .section-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin: 24px 0 14px;
+            margin: 22px 0 14px;
         }
 
         .section-header h2 {
             font-size: 17px;
             font-weight: 800;
-            letter-spacing: 0.3px;
         }
 
         .stock-items-list {
             display: grid;
-            gap: 14px;
+            gap: 12px;
         }
 
         .item-card {
@@ -311,12 +282,11 @@
             align-items: center;
             gap: 14px;
             border: 1px solid var(--card-border);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
         }
 
         .item-img {
-            width: 68px;
-            height: 68px;
+            width: 64px;
+            height: 64px;
             border-radius: 14px;
             object-fit: cover;
             border: 2px solid rgba(255, 255, 255, 0.15);
@@ -347,7 +317,7 @@
 
         .stock-badge {
             display: inline-block;
-            padding: 5px 12px;
+            padding: 4px 10px;
             border-radius: 20px;
             font-size: 13px;
             font-weight: 800;
@@ -365,29 +335,29 @@
             border: 1px solid rgba(251, 113, 133, 0.3);
         }
 
-        /* Form Controls */
+        /* Forms */
         .form-group {
             text-align: left;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
         }
 
         .form-group label {
             display: block;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             color: #cbd5e1;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
         .form-control {
             width: 100%;
-            padding: 13px 14px;
+            padding: 11px 12px;
             border: 1px solid var(--card-border);
             border-radius: var(--radius-md);
-            font-size: 14px;
-            background: rgba(15, 23, 42, 0.8);
+            font-size: 13px;
+            background: rgba(15, 23, 42, 0.85);
             color: #ffffff;
             outline: none;
         }
@@ -395,6 +365,12 @@
         .form-control:focus {
             border-color: var(--primary);
             box-shadow: 0 0 0 3px var(--primary-glow);
+        }
+
+        .form-control[readonly] {
+            background: rgba(30, 41, 59, 0.5);
+            color: #94a3b8;
+            cursor: not-allowed;
         }
 
         .btn {
@@ -405,10 +381,11 @@
             font-weight: 700;
             border: none;
             cursor: pointer;
-            transition: 0.15s ease;
+            margin-top: 6px;
         }
 
         .btn-primary { background: linear-gradient(135deg, #0ea5e9, #0284c7); color: white; }
+        .btn-purple { background: linear-gradient(135deg, #a855f7, #7e22ce); color: white; }
         .btn-success { background: linear-gradient(135deg, #10b981, #059669); color: white; }
         .btn-danger { background: linear-gradient(135deg, #f43f5e, #e11d48); color: white; }
         .btn-ghost { background: rgba(255, 255, 255, 0.08); color: #cbd5e1; margin-top: 8px; border: 1px solid var(--card-border); }
@@ -418,7 +395,7 @@
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(2, 6, 23, 0.75);
+            background: rgba(2, 6, 23, 0.8);
             backdrop-filter: blur(8px);
             z-index: 999;
             align-items: center;
@@ -430,11 +407,11 @@
             background: #0f172a;
             border: 1px solid var(--card-border);
             width: 100%;
-            max-width: 440px;
+            max-width: 480px;
             border-radius: 22px;
             padding: 24px;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.7);
-            max-height: 85vh;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8);
+            max-height: 88vh;
             overflow-y: auto;
         }
 
@@ -442,11 +419,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 18px;
+            margin-bottom: 16px;
         }
 
         .modal-header h3 {
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 800;
             color: #ffffff;
         }
@@ -459,21 +436,32 @@
             color: #94a3b8;
         }
 
-        .log-table {
-            width: 100%;
-            border-collapse: collapse;
+        /* Requisition Cards */
+        .req-card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-md);
+            padding: 12px;
+            margin-bottom: 10px;
             font-size: 12px;
         }
 
-        .log-table th, .log-table td {
-            padding: 10px 8px;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-            text-align: left;
+        .req-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
         }
 
-        .log-table th {
-            color: #94a3b8;
+        .req-tag {
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 10px;
         }
+
+        .tag-pending { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); }
+        .tag-issued { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
 
         .footer {
             text-align: center;
@@ -486,13 +474,7 @@
 </head>
 <body>
 
-    <!-- Install Banner -->
-    <div id="installBanner">
-        <span>⚡ Install DIP URJA Store App</span>
-        <button id="btnInstallApp">Install Now</button>
-    </div>
-
-    <!-- ================= 1. LOGIN SCREEN ================= -->
+    <!-- 1. LOGIN SCREEN -->
     <div id="loginScreen">
         <div class="login-card">
             <div class="brand-badge">⚡</div>
@@ -524,7 +506,7 @@
         </div>
     </div>
 
-    <!-- ================= 2. STORE APP DASHBOARD ================= -->
+    <!-- 2. STORE APP DASHBOARD -->
     <div id="mainAppScreen">
         <div class="header">
             <div class="brand-row">
@@ -540,43 +522,43 @@
         </div>
 
         <div class="container">
-            <!-- Colorful Stat Counters -->
+            <!-- Stat Counters -->
             <div class="dashboard-grid">
                 <div class="stat-card card-1">
                     <span class="label">Total Products</span>
                     <span class="value" id="dashTotalItems">0</span>
                 </div>
                 <div class="stat-card card-2">
-                    <span class="label">Total Units</span>
+                    <span class="label">Stock Units</span>
                     <span class="value" id="dashTotalQty">0</span>
                 </div>
                 <div class="stat-card card-3">
-                    <span class="label">Stock In Logged</span>
-                    <span class="value" id="dashStockInCount">0</span>
+                    <span class="label">Pending Requisitions</span>
+                    <span class="value" id="dashPendingReq">0</span>
                 </div>
                 <div class="stat-card card-4">
-                    <span class="label">Stock Out Logged</span>
+                    <span class="label">Stock Issued Logs</span>
                     <span class="value" id="dashStockOutCount">0</span>
                 </div>
             </div>
 
             <!-- Operations Grid -->
             <div class="ops-grid">
+                <button class="ops-btn" onclick="openRequisitionModal()">
+                    <span class="ops-icon" style="background:rgba(168,85,247,0.2); color:#c084fc;">📝</span>
+                    <span>Material Requisition</span>
+                </button>
+                <button class="ops-btn" onclick="openPendingReqModal()">
+                    <span class="ops-icon" style="background:rgba(245,158,11,0.2); color:#fbbf24;">⏳</span>
+                    <span>Issue Pending Stock</span>
+                </button>
                 <button class="ops-btn" onclick="openModal('modalStockIn')">
                     <span class="ops-icon" style="background:rgba(16,185,129,0.2); color:#34d399;">➕</span>
                     <span>Stock In (Receipt)</span>
                 </button>
-                <button class="ops-btn" onclick="openModal('modalStockOut')">
-                    <span class="ops-icon" style="background:rgba(244,63,94,0.2); color:#fb7185;">➖</span>
-                    <span>Stock Out (Issue)</span>
-                </button>
                 <button class="ops-btn" onclick="openModal('modalItemMaster')">
                     <span class="ops-icon" style="background:rgba(14,165,233,0.2); color:#38bdf8;">📦</span>
                     <span>Add New Product</span>
-                </button>
-                <button class="ops-btn" onclick="openReportsModal()">
-                    <span class="ops-icon" style="background:rgba(245,158,11,0.2); color:#fbbf24;">📋</span>
-                    <span>Transaction History</span>
                 </button>
             </div>
 
@@ -596,7 +578,62 @@
         </div>
     </div>
 
-    <!-- MODAL 1: ADD PRODUCT -->
+    <!-- MODAL: MATERIAL REQUISITION FORM -->
+    <div id="modalRequisition" class="modal">
+        <div class="modal-body">
+            <div class="modal-header">
+                <h3>Material Requisition Form</h3>
+                <button class="close-btn" onclick="closeModal('modalRequisition')">&times;</button>
+            </div>
+            
+            <div class="form-group">
+                <label>Customer Name</label>
+                <input type="text" id="reqCustomerName" class="form-control" placeholder="e.g. Mahavir Residency / Rahul Patil">
+            </div>
+
+            <div class="form-group">
+                <label>Site Location</label>
+                <input type="text" id="reqSiteLocation" class="form-control" placeholder="e.g. Plot 42, Gangapur Road, Nashik">
+            </div>
+
+            <div class="form-group">
+                <label>Material Requested By</label>
+                <input type="text" id="reqRequestedBy" class="form-control" placeholder="e.g. Team Leader / Technician Name">
+            </div>
+
+            <div class="form-group">
+                <label>Request Date & Time (Auto-generated)</label>
+                <input type="text" id="reqDateTime" class="form-control" readonly>
+            </div>
+
+            <div class="form-group">
+                <label>Select Material / Product</label>
+                <select id="reqItemSelect" class="form-control"></select>
+            </div>
+
+            <div class="form-group">
+                <label>Requested Quantity</label>
+                <input type="number" id="reqQty" class="form-control" placeholder="Number of units required">
+            </div>
+
+            <button class="btn btn-purple" onclick="submitRequisition()">Submit Requisition</button>
+        </div>
+    </div>
+
+    <!-- MODAL: PENDING REQUISITIONS LIST & ISSUE -->
+    <div id="modalPendingReq" class="modal">
+        <div class="modal-body" style="max-width: 520px;">
+            <div class="modal-header">
+                <h3>Pending Site Requisitions</h3>
+                <button class="close-btn" onclick="closeModal('modalPendingReq')">&times;</button>
+            </div>
+            <div id="pendingReqListContainer">
+                <!-- Requisitions loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: ADD PRODUCT -->
     <div id="modalItemMaster" class="modal">
         <div class="modal-body">
             <div class="modal-header">
@@ -605,7 +642,7 @@
             </div>
             <div class="form-group">
                 <label>Product Name</label>
-                <input type="text" id="masterItemName" class="form-control" placeholder="e.g. Mono PERC 540W Panel">
+                <input type="text" id="masterItemName" class="form-control" placeholder="e.g. Solar Panel 540W">
             </div>
             <div class="form-group">
                 <label>Category</label>
@@ -615,7 +652,6 @@
                     <option value="Battery">Battery</option>
                     <option value="Electrical Cable">Electrical Cable</option>
                     <option value="Mounting Structure">Mounting Structure</option>
-                    <option value="Switchgear & Protection">Switchgear & Protection</option>
                 </select>
             </div>
             <div class="form-group">
@@ -626,7 +662,7 @@
         </div>
     </div>
 
-    <!-- MODAL 2: STOCK IN -->
+    <!-- MODAL: STOCK IN -->
     <div id="modalStockIn" class="modal">
         <div class="modal-body">
             <div class="modal-header">
@@ -643,122 +679,35 @@
             </div>
             <div class="form-group">
                 <label>Supplier / Invoice Ref</label>
-                <input type="text" id="stockInRemarks" class="form-control" placeholder="e.g. Inv #8492 / Warehouse">
+                <input type="text" id="stockInRemarks" class="form-control" placeholder="e.g. Inv #8492">
             </div>
-            <button class="btn btn-success" onclick="recordStock('IN')">Confirm Stock Entry</button>
-        </div>
-    </div>
-
-    <!-- MODAL 3: STOCK OUT -->
-    <div id="modalStockOut" class="modal">
-        <div class="modal-body">
-            <div class="modal-header">
-                <h3>Record Stock Out (Issue)</h3>
-                <button class="close-btn" onclick="closeModal('modalStockOut')">&times;</button>
-            </div>
-            <div class="form-group">
-                <label>Select Item</label>
-                <select id="stockOutSelect" class="form-control"></select>
-            </div>
-            <div class="form-group">
-                <label>Quantity Out</label>
-                <input type="number" id="stockOutQty" class="form-control" placeholder="Units issued">
-            </div>
-            <div class="form-group">
-                <label>Site Name / Team Leader</label>
-                <input type="text" id="stockOutSite" class="form-control" placeholder="e.g. Site Nashik / Team A">
-            </div>
-            <button class="btn btn-danger" onclick="recordStock('OUT')">Confirm Material Dispatch</button>
-        </div>
-    </div>
-
-    <!-- MODAL 4: TRANSACTION REPORTS -->
-    <div id="modalReports" class="modal">
-        <div class="modal-body" style="max-width: 550px;">
-            <div class="modal-header">
-                <h3>Material Movement Logs</h3>
-                <button class="close-btn" onclick="closeModal('modalReports')">&times;</button>
-            </div>
-            <table class="log-table">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Item</th>
-                        <th>Type</th>
-                        <th>Qty</th>
-                        <th>Ref/Site</th>
-                    </tr>
-                </thead>
-                <tbody id="reportsTableBody"></tbody>
-            </table>
+            <button class="btn btn-success" onclick="recordStockIn()">Confirm Stock Entry</button>
         </div>
     </div>
 
     <script>
         const AUTH_USER_KEY = 'store_logged_in_phone';
-        const STORE_ITEMS_KEY = 'dip_urja_inventory_items_v3';
-        const STORE_LOGS_KEY = 'dip_urja_inventory_logs_v3';
+        const STORE_ITEMS_KEY = 'dip_urja_inventory_items_v4';
+        const STORE_LOGS_KEY = 'dip_urja_inventory_logs_v4';
+        const STORE_REQ_KEY = 'dip_urja_requisitions_v4';
 
         let currentGeneratedOtp = null;
-        let deferredPrompt;
 
-        // Rich Product Imagery Defaults
+        // Default Hardware
         const DEFAULT_PRODUCTS = [
-            {
-                id: 1,
-                name: "Mono PERC 540W Solar Panel",
-                category: "Solar Panel",
-                quantity: 48,
-                image: "https://images.unsplash.com/photo-1509391365360-2e959784a276?w=300&auto=format&fit=crop&q=80"
-            },
-            {
-                id: 2,
-                name: "Pure Sine Wave Lift Inverter 3kVA",
-                category: "Inverter / UPS",
-                quantity: 6,
-                image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=300&auto=format&fit=crop&q=80"
-            },
-            {
-                id: 3,
-                name: "Tubular Deep Cycle Battery 150Ah",
-                category: "Battery",
-                quantity: 14,
-                image: "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=300&auto=format&fit=crop&q=80"
-            },
-            {
-                id: 4,
-                name: "4 sq mm DC Solar Cable (100m Roll)",
-                category: "Electrical Cable",
-                quantity: 2,
-                image: "https://images.unsplash.com/photo-1544724569-5f546fd6f2b5?w=300&auto=format&fit=crop&q=80"
-            },
-            {
-                id: 5,
-                name: "GI Solar Module Mounting Structure",
-                category: "Mounting Structure",
-                quantity: 20,
-                image: "https://images.unsplash.com/photo-1548337138-e87d889cc369?w=300&auto=format&fit=crop&q=80"
-            }
+            { id: 1, name: "Mono PERC 540W Solar Panel", category: "Solar Panel", quantity: 48, image: "https://images.unsplash.com/photo-1509391365360-2e959784a276?w=300&auto=format&fit=crop&q=80" },
+            { id: 2, name: "Lift Inverter 3kVA Pure Sine", category: "Inverter / UPS", quantity: 6, image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=300&auto=format&fit=crop&q=80" },
+            { id: 3, name: "Tubular Deep Cycle Battery 150Ah", category: "Battery", quantity: 14, image: "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=300&auto=format&fit=crop&q=80" },
+            { id: 4, name: "4 sq mm DC Solar Cable (100m)", category: "Electrical Cable", quantity: 4, image: "https://images.unsplash.com/photo-1544724569-5f546fd6f2b5?w=300&auto=format&fit=crop&q=80" }
         ];
 
-        // PWA Installation Hook
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            const banner = document.getElementById('installBanner');
-            if (banner) banner.style.display = 'flex';
-        });
-
-        document.getElementById('btnInstallApp')?.addEventListener('click', async () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                if (outcome === 'accepted') {
-                    document.getElementById('installBanner').style.display = 'none';
-                }
-                deferredPrompt = null;
-            }
-        });
+        // Format Current Date and Time
+        function getFormattedCurrentDateTime() {
+            const now = new Date();
+            const date = now.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+            const time = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+            return `${date}, ${time}`;
+        }
 
         // Initialize Authentication
         window.addEventListener('DOMContentLoaded', () => {
@@ -810,7 +759,7 @@
         }
 
         function logout() {
-            if (confirm("Log out of Dip Urja Store Management?")) {
+            if (confirm("Log out of Store Management?")) {
                 localStorage.removeItem(AUTH_USER_KEY);
                 document.getElementById('userPhone').value = '';
                 document.getElementById('userOTP').value = '';
@@ -820,38 +769,28 @@
             }
         }
 
-        // Inventory Storage Handlers
-        function loadItems() {
-            return JSON.parse(localStorage.getItem(STORE_ITEMS_KEY)) || DEFAULT_PRODUCTS;
-        }
+        // Storage helpers
+        function loadItems() { return JSON.parse(localStorage.getItem(STORE_ITEMS_KEY)) || DEFAULT_PRODUCTS; }
+        function loadLogs() { return JSON.parse(localStorage.getItem(STORE_LOGS_KEY)) || []; }
+        function loadRequisitions() { return JSON.parse(localStorage.getItem(STORE_REQ_KEY)) || []; }
 
-        function loadLogs() {
-            return JSON.parse(localStorage.getItem(STORE_LOGS_KEY)) || [];
-        }
-
-        function saveItems(items) {
-            localStorage.setItem(STORE_ITEMS_KEY, JSON.stringify(items));
-            renderInventory();
-        }
-
-        function saveLogs(logs) {
-            localStorage.setItem(STORE_LOGS_KEY, JSON.stringify(logs));
-            renderInventory();
-        }
+        function saveItems(items) { localStorage.setItem(STORE_ITEMS_KEY, JSON.stringify(items)); renderInventory(); }
+        function saveLogs(logs) { localStorage.setItem(STORE_LOGS_KEY, JSON.stringify(logs)); renderInventory(); }
+        function saveRequisitions(reqs) { localStorage.setItem(STORE_REQ_KEY, JSON.stringify(reqs)); renderInventory(); }
 
         function renderInventory() {
             const items = loadItems();
             const logs = loadLogs();
+            const reqs = loadRequisitions();
 
-            // Dashboard Counters
             document.getElementById('dashTotalItems').innerText = items.length;
             const totalQty = items.reduce((sum, item) => sum + (item.quantity || 0), 0);
             document.getElementById('dashTotalQty').innerText = totalQty;
 
-            document.getElementById('dashStockInCount').innerText = logs.filter(l => l.type === 'IN').length;
+            const pendingCount = reqs.filter(r => r.status === 'PENDING').length;
+            document.getElementById('dashPendingReq').innerText = pendingCount;
             document.getElementById('dashStockOutCount').innerText = logs.filter(l => l.type === 'OUT').length;
 
-            // Product Cards Rendering
             const container = document.getElementById('productListContainer');
             container.innerHTML = '';
 
@@ -859,7 +798,6 @@
                 const isLow = item.quantity <= 2;
                 const card = document.createElement('div');
                 card.className = 'item-card';
-
                 const fallbackImg = "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=300&auto=format&fit=crop&q=80";
 
                 card.innerHTML = `
@@ -881,34 +819,178 @@
             });
         }
 
-        function openModal(id) {
-            populateItemDropdowns();
-            document.getElementById(id).style.display = 'flex';
-        }
-
-        function closeModal(id) {
-            document.getElementById(id).style.display = 'none';
-        }
-
-        function populateItemDropdowns() {
+        // ================= REQUISITION LOGIC =================
+        function openRequisitionModal() {
+            // Populate Items dropdown
             const items = loadItems();
-            const inSelect = document.getElementById('stockInSelect');
-            const outSelect = document.getElementById('stockOutSelect');
-
-            inSelect.innerHTML = '';
-            outSelect.innerHTML = '';
-
+            const select = document.getElementById('reqItemSelect');
+            select.innerHTML = '';
             items.forEach(item => {
-                const opt1 = document.createElement('option');
-                opt1.value = item.id;
-                opt1.textContent = `${item.name} (Stock: ${item.quantity})`;
-                inSelect.appendChild(opt1);
-
-                const opt2 = document.createElement('option');
-                opt2.value = item.id;
-                opt2.textContent = `${item.name} (Stock: ${item.quantity})`;
-                outSelect.appendChild(opt2);
+                const opt = document.createElement('option');
+                opt.value = item.id;
+                opt.textContent = `${item.name} (Available: ${item.quantity})`;
+                select.appendChild(opt);
             });
+
+            // Automatically set current date and time
+            document.getElementById('reqDateTime').value = getFormattedCurrentDateTime();
+            document.getElementById('modalRequisition').style.display = 'flex';
+        }
+
+        function submitRequisition() {
+            const customer = document.getElementById('reqCustomerName').value.trim();
+            const location = document.getElementById('reqSiteLocation').value.trim();
+            const requestedBy = document.getElementById('reqRequestedBy').value.trim();
+            const requestDate = document.getElementById('reqDateTime').value;
+            const itemId = parseInt(document.getElementById('reqItemSelect').value);
+            const qty = parseInt(document.getElementById('reqQty').value);
+
+            if (!customer || !location || !requestedBy) {
+                alert('Please enter Customer Name, Site Location, and Requester Name.');
+                return;
+            }
+
+            if (!qty || qty <= 0) {
+                alert('Please enter a valid requested quantity.');
+                return;
+            }
+
+            const items = loadItems();
+            const item = items.find(i => i.id === itemId);
+            if (!item) return;
+
+            const reqs = loadRequisitions();
+            reqs.unshift({
+                id: Date.now(),
+                customerName: customer,
+                siteLocation: location,
+                requestedBy: requestedBy,
+                requestDate: requestDate,
+                issueDate: null,
+                itemId: item.id,
+                itemName: item.name,
+                qty: qty,
+                status: 'PENDING'
+            });
+
+            saveRequisitions(reqs);
+
+            // Reset form
+            document.getElementById('reqCustomerName').value = '';
+            document.getElementById('reqSiteLocation').value = '';
+            document.getElementById('reqRequestedBy').value = '';
+            document.getElementById('reqQty').value = '';
+            closeModal('modalRequisition');
+            alert('Material Requisition submitted successfully!');
+        }
+
+        function openPendingReqModal() {
+            const reqs = loadRequisitions();
+            const container = document.getElementById('pendingReqListContainer');
+            container.innerHTML = '';
+
+            if (reqs.length === 0) {
+                container.innerHTML = '<div style="text-align:center; color:#94a3b8; padding:20px;">No requisitions on record.</div>';
+            } else {
+                reqs.forEach(req => {
+                    const isPending = req.status === 'PENDING';
+                    const card = document.createElement('div');
+                    card.className = 'req-card';
+                    card.innerHTML = `
+                        <div class="req-card-header">
+                            <span style="font-weight:800; color:#ffffff;">${req.customerName}</span>
+                            <span class="req-tag ${isPending ? 'tag-pending' : 'tag-issued'}">${req.status}</span>
+                        </div>
+                        <div style="color:#94a3b8; margin-bottom:4px;">📍 <b>Site:</b> ${req.siteLocation}</div>
+                        <div style="color:#cbd5e1; margin-bottom:4px;">📦 <b>Item:</b> ${req.itemName} (<b>${req.qty} units</b>)</div>
+                        <div style="color:#94a3b8;">👷 <b>Requested By:</b> ${req.requestedBy}</div>
+                        <div style="color:#64748b; font-size:11px; margin-top:4px;">🕒 <b>Request Date:</b> ${req.requestDate}</div>
+                        ${req.issueDate ? `<div style="color:#34d399; font-size:11px; margin-top:2px;">✅ <b>Issue Date:</b> ${req.issueDate}</div>` : ''}
+
+                        ${isPending ? `
+                            <button class="btn btn-danger" style="margin-top:10px; padding:8px 12px; font-size:12px;" onclick="issueRequisition(${req.id})">
+                                Approve & Issue Stock (Set Issue Date)
+                            </button>
+                        ` : ''}
+                    `;
+                    container.appendChild(card);
+                });
+            }
+
+            document.getElementById('modalPendingReq').style.display = 'flex';
+        }
+
+        function issueRequisition(reqId) {
+            const reqs = loadRequisitions();
+            const req = reqs.find(r => r.id === reqId);
+            if (!req) return;
+
+            const items = loadItems();
+            const item = items.find(i => i.id === req.itemId);
+
+            if (!item || item.quantity < req.qty) {
+                alert(`Insufficient stock! In warehouse: ${item ? item.quantity : 0}, Requested: ${req.qty}`);
+                return;
+            }
+
+            // Deduct stock
+            item.quantity -= req.qty;
+
+            // Automatically record Issue Date & Time
+            req.issueDate = getFormattedCurrentDateTime();
+            req.status = 'ISSUED';
+
+            // Add to Stock Out transaction history
+            const logs = loadLogs();
+            logs.unshift({
+                date: req.issueDate,
+                itemName: req.itemName,
+                type: 'OUT',
+                qty: req.qty,
+                ref: `${req.customerName} (${req.siteLocation})`
+            });
+
+            saveItems(items);
+            saveRequisitions(reqs);
+            saveLogs(logs);
+
+            openPendingReqModal();
+            alert(`Stock issued successfully on ${req.issueDate}!`);
+        }
+
+        // ================= STOCK IN LOGIC =================
+        function recordStockIn() {
+            const itemId = parseInt(document.getElementById('stockInSelect').value);
+            const qty = parseInt(document.getElementById('stockInQty').value);
+            const ref = document.getElementById('stockInRemarks').value.trim();
+
+            if (!qty || qty <= 0) {
+                alert('Please enter a valid quantity.');
+                return;
+            }
+
+            const items = loadItems();
+            const item = items.find(i => i.id === itemId);
+            if (!item) return;
+
+            item.quantity += qty;
+
+            const logs = loadLogs();
+            logs.unshift({
+                date: getFormattedCurrentDateTime(),
+                itemName: item.name,
+                type: 'IN',
+                qty: qty,
+                ref: ref || 'Warehouse In'
+            });
+
+            saveItems(items);
+            saveLogs(logs);
+
+            document.getElementById('stockInQty').value = '';
+            document.getElementById('stockInRemarks').value = '';
+            closeModal('modalStockIn');
+            alert(`Stock IN logged successfully at ${getFormattedCurrentDateTime()}!`);
         }
 
         function saveMasterItem() {
@@ -917,7 +999,7 @@
             const image = document.getElementById('masterItemImage').value.trim();
 
             if (!name) {
-                alert('Please enter a valid product name');
+                alert('Please enter a product name.');
                 return;
             }
 
@@ -934,73 +1016,26 @@
             document.getElementById('masterItemName').value = '';
             document.getElementById('masterItemImage').value = '';
             closeModal('modalItemMaster');
-            alert('Product successfully added to inventory!');
+            alert('Product added successfully!');
         }
 
-        function recordStock(type) {
-            const isEntry = type === 'IN';
-            const selectId = isEntry ? 'stockInSelect' : 'stockOutSelect';
-            const qtyId = isEntry ? 'stockInQty' : 'stockOutQty';
-            const refId = isEntry ? 'stockInRemarks' : 'stockOutSite';
-
-            const itemId = parseInt(document.getElementById(selectId).value);
-            const qty = parseInt(document.getElementById(qtyId).value);
-            const ref = document.getElementById(refId).value.trim();
-            const activeUser = localStorage.getItem(AUTH_USER_KEY) || 'Admin';
-
-            if (!qty || qty <= 0) {
-                alert('Please enter a valid number of units');
-                return;
+        function openModal(id) {
+            if (id === 'modalStockIn') {
+                const items = loadItems();
+                const select = document.getElementById('stockInSelect');
+                select.innerHTML = '';
+                items.forEach(item => {
+                    const opt = document.createElement('option');
+                    opt.value = item.id;
+                    opt.textContent = `${item.name} (Stock: ${item.quantity})`;
+                    select.appendChild(opt);
+                });
             }
-
-            const items = loadItems();
-            const item = items.find(i => i.id === itemId);
-            if (!item) return;
-
-            if (!isEntry && item.quantity < qty) {
-                alert('Insufficient stock! Currently in warehouse: ' + item.quantity);
-                return;
-            }
-
-            item.quantity = isEntry ? (item.quantity + qty) : (item.quantity - qty);
-
-            const logs = loadLogs();
-            logs.unshift({
-                date: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
-                itemName: item.name,
-                type: type,
-                qty: qty,
-                loggedBy: activeUser,
-                ref: ref || '-'
-            });
-
-            saveItems(items);
-            saveLogs(logs);
-
-            document.getElementById(qtyId).value = '';
-            document.getElementById(refId).value = '';
-            closeModal(isEntry ? 'modalStockIn' : 'modalStockOut');
-            alert(`Stock ${type} entry recorded!`);
+            document.getElementById(id).style.display = 'flex';
         }
 
-        function openReportsModal() {
-            const logs = loadLogs();
-            const tbody = document.getElementById('reportsTableBody');
-            tbody.innerHTML = '';
-
-            logs.slice(0, 30).forEach(log => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td style="color:#94a3b8;">${log.date}</td>
-                    <td><b>${log.itemName}</b></td>
-                    <td style="color:${log.type === 'IN' ? '#34d399' : '#fb7185'}; font-weight:800;">${log.type}</td>
-                    <td><b>${log.qty}</b></td>
-                    <td style="color:#cbd5e1;">${log.ref}</td>
-                `;
-                tbody.appendChild(tr);
-            });
-
-            document.getElementById('modalReports').style.display = 'flex';
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
         }
     </script>
 </body>
