@@ -1,1441 +1,289 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>DIP URJA - Store Management System</title>
-    
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#0a0f1d">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    
-    <!-- Google Fonts: Montserrat (Stylish Brand Font) & Plus Jakarta Sans -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dip Urja Power Solutions</title>
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --secondary: #f59e0b;
+      --dark: #0f172a;
+      --light: #f8fafc;
+      --border: #e2e8f0;
+      --text-muted: #64748b;
+    }
 
-    <style>
-        :root {
-            --primary: #0ea5e9;
-            --primary-glow: rgba(14, 165, 233, 0.35);
-            --accent-solar: #f59e0b;
-            --bg-gradient: radial-gradient(circle at 10% 20%, #0d1b2a 0%, #0f172a 40%, #030712 100%);
-            --card-glass: rgba(30, 41, 59, 0.7);
-            --card-border: rgba(255, 255, 255, 0.1);
-            --green: #10b981;
-            --red: #f43f5e;
-            --purple: #a855f7;
-            --cyan: #06b6d4;
-            --radius-xl: 20px;
-            --radius-md: 12px;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
+    body {
+      background-color: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+    }
 
-        body {
-            background: var(--bg-gradient);
-            background-attachment: fixed;
-            color: #f8fafc;
-            min-height: 100vh;
-            padding-bottom: 50px;
-        }
+    /* 1. TOP SWAMI BANNER */
+    .top-swami-section {
+      width: 100%;
+      background: #ffffff;
+      text-align: center;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+    }
 
-        /* 1. Login Screen */
-        #loginScreen {
-            display: flex;
-            min-height: 100vh;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            background: radial-gradient(circle at center, #1e293b 0%, #020617 100%);
-        }
+    .top-swami-img {
+      max-height: 130px;
+      width: auto;
+      object-fit: contain;
+      display: inline-block;
+      border-radius: 4px;
+    }
 
-        .login-card {
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--card-border);
-            width: 100%;
-            max-width: 400px;
-            border-radius: 24px;
-            padding: 32px 24px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-            text-align: center;
-        }
+    /* 2. HEADER: LOGO + BRAND NAME */
+    header {
+      background: #ffffff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
 
-        .otp-display-box {
-            background: rgba(14, 165, 233, 0.1);
-            border: 2px dashed #0284c7;
-            border-radius: var(--radius-md);
-            padding: 16px;
-            margin-bottom: 20px;
-        }
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
 
-        .otp-code {
-            font-size: 32px;
-            font-weight: 800;
-            letter-spacing: 8px;
-            color: #38bdf8;
-            margin: 6px 0;
-            display: block;
-        }
+    .brand-container {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
 
-        #mainAppScreen {
-            display: none;
-        }
+    .brand-logo {
+      height: 55px;
+      width: auto;
+      object-fit: contain;
+    }
 
-        /* Top Header Styling */
-        .header {
-            background: linear-gradient(180deg, rgba(10, 15, 29, 0.88), rgba(10, 15, 29, 0.98)), 
-                        url('https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&q=80&w=1000') center/cover no-repeat;
-            padding: 26px 20px 22px;
-            border-bottom: 2px solid var(--primary);
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            text-align: center;
-        }
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
 
-        .spiritual-text {
-            color: #fbbf24;
-            font-size: 15px;
-            font-weight: 800;
-            letter-spacing: 1.5px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-        }
+    .brand-name {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--dark);
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+    }
 
-        .brand-logo-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 2px;
-        }
+    .brand-tagline {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
 
-        .brand-title {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 28px;
-            font-weight: 900;
-            background: linear-gradient(135deg, #38bdf8, #0ea5e9, #fbbf24);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin: 0;
-            line-height: 1;
-        }
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
 
-        .brand-subtitle {
-            font-size: 12px;
-            color: #e2e8f0;
-            letter-spacing: 4px;
-            font-weight: 600;
-            margin: 0 0 16px 0;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-        }
+    nav a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 600;
+      font-size: 15px;
+      transition: color 0.2s ease;
+    }
 
-        .operator-pill {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid var(--card-border);
-            padding: 6px 14px;
-            border-radius: 30px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 12px;
-            color: #38bdf8;
-        }
+    nav a:hover {
+      color: var(--primary);
+    }
 
-        .logout-btn {
-            color: var(--red);
-            font-weight: 700;
-            cursor: pointer;
-            margin-left: 6px;
-        }
+    .btn-contact {
+      background: var(--primary);
+      color: #ffffff !important;
+      padding: 8px 18px;
+      border-radius: 6px;
+      transition: background 0.2s ease;
+    }
 
-        .container {
-            padding: 20px 16px;
-            max-width: 680px;
-            margin: auto;
-        }
+    .btn-contact:hover {
+      background: var(--primary-dark);
+    }
 
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 22px;
-        }
+    /* HERO SECTION */
+    .hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #ffffff;
+      padding: 60px 20px;
+      text-align: center;
+    }
 
-        .stat-card {
-            border-radius: var(--radius-xl);
-            padding: 16px;
-            backdrop-filter: blur(14px);
-            border: 1px solid var(--card-border);
-        }
+    .hero h2 {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
 
-        .stat-card.card-1 { background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(14, 165, 233, 0.15)); border-left: 4px solid var(--primary); }
-        .stat-card.card-2 { background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(245, 158, 11, 0.15)); border-left: 4px solid var(--accent-solar); }
-        .stat-card.card-3 { background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(168, 85, 247, 0.15)); border-left: 4px solid var(--purple); }
-        .stat-card.card-4 { background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(16, 185, 129, 0.15)); border-left: 4px solid var(--green); }
+    .hero p {
+      font-size: 18px;
+      color: #cbd5e1;
+      max-width: 700px;
+      margin: 0 auto 24px;
+    }
 
-        .stat-card .label { font-size: 12px; font-weight: 600; color: #cbd5e1; }
-        .stat-card .value { font-size: 22px; font-weight: 800; margin-top: 6px; color: #ffffff; }
+    /* CONTENT SECTIONS */
+    .container {
+      max-width: 1200px;
+      margin: 50px auto;
+      padding: 0 20px;
+    }
 
-        .ops-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 24px;
-        }
+    .section-title {
+      text-align: center;
+      margin-bottom: 36px;
+    }
 
-        .ops-btn {
-            background: rgba(30, 41, 59, 0.75);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--card-border);
-            border-radius: var(--radius-md);
-            padding: 14px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 13px;
-            font-weight: 700;
-            color: #f8fafc;
-            cursor: pointer;
-            text-align: left;
-        }
+    .section-title h3 {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--dark);
+    }
 
-        .ops-btn:active { transform: scale(0.97); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
 
-        .ops-icon {
-            font-size: 18px;
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
+    .card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
 
-        .section-header { display: flex; align-items: center; justify-content: space-between; margin: 22px 0 14px; }
-        .section-header h2 { font-size: 17px; font-weight: 800; }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+    }
 
-        .stock-items-list { display: grid; gap: 12px; }
+    .card h4 {
+      font-size: 20px;
+      color: var(--primary-dark);
+      margin-bottom: 10px;
+    }
 
-        .item-card {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(12px);
-            border-radius: var(--radius-xl);
-            padding: 14px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            border: 1px solid var(--card-border);
-        }
+    .card p {
+      color: var(--text-muted);
+      font-size: 15px;
+    }
 
-        .item-img {
-            width: 68px;
-            height: 68px;
-            border-radius: 14px;
-            object-fit: cover;
-            border: 2px solid rgba(255, 255, 255, 0.15);
-            background: #1e293b;
-            flex-shrink: 0;
-        }
+    /* FOOTER */
+    footer {
+      background: #ffffff;
+      border-top: 1px solid var(--border);
+      padding: 30px 20px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-top: 60px;
+    }
 
-        .item-details { flex-grow: 1; }
-        .item-details h4 { font-size: 15px; font-weight: 700; color: #ffffff; }
-        .item-details p { font-size: 12px; color: #94a3b8; margin-top: 3px; }
-        .item-stock { text-align: right; flex-shrink: 0; }
-
-        .stock-badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 13px; font-weight: 800; }
-        .in-stock { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(52, 211, 153, 0.3); }
-        .low-stock { background: rgba(244, 63, 94, 0.15); color: #fb7185; border: 1px solid rgba(251, 113, 133, 0.3); }
-
-        .form-group { text-align: left; margin-bottom: 12px; }
-        .form-group label { display: block; font-size: 11px; font-weight: 700; color: #cbd5e1; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
-        
-        .form-control {
-            width: 100%;
-            padding: 11px 12px;
-            border: 1px solid var(--card-border);
-            border-radius: var(--radius-md);
-            font-size: 13px;
-            background: rgba(15, 23, 42, 0.9);
-            color: #ffffff;
-            outline: none;
-        }
-
-        .form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-glow); }
-        .form-control[readonly] { background: rgba(30, 41, 59, 0.6); color: #38bdf8; font-weight: 700; }
-
-        .btn { width: 100%; padding: 13px; border-radius: var(--radius-md); font-size: 14px; font-weight: 700; border: none; cursor: pointer; margin-top: 6px; }
-        .btn-primary { background: linear-gradient(135deg, #0ea5e9, #0284c7); color: white; }
-        .btn-purple { background: linear-gradient(135deg, #a855f7, #7e22ce); color: white; }
-        .btn-success { background: linear-gradient(135deg, #10b981, #059669); color: white; }
-        .btn-danger { background: linear-gradient(135deg, #f43f5e, #e11d48); color: white; }
-        .btn-ghost { background: rgba(255, 255, 255, 0.08); color: #cbd5e1; margin-top: 8px; border: 1px solid var(--card-border); }
-
-        .modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(2, 6, 23, 0.85);
-            backdrop-filter: blur(8px);
-            z-index: 999;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-        }
-
-        .modal-body {
-            background: #0f172a;
-            border: 1px solid var(--card-border);
-            width: 100%;
-            max-width: 580px;
-            border-radius: 22px;
-            padding: 24px;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8);
-            max-height: 88vh;
-            overflow-y: auto;
-        }
-
-        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-        .modal-header h3 { font-size: 17px; font-weight: 800; color: #ffffff; }
-        .close-btn { font-size: 24px; background: none; border: none; cursor: pointer; color: #94a3b8; }
-
-        .list-item-row {
-            display: flex; justify-content: space-between; align-items: center;
-            background: rgba(15, 23, 42, 0.7); padding: 10px 14px;
-            border-radius: 8px; margin-bottom: 6px; border: 1px solid var(--card-border); font-size: 13px;
-        }
-
-        .btn-del-sm {
-            background: rgba(244, 63, 94, 0.2); color: #fb7185; border: 1px solid #f43f5e;
-            padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; cursor: pointer;
-        }
-
-        .filter-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
-            background: rgba(15, 23, 42, 0.7); padding: 12px; border-radius: var(--radius-md);
-            border: 1px solid var(--card-border); margin-bottom: 16px;
-        }
-
-        .filter-item label { display: block; font-size: 10px; font-weight: 700; color: #94a3b8; margin-bottom: 4px; text-transform: uppercase; }
-        .filter-item select, .filter-item input { width: 100%; padding: 8px 10px; background: rgba(30, 41, 59, 0.8); border: 1px solid var(--card-border); color: white; border-radius: 8px; font-size: 12px; }
-
-        .record-card { background: rgba(30, 41, 59, 0.8); border: 1px solid var(--card-border); border-radius: var(--radius-md); padding: 14px; margin-bottom: 12px; font-size: 12px; }
-        .record-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
-
-        .qty-badge { font-weight: 800; font-size: 13px; padding: 4px 10px; border-radius: 8px; display: inline-flex; align-items: center; gap: 6px; }
-        .qty-pending { background: rgba(244, 63, 94, 0.2); color: #fb7185; border: 1px solid #f43f5e; }
-        .qty-approved { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid #10b981; }
-
-        .approval-pipeline { background: rgba(15, 23, 42, 0.85); border: 1px solid var(--card-border); border-radius: 12px; padding: 12px; margin: 12px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-        .approval-check-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--card-border); color: #cbd5e1; padding: 8px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: space-between; }
-        .approval-check-btn.signed { background: rgba(16, 185, 129, 0.2); border-color: #10b981; color: #34d399; }
-
-        .approvers-bottom-bar { border-top: 1px dashed rgba(255,255,255,0.15); margin-top: 10px; padding-top: 8px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; text-align: center; font-size: 10px; }
-        .approver-tag { background: rgba(15, 23, 42, 0.6); padding: 6px 4px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); }
-        .approver-tag .role { font-size: 9px; color: #94a3b8; text-transform: uppercase; font-weight: 700; margin-bottom: 2px; }
-
-        .status-red { color: #fb7185; }
-        .status-green { color: #34d399; }
-        .footer { text-align: center; margin-top: 36px; font-size: 12px; color: #64748b; line-height: 1.6; }
-    </style>
+    @media (max-width: 600px) {
+      .header-container {
+        flex-direction: column;
+        text-align: center;
+      }
+      .brand-container {
+        flex-direction: column;
+      }
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .hero h2 {
+        font-size: 28px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <!-- 1. LOGIN SCREEN -->
-    <div id="loginScreen">
-        <div class="login-card">
-            
-            <!-- Spiritual Header on Login -->
-            <div style="text-align: center; margin-bottom: 14px;">
-                <img src="swami" alt="श्री स्वामी समर्थ" style="width: 58px; height: 58px; border-radius: 50%; border: 2px solid #fbbf24; object-fit: cover; margin-bottom: 4px; box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);" onerror="this.onerror=null; this.src='swami.jpg';">
-                <div class="spiritual-text">॥ श्री स्वामी समर्थ ॥</div>
-            </div>
+  <!-- TOP BANNER: swami.jpg -->
+  <div class="top-swami-section">
+    <img src="swami.jpg" alt="Swami" class="top-swami-img" />
+  </div>
 
-            <!-- Brand Logo & Name -->
-            <div class="brand-logo-container">
-                <img src="logo" alt="DIP URJA Logo" style="width: 38px; height: 38px; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));" onerror="this.onerror=null; this.src='logo.png';">
-                <h2 class="brand-title" style="font-size: 24px;">DIP URJA</h2>
-            </div>
-            <p class="brand-subtitle" style="margin-bottom: 24px;">POWER SOLUTIONS</p>
-
-            <div id="phoneStep">
-                <div class="form-group">
-                    <label>Mobile Number</label>
-                    <input type="tel" id="userPhone" class="form-control" placeholder="10-digit number" maxlength="10" inputmode="numeric">
-                </div>
-                <button class="btn btn-primary" onclick="generateOTP()">Request Login OTP</button>
-            </div>
-
-            <div id="otpStep" style="display: none;">
-                <div class="otp-display-box">
-                    <span style="font-size: 12px; font-weight: 700; color: #38bdf8;">SECURITY CODE</span>
-                    <span class="otp-code" id="boxOtp">----</span>
-                </div>
-                <div class="form-group">
-                    <label>4-Digit OTP</label>
-                    <input type="tel" id="userOTP" class="form-control" placeholder="Enter OTP" maxlength="4" inputmode="numeric">
-                </div>
-                <button class="btn btn-success" onclick="verifyAndLogin()">Verify & Launch Dashboard</button>
-                <button class="btn btn-ghost" onclick="changePhoneNumber()">Switch Number</button>
-            </div>
+  <!-- MAIN HEADER: logo.jpg BEFORE Dip Urja -->
+  <header>
+    <div class="header-container">
+      <div class="brand-container">
+        <img src="logo.jpg" alt="Dip Urja Logo" class="brand-logo" />
+        <div class="brand-text">
+          <span class="brand-name">Dip Urja</span>
+          <span class="brand-tagline">Power Solutions</span>
         </div>
+      </div>
+      <nav>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#contact" class="btn-contact">Contact Us</a>
+      </nav>
     </div>
+  </header>
 
-    <!-- 2. MAIN DASHBOARD -->
-    <div id="mainAppScreen">
-        <!-- Top Image Header -->
-        <div class="header">
-            
-            <!-- Spiritual Top Area -->
-            <div style="text-align: center; margin-bottom: 14px;">
-                <img src="swami" alt="श्री स्वामी समर्थ" style="width: 58px; height: 58px; border-radius: 50%; border: 2px solid #fbbf24; object-fit: cover; margin-bottom: 4px; box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);" onerror="this.onerror=null; this.src='swami.jpg';">
-                <div class="spiritual-text">॥ श्री स्वामी समर्थ ॥</div>
-            </div>
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <h2>Reliable & Sustainable Energy Solutions</h2>
+    <p>Leading provider of Lift UPS, Solar Installations, and Smart Power Backup Systems.</p>
+  </section>
 
-            <!-- Brand Logo and Stylish Name -->
-            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 16px;">
-                <div class="brand-logo-container">
-                    <img src="logo" alt="DIP URJA Logo" style="width: 44px; height: 44px; object-fit: contain; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6));" onerror="this.onerror=null; this.src='logo.png';">
-                    <h1 class="brand-title">DIP URJA</h1>
-                </div>
-                <h2 class="brand-subtitle">POWER SOLUTIONS</h2>
-            </div>
-
-            <!-- Operator Pill -->
-            <div style="display: flex; justify-content: center;">
-                <div class="operator-pill">
-                    <span>📱 <span id="displayPhone"></span></span>
-                    <span class="logout-btn" onclick="logout()">Logout</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="dashboard-grid">
-                <div class="stat-card card-1">
-                    <span class="label">Total Products</span>
-                    <span class="value" id="dashTotalItems">0</span>
-                </div>
-                <div class="stat-card card-2">
-                    <span class="label">Stock Units</span>
-                    <span class="value" id="dashTotalQty">0</span>
-                </div>
-                <div class="stat-card card-3">
-                    <span class="label">Pending Requisitions</span>
-                    <span class="value" id="dashPendingReq">0</span>
-                </div>
-                <div class="stat-card card-4">
-                    <span class="label">Total Dispatched</span>
-                    <span class="value" id="dashTotalDispatched">0</span>
-                </div>
-            </div>
-
-            <!-- Operations Grid -->
-            <div class="ops-grid">
-                <button type="button" class="ops-btn" onclick="openRequisitionModal()">
-                    <span class="ops-icon" style="background:rgba(168,85,247,0.25); color:#c084fc;">📝</span>
-                    <span>Material Requisition</span>
-                </button>
-                <button type="button" class="ops-btn" onclick="openPendingReqModal()">
-                    <span class="ops-icon" style="background:rgba(245,158,11,0.25); color:#fbbf24;">⏳</span>
-                    <span>Approvals & Dispatch</span>
-                </button>
-                <button type="button" class="ops-btn" onclick="openMaterialRecordModal()">
-                    <span class="ops-icon" style="background:rgba(6,182,212,0.25); color:#22d3ee;">📊</span>
-                    <span>Material Register (Filter)</span>
-                </button>
-                <button type="button" class="ops-btn" onclick="openDispatchLogsModal()">
-                    <span class="ops-icon" style="background:rgba(16,185,129,0.25); color:#34d399;">🚚</span>
-                    <span>Dispatch Logs</span>
-                </button>
-                <button type="button" class="ops-btn" onclick="openDropdownManagerModal()">
-                    <span class="ops-icon" style="background:rgba(245,158,11,0.25); color:#fbbf24;">⚙️</span>
-                    <span>Manage Dropdown Lists</span>
-                </button>
-                <button type="button" class="ops-btn" onclick="openStockInModal()">
-                    <span class="ops-icon" style="background:rgba(14,165,233,0.25); color:#38bdf8;">➕</span>
-                    <span>Stock In (Receipt)</span>
-                </button>
-                <button type="button" class="ops-btn" onclick="openItemMasterModal()">
-                    <span class="ops-icon" style="background:rgba(245,158,11,0.25); color:#f59e0b;">📦</span>
-                    <span>Add New Product</span>
-                </button>
-            </div>
-
-            <div class="section-header">
-                <h2>Product Inventory Status</h2>
-            </div>
-
-            <div class="stock-items-list" id="productListContainer"></div>
-
-            <div class="footer">
-                DIP URJA POWER SOLUTIONS • DIGITAL STORE<br>
-                Rooftop Solar & Power Backup Systems
-            </div>
-        </div>
+  <!-- SERVICES SECTION -->
+  <div class="container" id="services">
+    <div class="section-title">
+      <h3>Our Key Offerings</h3>
     </div>
-
-    <!-- MODAL 1: MATERIAL REQUISITION FORM -->
-    <div id="modalRequisition" class="modal">
-        <div class="modal-body">
-            <div class="modal-header">
-                <h3>Material Requisition Form</h3>
-                <button type="button" class="close-btn" onclick="closeModal('modalRequisition')">&times;</button>
-            </div>
-            
-            <div class="form-group">
-                <label>Customer / Client Project</label>
-                <select id="reqCustomerSelect" class="form-control"></select>
-            </div>
-
-            <div class="form-group">
-                <label>Site Location</label>
-                <select id="reqSiteSelect" class="form-control"></select>
-            </div>
-
-            <div class="form-group">
-                <label>Material Requested By</label>
-                <select id="reqRequestedBySelect" class="form-control"></select>
-            </div>
-
-            <div class="form-group">
-                <label>Request Date & Time (Live Automatic)</label>
-                <input type="text" id="reqDateTime" class="form-control" readonly>
-            </div>
-
-            <div class="form-group">
-                <label>Select Material / Product</label>
-                <select id="reqItemSelect" class="form-control"></select>
-            </div>
-
-            <div class="form-group">
-                <label style="color:#38bdf8;">Quantity Needed (Manual Input)</label>
-                <input type="number" id="reqQty" class="form-control" placeholder="Enter quantity" min="1">
-            </div>
-
-            <button type="button" class="btn btn-purple" onclick="submitRequisition()">Submit Requisition</button>
-        </div>
+    <div class="services-grid">
+      <div class="card">
+        <h4>Lift UPS Solutions</h4>
+        <p>Uninterrupted, reliable backup systems designed specifically for commercial and residential elevator systems.</p>
+      </div>
+      <div class="card">
+        <h4>Solar Power Systems</h4>
+        <p>Rooftop solar panel installation and grid integration engineered for high efficiency and lasting savings.</p>
+      </div>
+      <div class="card">
+        <h4>Inverters & Battery Backups</h4>
+        <p>Heavy-duty, dependable energy backup solutions for homes, commercial complexes, and industrial hubs.</p>
+      </div>
     </div>
+  </div>
 
-    <!-- MODAL 2: DROPDOWN MANAGER (ADD/DELETE CUSTOMERS, SITES, PERSONS) -->
-    <div id="modalDropdownManager" class="modal">
-        <div class="modal-body" style="max-width: 540px;">
-            <div class="modal-header">
-                <h3>Manage Dropdown Lists</h3>
-                <button type="button" class="close-btn" onclick="closeModal('modalDropdownManager')">&times;</button>
-            </div>
+  <!-- FOOTER -->
+  <footer id="contact">
+    <p>&copy; Dip Urja Power Solutions. All rights reserved.</p>
+  </footer>
 
-            <div class="form-group">
-                <label>Select List Category to Edit</label>
-                <select id="managerCategorySelect" class="form-control" onchange="renderManagerList()">
-                    <option value="customers">Customer / Projects List</option>
-                    <option value="sites">Site Locations List</option>
-                    <option value="requesters">Requesters / Team Members List</option>
-                </select>
-            </div>
-
-            <!-- Add New Item Row -->
-            <div style="display:flex; gap:8px; margin-bottom:16px;">
-                <input type="text" id="newListItemInput" class="form-control" placeholder="Type new name to add...">
-                <button type="button" class="btn btn-success" style="width:110px; margin-top:0;" onclick="addNewListItem()">+ Add</button>
-            </div>
-
-            <div class="section-header" style="margin-top:0;">
-                <h4 style="font-size:13px; color:#94a3b8; text-transform:uppercase;">Current Entries in List:</h4>
-            </div>
-
-            <div id="managerListContainer" style="max-height:260px; overflow-y:auto;"></div>
-        </div>
-    </div>
-
-    <!-- MODAL 3: APPROVALS & DISPATCH LIST -->
-    <div id="modalPendingReq" class="modal">
-        <div class="modal-body" style="max-width: 540px;">
-            <div class="modal-header">
-                <h3>Requisition Approvals & Dispatch</h3>
-                <button type="button" class="close-btn" onclick="closeModal('modalPendingReq')">&times;</button>
-            </div>
-            <div id="pendingReqListContainer"></div>
-        </div>
-    </div>
-
-    <!-- MODAL 4: MATERIAL RECORD (FILTER DATEWISE, CUSTOMERWISE, REQUESTERWISE) -->
-    <div id="modalMaterialRecord" class="modal">
-        <div class="modal-body" style="max-width: 620px;">
-            <div class="modal-header">
-                <h3>Material Register (Filter Records)</h3>
-                <button type="button" class="close-btn" onclick="closeModal('modalMaterialRecord')">&times;</button>
-            </div>
-
-            <div class="filter-grid">
-                <div class="filter-item">
-                    <label>Filter Customer</label>
-                    <select id="filterCustomer" onchange="renderFilteredRecords()">
-                        <option value="ALL">All Customers</option>
-                    </select>
-                </div>
-                <div class="filter-item">
-                    <label>Filter Requester</label>
-                    <select id="filterRequester" onchange="renderFilteredRecords()">
-                        <option value="ALL">All Requesters</option>
-                    </select>
-                </div>
-                <div class="filter-item">
-                    <label>Filter Date (Search)</label>
-                    <input type="text" id="filterDateText" placeholder="e.g. 28 Sep 2026" oninput="renderFilteredRecords()">
-                </div>
-                <div class="filter-item">
-                    <label>Status</label>
-                    <select id="filterStatus" onchange="renderFilteredRecords()">
-                        <option value="ALL">All Statuses</option>
-                        <option value="SUBMITTED">Pending Approval</option>
-                        <option value="DISPATCHED">Dispatched</option>
-                    </select>
-                </div>
-            </div>
-
-            <div id="filteredRecordsContainer"></div>
-        </div>
-    </div>
-
-    <!-- MODAL 5: DISPATCH LOGS -->
-    <div id="modalDispatchLogs" class="modal">
-        <div class="modal-body" style="max-width: 620px;">
-            <div class="modal-header">
-                <h3>Dispatched Material Audit Logs</h3>
-                <button type="button" class="close-btn" onclick="closeModal('modalDispatchLogs')">&times;</button>
-            </div>
-            <div id="dispatchLogsContainer"></div>
-        </div>
-    </div>
-
-    <!-- MODAL 6: STOCK IN -->
-    <div id="modalStockIn" class="modal">
-        <div class="modal-body">
-            <div class="modal-header">
-                <h3>Record Stock In (Receipt)</h3>
-                <button type="button" class="close-btn" onclick="closeModal('modalStockIn')">&times;</button>
-            </div>
-            <div class="form-group">
-                <label>Select Item</label>
-                <select id="stockInSelect" class="form-control"></select>
-            </div>
-            <div class="form-group">
-                <label>Quantity In</label>
-                <input type="number" id="stockInQty" class="form-control" placeholder="Units received">
-            </div>
-            <div class="form-group">
-                <label>Supplier / Invoice Ref</label>
-                <input type="text" id="stockInRemarks" class="form-control" placeholder="e.g. Inv #8492">
-            </div>
-            <button type="button" class="btn btn-success" onclick="recordStockIn()">Confirm Stock Entry</button>
-        </div>
-    </div>
-
-    <!-- MODAL 7: ADD PRODUCT -->
-    <div id="modalItemMaster" class="modal">
-        <div class="modal-body">
-            <div class="modal-header">
-                <h3>Add New Product</h3>
-                <button type="button" class="close-btn" onclick="closeModal('modalItemMaster')">&times;</button>
-            </div>
-            <div class="form-group">
-                <label>Product Name</label>
-                <input type="text" id="masterItemName" class="form-control" placeholder="e.g. Solar Panel 540W">
-            </div>
-            <div class="form-group">
-                <label>Category</label>
-                <select id="masterCategory" class="form-control">
-                    <option value="Solar Panel">Solar Panel</option>
-                    <option value="Inverter / UPS">Inverter / UPS</option>
-                    <option value="Battery">Battery</option>
-                    <option value="Electrical Cable">Electrical Cable</option>
-                    <option value="Mounting Structure">Mounting Structure</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Custom Image URL (Optional)</label>
-                <input type="text" id="masterItemImage" class="form-control" placeholder="Paste image link or leave blank">
-            </div>
-            <button type="button" class="btn btn-primary" onclick="saveMasterItem()">Save Product</button>
-        </div>
-    </div>
-
-    <!-- MODAL 8: EDIT / UPDATE STOCK -->
-    <div id="modalEditProduct" class="modal">
-        <div class="modal-body">
-            <div class="modal-header">
-                <h3>Edit / Update Product Stock</h3>
-                <button type="button" class="close-btn" onclick="closeModal('modalEditProduct')">&times;</button>
-            </div>
-            <input type="hidden" id="editItemId">
-            
-            <div class="form-group">
-                <label>Product Name</label>
-                <input type="text" id="editItemName" class="form-control">
-            </div>
-            <div class="form-group">
-                <label>Category</label>
-                <select id="editCategory" class="form-control">
-                    <option value="Solar Panel">Solar Panel</option>
-                    <option value="Inverter / UPS">Inverter / UPS</option>
-                    <option value="Battery">Battery</option>
-                    <option value="Electrical Cable">Electrical Cable</option>
-                    <option value="Mounting Structure">Mounting Structure</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Correct / Set Stock Quantity</label>
-                <input type="number" id="editItemQty" class="form-control" placeholder="Directly set stock count">
-            </div>
-            <div class="form-group">
-                <label>Product Image Link</label>
-                <input type="text" id="editItemImage" class="form-control" placeholder="Image URL">
-            </div>
-
-            <button type="button" class="btn btn-primary" onclick="saveUpdatedProduct()">Save Changes</button>
-            <button type="button" class="btn btn-danger" style="margin-top:8px;" onclick="deleteProduct()">Delete Product</button>
-        </div>
-    </div>
-
-    <script>
-        const AUTH_USER_KEY = 'store_logged_in_phone';
-        const STORE_ITEMS_KEY = 'dip_urja_inventory_items_v11';
-        const STORE_LOGS_KEY = 'dip_urja_inventory_logs_v11';
-        const STORE_REQ_KEY = 'dip_urja_requisitions_v11';
-
-        // Keys for customizable dropdown lists
-        const LIST_CUSTOMERS_KEY = 'dip_urja_custom_customers';
-        const LIST_SITES_KEY = 'dip_urja_custom_sites';
-        const LIST_REQUESTERS_KEY = 'dip_urja_custom_requesters';
-
-        let currentGeneratedOtp = null;
-
-        const DEFAULT_CUSTOMERS = [
-            "Mahavir Residency - Solar 10kW",
-            "Kalyan Commercial Complex - Lift UPS",
-            "Suyojit Gardens - Solar Rooftop",
-            "Hotel Grand Palace - Power Backup",
-            "Apex Industries - Solar Grid Tie",
-            "General Store Transfer"
-        ];
-
-        const DEFAULT_SITES = [
-            "Gangapur Road, Nashik",
-            "College Road, Nashik",
-            "Ambad MIDC, Nashik",
-            "Satpur MIDC, Nashik",
-            "Indira Nagar, Nashik",
-            "Main Warehouse"
-        ];
-
-        const DEFAULT_REQUESTERS = [
-            "Nilesh Jadhav (Team Leader)",
-            "Sagar Patil (Site Engineer)",
-            "Rahul Shinde (Solar Technician)",
-            "Ganesh Pawar (Electrician)",
-            "Sachin More (Installation Lead)"
-        ];
-
-        const DEFAULT_PRODUCTS = [
-            { id: 1, name: "Mono PERC 540W Solar Panel", category: "Solar Panel", quantity: 48, image: "https://images.unsplash.com/photo-1509391365360-2e959784a276?w=300&auto=format&fit=crop&q=80" },
-            { id: 2, name: "Lift Inverter 3kVA Pure Sine", category: "Inverter / UPS", quantity: 6, image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=300&auto=format&fit=crop&q=80" },
-            { id: 3, name: "Tubular Deep Cycle Battery 150Ah", category: "Battery", quantity: 14, image: "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=300&auto=format&fit=crop&q=80" },
-            { id: 4, name: "4 sq mm DC Solar Cable (100m)", category: "Electrical Cable", quantity: 4, image: "https://images.unsplash.com/photo-1544724569-5f546fd6f2b5?w=300&auto=format&fit=crop&q=80" }
-        ];
-
-        function getFormattedCurrentDateTime() {
-            const now = new Date();
-            const date = now.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
-            const time = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
-            return `${date}, ${time}`;
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            const loggedInUser = localStorage.getItem(AUTH_USER_KEY);
-            if (loggedInUser) {
-                showMainApp(loggedInUser);
-            } else {
-                document.getElementById('loginScreen').style.display = 'flex';
-                document.getElementById('mainAppScreen').style.display = 'none';
-            }
-        });
-
-        function generateOTP() {
-            const phone = document.getElementById('userPhone').value.trim();
-            if (phone.length !== 10 || isNaN(phone)) {
-                alert('Please enter a valid 10-digit mobile number.');
-                return;
-            }
-            currentGeneratedOtp = Math.floor(1000 + Math.random() * 9000).toString();
-            document.getElementById('boxOtp').innerText = currentGeneratedOtp;
-            document.getElementById('phoneStep').style.display = 'none';
-            document.getElementById('otpStep').style.display = 'block';
-        }
-
-        function verifyAndLogin() {
-            const enteredOtp = document.getElementById('userOTP').value.trim();
-            const phone = document.getElementById('userPhone').value.trim();
-
-            if (enteredOtp === currentGeneratedOtp) {
-                localStorage.setItem(AUTH_USER_KEY, phone);
-                showMainApp(phone);
-            } else {
-                alert('Incorrect OTP. Enter the 4 digits displayed.');
-            }
-        }
-
-        function changePhoneNumber() {
-            document.getElementById('otpStep').style.display = 'none';
-            document.getElementById('phoneStep').style.display = 'block';
-            document.getElementById('userOTP').value = '';
-            currentGeneratedOtp = null;
-        }
-
-        function showMainApp(phone) {
-            document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('mainAppScreen').style.display = 'block';
-            document.getElementById('displayPhone').innerText = phone;
-            renderInventory();
-        }
-
-        function logout() {
-            if (confirm("Log out of Store Management?")) {
-                localStorage.removeItem(AUTH_USER_KEY);
-                document.getElementById('userPhone').value = '';
-                document.getElementById('userOTP').value = '';
-                changePhoneNumber();
-                document.getElementById('mainAppScreen').style.display = 'none';
-                document.getElementById('loginScreen').style.display = 'flex';
-            }
-        }
-
-        // Storage Handlers
-        function loadItems() { return JSON.parse(localStorage.getItem(STORE_ITEMS_KEY)) || DEFAULT_PRODUCTS; }
-        function loadLogs() { return JSON.parse(localStorage.getItem(STORE_LOGS_KEY)) || []; }
-        function loadRequisitions() { return JSON.parse(localStorage.getItem(STORE_REQ_KEY)) || []; }
-        function loadList(key, defaults) { return JSON.parse(localStorage.getItem(key)) || defaults; }
-
-        function saveItems(items) { localStorage.setItem(STORE_ITEMS_KEY, JSON.stringify(items)); renderInventory(); }
-        function saveLogs(logs) { localStorage.setItem(STORE_LOGS_KEY, JSON.stringify(logs)); renderInventory(); }
-        function saveRequisitions(reqs) { localStorage.setItem(STORE_REQ_KEY, JSON.stringify(reqs)); renderInventory(); }
-        function saveList(key, list) { localStorage.setItem(key, JSON.stringify(list)); }
-
-        function renderInventory() {
-            const items = loadItems();
-            const reqs = loadRequisitions();
-
-            document.getElementById('dashTotalItems').innerText = items.length;
-            const totalQty = items.reduce((sum, item) => sum + (item.quantity || 0), 0);
-            document.getElementById('dashTotalQty').innerText = totalQty;
-
-            const pendingCount = reqs.filter(r => r.status !== 'DISPATCHED').length;
-            const dispatchedCount = reqs.filter(r => r.status === 'DISPATCHED').length;
-
-            document.getElementById('dashPendingReq').innerText = pendingCount;
-            document.getElementById('dashTotalDispatched').innerText = dispatchedCount;
-
-            const container = document.getElementById('productListContainer');
-            container.innerHTML = '';
-
-            items.forEach(item => {
-                const isLow = item.quantity <= 2;
-                const card = document.createElement('div');
-                card.className = 'item-card';
-                const fallbackImg = "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=300&auto=format&fit=crop&q=80";
-
-                card.innerHTML = `
-                    <img src="${item.image || fallbackImg}" class="item-img" alt="${item.name}" onerror="this.src='${fallbackImg}'">
-                    <div class="item-details">
-                        <h4>${item.name}</h4>
-                        <p>${item.category}</p>
-                        <button type="button" onclick="openEditModal(${item.id})" style="background:none; border:none; color:var(--primary); font-size:11px; font-weight:700; cursor:pointer; padding:0; margin-top:4px;">
-                            ✏️ Edit Product / Stock
-                        </button>
-                    </div>
-                    <div class="item-stock">
-                        <span class="stock-badge ${isLow ? 'low-stock' : 'in-stock'}">
-                            ${item.quantity} units
-                        </span>
-                        <div style="font-size: 10px; font-weight: 800; color: ${isLow ? 'var(--red)' : '#34d399'}; margin-top: 4px;">
-                            ${isLow ? 'LOW STOCK' : 'AVAILABLE'}
-                        </div>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        // ================= DYNAMIC DROPDOWN MANAGER =================
-        function openDropdownManagerModal() {
-            renderManagerList();
-            document.getElementById('modalDropdownManager').style.display = 'flex';
-        }
-
-        function getActiveListMeta() {
-            const cat = document.getElementById('managerCategorySelect').value;
-            if (cat === 'customers') return { key: LIST_CUSTOMERS_KEY, defaults: DEFAULT_CUSTOMERS };
-            if (cat === 'sites') return { key: LIST_SITES_KEY, defaults: DEFAULT_SITES };
-            return { key: LIST_REQUESTERS_KEY, defaults: DEFAULT_REQUESTERS };
-        }
-
-        function renderManagerList() {
-            const { key, defaults } = getActiveListMeta();
-            const list = loadList(key, defaults);
-            const container = document.getElementById('managerListContainer');
-            container.innerHTML = '';
-
-            list.forEach((entry, index) => {
-                const row = document.createElement('div');
-                row.className = 'list-item-row';
-                row.innerHTML = `
-                    <span><b>${entry}</b></span>
-                    <button type="button" class="btn-del-sm" onclick="deleteListItem(${index})">Delete</button>
-                `;
-                container.appendChild(row);
-            });
-        }
-
-        function addNewListItem() {
-            const input = document.getElementById('newListItemInput');
-            const val = input.value.trim();
-            if (!val) {
-                alert('Please type a name to add.');
-                return;
-            }
-
-            const { key, defaults } = getActiveListMeta();
-            const list = loadList(key, defaults);
-            list.push(val);
-            saveList(key, list);
-
-            input.value = '';
-            renderManagerList();
-            alert(`"${val}" has been added to the dropdown list!`);
-        }
-
-        function deleteListItem(index) {
-            const { key, defaults } = getActiveListMeta();
-            const list = loadList(key, defaults);
-            const item = list[index];
-
-            if (confirm(`Delete "${item}" from the dropdown list?`)) {
-                list.splice(index, 1);
-                saveList(key, list);
-                renderManagerList();
-            }
-        }
-
-        // ================= REQUISITION LOGIC =================
-        function openRequisitionModal() {
-            const customers = loadList(LIST_CUSTOMERS_KEY, DEFAULT_CUSTOMERS);
-            const custSelect = document.getElementById('reqCustomerSelect');
-            custSelect.innerHTML = '';
-            customers.forEach(c => {
-                const opt = document.createElement('option');
-                opt.value = c;
-                opt.textContent = c;
-                custSelect.appendChild(opt);
-            });
-
-            const sites = loadList(LIST_SITES_KEY, DEFAULT_SITES);
-            const siteSelect = document.getElementById('reqSiteSelect');
-            siteSelect.innerHTML = '';
-            sites.forEach(s => {
-                const opt = document.createElement('option');
-                opt.value = s;
-                opt.textContent = s;
-                siteSelect.appendChild(opt);
-            });
-
-            const requesters = loadList(LIST_REQUESTERS_KEY, DEFAULT_REQUESTERS);
-            const reqSelect = document.getElementById('reqRequestedBySelect');
-            reqSelect.innerHTML = '';
-            requesters.forEach(r => {
-                const opt = document.createElement('option');
-                opt.value = r;
-                opt.textContent = r;
-                reqSelect.appendChild(opt);
-            });
-
-            const items = loadItems();
-            const itemSelect = document.getElementById('reqItemSelect');
-            itemSelect.innerHTML = '';
-            items.forEach(item => {
-                const opt = document.createElement('option');
-                opt.value = item.id;
-                opt.textContent = `${item.name} (In Store: ${item.quantity})`;
-                itemSelect.appendChild(opt);
-            });
-
-            document.getElementById('reqDateTime').value = getFormattedCurrentDateTime();
-            document.getElementById('reqQty').value = '';
-            document.getElementById('modalRequisition').style.display = 'flex';
-        }
-
-        function submitRequisition() {
-            const customer = document.getElementById('reqCustomerSelect').value;
-            const location = document.getElementById('reqSiteSelect').value;
-            const requestedBy = document.getElementById('reqRequestedBySelect').value;
-            const requestDate = document.getElementById('reqDateTime').value;
-            const itemId = parseInt(document.getElementById('reqItemSelect').value);
-            const qty = parseInt(document.getElementById('reqQty').value);
-
-            if (!qty || qty <= 0) {
-                alert('Please enter a valid requested quantity.');
-                return;
-            }
-
-            const items = loadItems();
-            const item = items.find(i => i.id === itemId);
-            if (!item) return;
-
-            const reqs = loadRequisitions();
-            reqs.unshift({
-                id: Date.now(),
-                customerName: customer,
-                siteLocation: location,
-                requestedBy: requestedBy,
-                requestDate: requestDate,
-                issueDate: null,
-                itemId: item.id,
-                itemName: item.name,
-                qty: qty,
-                accountsApproved: false,
-                accountsName: "Pending",
-                mdApproved: false,
-                mdName: "Pending",
-                storeInchargeName: "Pending",
-                status: 'SUBMITTED'
-            });
-
-            saveRequisitions(reqs);
-            document.getElementById('reqQty').value = '';
-            closeModal('modalRequisition');
-            alert('Requisition generated! Pending Accounts & MD approvals.');
-        }
-
-        function openPendingReqModal() {
-            const reqs = loadRequisitions();
-            const container = document.getElementById('pendingReqListContainer');
-            container.innerHTML = '';
-
-            if (reqs.length === 0) {
-                container.innerHTML = '<div style="text-align:center; color:#94a3b8; padding:20px;">No requisitions on record.</div>';
-            } else {
-                reqs.forEach(req => {
-                    const isFullyApproved = req.accountsApproved && req.mdApproved;
-                    const isDispatched = req.status === 'DISPATCHED';
-
-                    const card = document.createElement('div');
-                    card.className = 'record-card';
-                    card.innerHTML = `
-                        <div class="record-card-header">
-                            <div>
-                                <span style="font-weight:800; color:#ffffff; font-size:14px;">${req.customerName}</span>
-                                <div style="color:#94a3b8; font-size:11px;">📍 ${req.siteLocation}</div>
-                            </div>
-                            <div>
-                                ${isFullyApproved ? `
-                                    <span class="qty-badge qty-approved">
-                                        ${req.qty} Units <span style="font-size:15px;">✅</span>
-                                    </span>
-                                ` : `
-                                    <span class="qty-badge qty-pending">
-                                        ${req.qty} Units (Pending)
-                                    </span>
-                                `}
-                            </div>
-                        </div>
-
-                        <div style="color:#cbd5e1; margin:6px 0;">📦 <b>Item:</b> ${req.itemName}</div>
-                        <div style="color:#94a3b8;">👷 <b>Requested By:</b> ${req.requestedBy}</div>
-                        <div style="color:#64748b; font-size:11px; margin-top:2px;">🕒 <b>Request Date:</b> ${req.requestDate}</div>
-                        ${req.issueDate ? `<div style="color:#34d399; font-size:11px; margin-top:2px;">🚚 <b>Dispatched On:</b> ${req.issueDate}</div>` : ''}
-
-                        <div class="approval-pipeline">
-                            <button class="approval-check-btn ${req.accountsApproved ? 'signed' : ''}" 
-                                onclick="toggleAccountsApproval(${req.id})" ${isDispatched ? 'disabled' : ''}>
-                                <span>🏦 Accounts</span>
-                                <span>${req.accountsApproved ? 'APPROVED ✓' : 'APPROVE'}</span>
-                            </button>
-                            <button class="approval-check-btn ${req.mdApproved ? 'signed' : ''}" 
-                                onclick="toggleMdApproval(${req.id})" ${isDispatched ? 'disabled' : ''}>
-                                <span>👔 MD</span>
-                                <span>${req.mdApproved ? 'APPROVED ✓' : 'APPROVE'}</span>
-                            </button>
-                        </div>
-
-                        ${!isDispatched ? `
-                            <button type="button" class="btn ${isFullyApproved ? 'btn-success' : 'btn-ghost'}" 
-                                style="${!isFullyApproved ? 'opacity:0.6; cursor:not-allowed;' : ''}"
-                                onclick="${isFullyApproved ? `dispatchStock(${req.id})` : `alert('Requisition cannot be issued without both Accounts Dept and MD approvals!')`}">
-                                📦 ${isFullyApproved ? 'Store Incharge: Issue & Dispatch Material' : 'Locked: Awaiting Accounts & MD Approval'}
-                            </button>
-                        ` : `
-                            <div style="text-align:center; padding:8px; background:rgba(16,185,129,0.15); border-radius:8px; color:#34d399; font-weight:800; font-size:12px; margin-top:8px;">
-                                ✅ MATERIAL ISSUED & DISPATCHED
-                            </div>
-                        `}
-
-                        <div class="approvers-bottom-bar">
-                            <div class="approver-tag">
-                                <div class="role">Accounts</div>
-                                <div class="${req.accountsApproved ? 'status-green' : 'status-red'}">${req.accountsApproved ? req.accountsName : '⏳ Pending'}</div>
-                            </div>
-                            <div class="approver-tag">
-                                <div class="role">MD</div>
-                                <div class="${req.mdApproved ? 'status-green' : 'status-red'}">${req.mdApproved ? req.mdName : '⏳ Pending'}</div>
-                            </div>
-                            <div class="approver-tag">
-                                <div class="role">Store Incharge</div>
-                                <div class="${isDispatched ? 'status-green' : 'status-red'}">${isDispatched ? req.storeInchargeName : '⏳ Pending'}</div>
-                            </div>
-                        </div>
-                    `;
-                    container.appendChild(card);
-                });
-            }
-
-            document.getElementById('modalPendingReq').style.display = 'flex';
-        }
-
-        function toggleAccountsApproval(reqId) {
-            const reqs = loadRequisitions();
-            const req = reqs.find(r => r.id === reqId);
-            if (!req) return;
-
-            req.accountsApproved = !req.accountsApproved;
-            req.accountsName = req.accountsApproved ? "Accounts Verified" : "Pending";
-            saveRequisitions(reqs);
-            openPendingReqModal();
-        }
-
-        function toggleMdApproval(reqId) {
-            const reqs = loadRequisitions();
-            const req = reqs.find(r => r.id === reqId);
-            if (!req) return;
-
-            req.mdApproved = !req.mdApproved;
-            req.mdName = req.mdApproved ? "MD Approved" : "Pending";
-            saveRequisitions(reqs);
-            openPendingReqModal();
-        }
-
-        function dispatchStock(reqId) {
-            const reqs = loadRequisitions();
-            const req = reqs.find(r => r.id === reqId);
-            if (!req) return;
-
-            if (!req.accountsApproved || !req.mdApproved) {
-                alert('Both Accounts and MD must approve before Store Incharge can issue the material.');
-                return;
-            }
-
-            const items = loadItems();
-            const item = items.find(i => i.id === req.itemId);
-
-            if (!item || item.quantity < req.qty) {
-                alert(`Insufficient stock in store! In store: ${item ? item.quantity : 0}, Requested: ${req.qty}`);
-                return;
-            }
-
-            item.quantity -= req.qty;
-            req.issueDate = getFormattedCurrentDateTime();
-            req.status = 'DISPATCHED';
-            req.storeInchargeName = "Dispatched by Store";
-
-            const logs = loadLogs();
-            logs.unshift({
-                date: req.issueDate,
-                customer: req.customerName,
-                site: req.siteLocation,
-                requestedBy: req.requestedBy,
-                itemName: req.itemName,
-                qty: req.qty,
-                accounts: req.accountsName,
-                md: req.mdName,
-                type: 'DISPATCH'
-            });
-
-            saveItems(items);
-            saveRequisitions(reqs);
-            saveLogs(logs);
-
-            openPendingReqModal();
-            alert(`Stock issued and dispatched on ${req.issueDate}!`);
-        }
-
-        // ================= MATERIAL REGISTER (FILTERABLE) =================
-        function openMaterialRecordModal() {
-            const reqs = loadRequisitions();
-            
-            const custSelect = document.getElementById('filterCustomer');
-            custSelect.innerHTML = '<option value="ALL">All Customers</option>';
-            const customers = [...new Set(reqs.map(r => r.customerName))];
-            customers.forEach(c => {
-                const opt = document.createElement('option');
-                opt.value = c;
-                opt.textContent = c;
-                custSelect.appendChild(opt);
-            });
-
-            const reqSelect = document.getElementById('filterRequester');
-            reqSelect.innerHTML = '<option value="ALL">All Requesters</option>';
-            const requesters = [...new Set(reqs.map(r => r.requestedBy))];
-            requesters.forEach(r => {
-                const opt = document.createElement('option');
-                opt.value = r;
-                opt.textContent = r;
-                reqSelect.appendChild(opt);
-            });
-
-            renderFilteredRecords();
-            document.getElementById('modalMaterialRecord').style.display = 'flex';
-        }
-
-        function renderFilteredRecords() {
-            const reqs = loadRequisitions();
-            const customerFilter = document.getElementById('filterCustomer').value;
-            const requesterFilter = document.getElementById('filterRequester').value;
-            const dateFilterText = document.getElementById('filterDateText').value.trim().toLowerCase();
-            const statusFilter = document.getElementById('filterStatus').value;
-
-            const container = document.getElementById('filteredRecordsContainer');
-            container.innerHTML = '';
-
-            const filtered = reqs.filter(r => {
-                const matchCustomer = (customerFilter === 'ALL' || r.customerName === customerFilter);
-                const matchRequester = (requesterFilter === 'ALL' || r.requestedBy === requesterFilter);
-                const matchDate = (!dateFilterText || r.requestDate.toLowerCase().includes(dateFilterText) || (r.issueDate && r.issueDate.toLowerCase().includes(dateFilterText)));
-                const matchStatus = (statusFilter === 'ALL' || r.status === statusFilter);
-                return matchCustomer && matchRequester && matchDate && matchStatus;
-            });
-
-            if (filtered.length === 0) {
-                container.innerHTML = '<div style="text-align:center; color:#94a3b8; padding:20px;">No matching records found.</div>';
-                return;
-            }
-
-            filtered.forEach(req => {
-                const card = document.createElement('div');
-                card.className = 'record-card';
-                card.innerHTML = `
-                    <div class="record-card-header">
-                        <div>
-                            <span style="font-weight:800; color:#38bdf8; font-size:14px;">${req.customerName}</span>
-                            <div style="color:#94a3b8; font-size:11px;">📍 Site: ${req.siteLocation}</div>
-                        </div>
-                        <span class="stock-badge ${req.status === 'DISPATCHED' ? 'in-stock' : 'low-stock'}">
-                            ${req.status}
-                        </span>
-                    </div>
-
-                    <div style="color:#ffffff; margin:6px 0;">📦 <b>Item:</b> ${req.itemName} &bull; <b>Qty:</b> <span style="color:#38bdf8; font-weight:800;">${req.qty} units</span></div>
-                    <div style="color:#cbd5e1;">👷 <b>Requested By:</b> ${req.requestedBy}</div>
-                    <div style="color:#94a3b8; font-size:11px; margin-top:2px;">📅 <b>Request Date:</b> ${req.requestDate}</div>
-                    ${req.issueDate ? `<div style="color:#34d399; font-size:11px; margin-top:2px;">🚚 <b>Dispatched Date:</b> ${req.issueDate}</div>` : ''}
-
-                    <div class="approvers-bottom-bar">
-                        <div class="approver-tag">
-                            <div class="role">Accounts</div>
-                            <div class="${req.accountsApproved ? 'status-green' : 'status-red'}">${req.accountsApproved ? req.accountsName : 'Pending'}</div>
-                        </div>
-                        <div class="approver-tag">
-                            <div class="role">MD</div>
-                            <div class="${req.mdApproved ? 'status-green' : 'status-red'}">${req.mdApproved ? req.mdName : 'Pending'}</div>
-                        </div>
-                        <div class="approver-tag">
-                            <div class="role">Store Status</div>
-                            <div class="${req.status === 'DISPATCHED' ? 'status-green' : 'status-red'}">${req.status === 'DISPATCHED' ? 'Dispatched' : 'Pending'}</div>
-                        </div>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        // ================= DISPATCH AUDIT LOGS =================
-        function openDispatchLogsModal() {
-            const reqs = loadRequisitions();
-            const dispatched = reqs.filter(r => r.status === 'DISPATCHED');
-            const container = document.getElementById('dispatchLogsContainer');
-            container.innerHTML = '';
-
-            if (dispatched.length === 0) {
-                container.innerHTML = '<div style="text-align:center; color:#94a3b8; padding:20px;">No dispatched material records yet.</div>';
-            } else {
-                dispatched.forEach(item => {
-                    const card = document.createElement('div');
-                    card.className = 'record-card';
-                    card.style.borderLeft = '4px solid #10b981';
-                    card.innerHTML = `
-                        <div class="record-card-header">
-                            <div>
-                                <span style="font-weight:800; color:#34d399; font-size:14px;">🚚 DISPATCHED: ${item.itemName}</span>
-                                <div style="color:#ffffff; font-weight:700; margin-top:2px;">Customer: ${item.customerName}</div>
-                            </div>
-                            <span class="qty-badge in-stock">${item.qty} Units Issued</span>
-                        </div>
-                        <div style="color:#94a3b8; margin:4px 0;">📍 <b>Site:</b> ${item.siteLocation}</div>
-                        <div style="color:#cbd5e1;">👷 <b>Requested By:</b> ${item.requestedBy}</div>
-                        <div style="color:#94a3b8; font-size:11px; margin-top:4px;">🕒 <b>Request Date:</b> ${item.requestDate}</div>
-                        <div style="color:#34d399; font-size:12px; font-weight:800; margin-top:2px;">✅ <b>Dispatch Timestamp:</b> ${item.issueDate}</div>
-                        
-                        <div class="approvers-bottom-bar">
-                            <div class="approver-tag">
-                                <div class="role">Accounts Approval</div>
-                                <div class="status-green">✓ Verified</div>
-                            </div>
-                            <div class="approver-tag">
-                                <div class="role">MD Approval</div>
-                                <div class="status-green">✓ Approved</div>
-                            </div>
-                            <div class="approver-tag">
-                                <div class="role">Store Dispatcher</div>
-                                <div class="status-green">✓ Released</div>
-                            </div>
-                        </div>
-                    `;
-                    container.appendChild(card);
-                });
-            }
-
-            document.getElementById('modalDispatchLogs').style.display = 'flex';
-        }
-
-        // ================= EDIT PRODUCT MASTER =================
-        function openEditModal(itemId) {
-            const items = loadItems();
-            const item = items.find(i => i.id === itemId);
-            if (!item) return;
-
-            document.getElementById('editItemId').value = item.id;
-            document.getElementById('editItemName').value = item.name;
-            document.getElementById('editCategory').value = item.category;
-            document.getElementById('editItemQty').value = item.quantity;
-            document.getElementById('editItemImage').value = item.image || '';
-
-            document.getElementById('modalEditProduct').style.display = 'flex';
-        }
-
-        function saveUpdatedProduct() {
-            const id = parseInt(document.getElementById('editItemId').value);
-            const name = document.getElementById('editItemName').value.trim();
-            const category = document.getElementById('editCategory').value;
-            const qty = parseInt(document.getElementById('editItemQty').value);
-            const image = document.getElementById('editItemImage').value.trim();
-
-            if (!name || isNaN(qty) || qty < 0) {
-                alert('Please enter a valid product name and positive stock quantity.');
-                return;
-            }
-
-            const items = loadItems();
-            const item = items.find(i => i.id === id);
-            if (!item) return;
-
-            item.name = name;
-            item.category = category;
-            item.quantity = qty;
-            item.image = image || null;
-
-            saveItems(items);
-            closeModal('modalEditProduct');
-            alert('Product stock updated successfully!');
-        }
-
-        function deleteProduct() {
-            const id = parseInt(document.getElementById('editItemId').value);
-            if (confirm("Are you sure you want to permanently delete this product?")) {
-                let items = loadItems();
-                items = items.filter(i => i.id !== id);
-                saveItems(items);
-                closeModal('modalEditProduct');
-                alert('Product removed from store master.');
-            }
-        }
-
-        // ================= STOCK IN & MASTER LOGIC =================
-        function openStockInModal() {
-            const items = loadItems();
-            const select = document.getElementById('stockInSelect');
-            select.innerHTML = '';
-            items.forEach(item => {
-                const opt = document.createElement('option');
-                opt.value = item.id;
-                opt.textContent = `${item.name} (Stock: ${item.quantity})`;
-                select.appendChild(opt);
-            });
-            document.getElementById('modalStockIn').style.display = 'flex';
-        }
-
-        function recordStockIn() {
-            const itemId = parseInt(document.getElementById('stockInSelect').value);
-            const qty = parseInt(document.getElementById('stockInQty').value);
-            const ref = document.getElementById('stockInRemarks').value.trim();
-
-            if (!qty || qty <= 0) {
-                alert('Please enter a valid quantity.');
-                return;
-            }
-
-            const items = loadItems();
-            const item = items.find(i => i.id === itemId);
-            if (!item) return;
-
-            item.quantity += qty;
-            saveItems(items);
-
-            document.getElementById('stockInQty').value = '';
-            document.getElementById('stockInRemarks').value = '';
-            closeModal('modalStockIn');
-            alert('Stock In recorded successfully!');
-        }
-
-        function openItemMasterModal() {
-            document.getElementById('modalItemMaster').style.display = 'flex';
-        }
-
-        function saveMasterItem() {
-            const name = document.getElementById('masterItemName').value.trim();
-            const category = document.getElementById('masterCategory').value;
-            const image = document.getElementById('masterItemImage').value.trim();
-
-            if (!name) {
-                alert('Please enter a product name.');
-                return;
-            }
-
-            const items = loadItems();
-            items.push({
-                id: Date.now(),
-                name: name,
-                category: category,
-                quantity: 0,
-                image: image || null
-            });
-
-            saveItems(items);
-            document.getElementById('masterItemName').value = '';
-            document.getElementById('masterItemImage').value = '';
-            closeModal('modalItemMaster');
-            alert('Product added successfully!');
-        }
-
-        function closeModal(id) {
-            document.getElementById(id).style.display = 'none';
-        }
-    </script>
 </body>
 </html>
