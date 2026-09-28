@@ -2,50 +2,68 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DIP URJA POWER SOLUTIONS - Store Management</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DIP URJA - Store Management System</title>
     
-    <!-- PWA Settings -->
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#111827">
+    <meta name="theme-color" content="#0f172a">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
+        :root {
+            --primary: #0284c7;
+            --primary-dark: #0369a1;
+            --accent: #f59e0b;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --slate-900: #0f172a;
+            --slate-800: #1e293b;
+            --slate-600: #475569;
+            --slate-400: #94a3b8;
+            --green: #10b981;
+            --red: #ef4444;
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-md: 0 8px 24px -4px rgba(15, 23, 42, 0.08);
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            color: #222;
-            padding-bottom: 40px;
-            user-select: none;
+            background: var(--bg);
+            color: var(--slate-900);
+            padding-bottom: 50px;
         }
 
-        /* Install Banner */
+        /* Install Bar */
         #installBanner {
             display: none;
-            background: #0284c7;
+            background: linear-gradient(135deg, #0284c7, #0369a1);
             color: white;
-            padding: 10px 16px;
-            justify-content: space-between;
+            padding: 10px 18px;
             align-items: center;
+            justify-content: space-between;
             font-size: 13px;
-            font-weight: bold;
+            font-weight: 600;
         }
 
         #installBanner button {
-            background: white;
-            color: #0284c7;
+            background: #ffffff;
+            color: var(--primary-dark);
             border: none;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-weight: bold;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
             cursor: pointer;
         }
 
@@ -55,220 +73,337 @@
             min-height: 100vh;
             align-items: center;
             justify-content: center;
-            padding: 16px;
-            background: #0f172a;
+            padding: 20px;
+            background: radial-gradient(circle at top, #1e293b, #0f172a);
         }
 
         .login-card {
-            background: #ffffff;
+            background: var(--surface);
             width: 100%;
             max-width: 400px;
-            border-radius: 16px;
-            padding: 24px 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-radius: 24px;
+            padding: 32px 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
             text-align: center;
+        }
+
+        .brand-badge {
+            width: 58px;
+            height: 58px;
+            background: #e0f2fe;
+            color: var(--primary);
+            border-radius: 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 12px;
         }
 
         .login-card h2 {
             font-size: 20px;
-            color: #0f172a;
-            margin-bottom: 6px;
+            font-weight: 800;
+            color: var(--slate-900);
         }
 
         .login-card p {
             font-size: 13px;
-            color: #64748b;
-            margin-bottom: 20px;
+            color: var(--slate-600);
+            margin: 4px 0 24px;
         }
 
         .otp-display-box {
-            background: #e0f2fe;
-            border: 2px dashed #0284c7;
-            color: #0369a1;
-            padding: 14px;
-            border-radius: 10px;
-            margin-bottom: 16px;
-            font-weight: bold;
-            font-size: 14px;
+            background: #eff6ff;
+            border: 2px dashed #93c5fd;
+            border-radius: var(--radius-md);
+            padding: 16px;
+            margin-bottom: 20px;
         }
 
-        .otp-number {
-            display: block;
-            font-size: 28px;
+        .otp-code {
+            font-size: 32px;
+            font-weight: 800;
             letter-spacing: 6px;
-            color: #0284c7;
-            margin-top: 6px;
+            color: var(--primary);
+            margin: 4px 0;
+            display: block;
         }
 
-        /* Store App Screen */
+        /* App Header */
         #mainAppScreen {
             display: none;
         }
 
         .header {
-            background: #111827;
+            background: var(--slate-900);
             color: white;
-            padding: 20px 16px;
-            text-align: center;
+            padding: 24px 20px 20px;
+            border-bottom-left-radius: 24px;
+            border-bottom-right-radius: 24px;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
         }
 
-        .header h1 {
-            font-size: 20px;
-            letter-spacing: 0.5px;
-        }
-
-        .header p {
-            margin-top: 4px;
-            font-size: 12px;
-            color: #cbd5e1;
-        }
-
-        .user-badge {
-            margin-top: 10px;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: #1e293b;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 12px;
-            color: #38bdf8;
-        }
-
-        .logout-link {
-            color: #f87171;
-            cursor: pointer;
-            text-decoration: underline;
-            font-weight: bold;
-        }
-
-        .container {
-            padding: 16px;
-            max-width: 700px;
-            margin: auto;
-        }
-
-        .section-title {
-            font-size: 17px;
-            font-weight: bold;
-            margin: 14px 0 10px;
-        }
-
-        .dashboard {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
-        .card {
-            background: white;
-            border-radius: 14px;
-            padding: 16px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-        }
-
-        .card h3 {
-            font-size: 13px;
-            color: #64748b;
-            margin-bottom: 6px;
-        }
-
-        .card .number {
-            font-size: 22px;
-            font-weight: bold;
-            color: #0f172a;
-        }
-
-        .menu {
-            margin-top: 14px;
-            display: grid;
-            gap: 10px;
-        }
-
-        .menu button {
-            width: 100%;
-            border: 1px solid #e2e8f0;
-            padding: 14px 16px;
-            border-radius: 12px;
-            background: white;
-            text-align: left;
-            font-size: 15px;
-            font-weight: bold;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-            cursor: pointer;
+        .brand-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
 
-        .menu button:active {
-            transform: scale(0.98);
+        .brand-info h1 {
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .brand-info p {
+            font-size: 11px;
+            color: var(--slate-400);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 2px;
+        }
+
+        .operator-pill {
+            background: var(--slate-800);
+            padding: 6px 14px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: #38bdf8;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .logout-btn {
+            color: #f87171;
+            font-weight: 700;
+            cursor: pointer;
+            margin-left: 4px;
+        }
+
+        .container {
+            padding: 18px 16px;
+            max-width: 650px;
+            margin: auto;
+        }
+
+        /* Dashboard Overview Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            padding: 16px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #f1f5f9;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .stat-card .label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--slate-600);
+        }
+
+        .stat-card .value {
+            font-size: 24px;
+            font-weight: 800;
+            margin-top: 6px;
+            color: var(--slate-900);
+        }
+
+        /* Operations Row */
+        .ops-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 22px;
+        }
+
+        .ops-btn {
+            background: var(--surface);
+            border: 1px solid #e2e8f0;
+            border-radius: var(--radius-md);
+            padding: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--slate-900);
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.1s ease;
+        }
+
+        .ops-btn:active {
+            transform: scale(0.97);
             background: #f8fafc;
         }
 
-        /* Form Controls */
+        .ops-icon {
+            font-size: 18px;
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Inventory Cards */
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 20px 0 12px;
+        }
+
+        .section-header h2 {
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        .stock-items-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .item-card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 14px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #f1f5f9;
+        }
+
+        .item-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            object-fit: cover;
+            background: #e2e8f0;
+            flex-shrink: 0;
+        }
+
+        .item-details {
+            flex-grow: 1;
+        }
+
+        .item-details h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--slate-900);
+        }
+
+        .item-details p {
+            font-size: 12px;
+            color: var(--slate-600);
+            margin-top: 2px;
+        }
+
+        .item-stock {
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .stock-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .in-stock {
+            background: #ecfdf5;
+            color: var(--green);
+        }
+
+        .low-stock {
+            background: #fef2f2;
+            color: var(--red);
+        }
+
+        /* Forms & Inputs */
         .form-group {
-            margin-bottom: 14px;
             text-align: left;
+            margin-bottom: 14px;
         }
 
         .form-group label {
             display: block;
-            font-size: 13px;
-            font-weight: bold;
-            margin-bottom: 4px;
-            color: #334155;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--slate-600);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .form-group input, .form-group select {
+        .form-control {
             width: 100%;
-            padding: 11px 12px;
+            padding: 12px 14px;
             border: 1px solid #cbd5e1;
-            border-radius: 8px;
+            border-radius: var(--radius-md);
             font-size: 14px;
+            background: white;
+            outline: none;
         }
 
-        .btn-submit {
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+        }
+
+        .btn {
             width: 100%;
-            padding: 12px;
-            background: #0284c7;
-            color: white;
+            padding: 13px;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 700;
             border: none;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: bold;
             cursor: pointer;
-            margin-top: 6px;
+            transition: 0.15s ease;
         }
 
-        .btn-secondary {
-            background: #475569;
-            margin-top: 8px;
-        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-success { background: var(--green); color: white; }
+        .btn-danger { background: var(--red); color: white; }
+        .btn-ghost { background: #e2e8f0; color: var(--slate-800); margin-top: 8px; }
 
-        /* Modals */
+        /* Modal Overlays */
         .modal {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 100;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 999;
             align-items: center;
             justify-content: center;
             padding: 16px;
         }
 
-        .modal-content {
-            background: white;
+        .modal-body {
+            background: var(--surface);
             width: 100%;
-            max-width: 500px;
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            max-height: 90vh;
+            max-width: 440px;
+            border-radius: 20px;
+            padding: 22px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+            max-height: 85vh;
             overflow-y: auto;
         }
 
@@ -279,234 +414,243 @@
             margin-bottom: 16px;
         }
 
-        .modal-header h2 {
-            font-size: 18px;
+        .modal-header h3 {
+            font-size: 17px;
+            font-weight: 800;
         }
 
         .close-btn {
-            font-size: 24px;
-            border: none;
+            font-size: 22px;
             background: none;
+            border: none;
             cursor: pointer;
-            color: #64748b;
+            color: var(--slate-400);
         }
 
-        .stock-table {
+        .log-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 13px;
-            margin-top: 10px;
+            font-size: 12px;
         }
 
-        .stock-table th, .stock-table td {
-            border: 1px solid #e2e8f0;
-            padding: 8px;
+        .log-table th, .log-table td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #f1f5f9;
             text-align: left;
-        }
-
-        .stock-table th {
-            background: #f1f5f9;
         }
 
         .footer {
             text-align: center;
-            padding: 26px 10px;
-            color: #64748b;
-            font-size: 12px;
+            margin-top: 36px;
+            font-size: 11px;
+            color: var(--slate-400);
             line-height: 1.6;
         }
     </style>
 </head>
 <body>
 
-    <!-- Install App Bar -->
+    <!-- Install Banner -->
     <div id="installBanner">
-        <span>📲 Download & Install Store App</span>
-        <button id="btnInstallApp">Install Now</button>
+        <span>⚡ Install DIP URJA Store App</span>
+        <button id="btnInstallApp">Install</button>
     </div>
 
-    <!-- 1. LOGIN & OTP SCREEN -->
+    <!-- ================= 1. PROFESSIONAL LOGIN SCREEN ================= -->
     <div id="loginScreen">
         <div class="login-card">
+            <div class="brand-badge">⚡</div>
             <h2>DIP URJA STORE</h2>
-            <p>Mobile Number Verification</p>
+            <p>Authorized Stock Management Access</p>
 
             <div id="phoneStep">
                 <div class="form-group">
-                    <label>Enter Mobile Number</label>
-                    <input type="tel" id="userPhone" placeholder="10-digit mobile number" maxlength="10" inputmode="numeric">
+                    <label>Mobile Number</label>
+                    <input type="tel" id="userPhone" class="form-control" placeholder="10-digit number" maxlength="10" inputmode="numeric">
                 </div>
-                <button class="btn-submit" onclick="generateOTP()">Generate OTP</button>
+                <button class="btn btn-primary" onclick="generateOTP()">Request Login OTP</button>
             </div>
 
             <div id="otpStep" style="display: none;">
                 <div class="otp-display-box">
-                    <span>SECURITY CODE / OTP:</span>
-                    <span class="otp-number" id="boxOtp">----</span>
-                    <small style="color: #64748b; font-weight: normal;">Type this 4-digit code below to enter</small>
+                    <span style="font-size: 12px; font-weight: 700; color: #0369a1;">YOUR VERIFICATION CODE</span>
+                    <span class="otp-code" id="boxOtp">----</span>
+                    <small style="color: #64748b;">Enter the 4-digit code above to authenticate</small>
                 </div>
 
                 <div class="form-group">
-                    <label>Enter 4-Digit OTP</label>
-                    <input type="tel" id="userOTP" placeholder="Enter the OTP above" maxlength="4" inputmode="numeric">
+                    <label>4-Digit OTP</label>
+                    <input type="tel" id="userOTP" class="form-control" placeholder="Enter OTP" maxlength="4" inputmode="numeric">
                 </div>
-                <button class="btn-submit" style="background:#16a34a;" onclick="verifyAndLogin()">Verify & Login</button>
-                <button class="btn-submit btn-secondary" onclick="changePhoneNumber()">Change Phone Number</button>
+                <button class="btn btn-success" onclick="verifyAndLogin()">Verify & Launch Dashboard</button>
+                <button class="btn btn-ghost" onclick="changePhoneNumber()">Switch Number</button>
             </div>
         </div>
     </div>
 
-    <!-- 2. MAIN APPLICATION -->
+    <!-- ================= 2. MAIN STORE APP DASHBOARD ================= -->
     <div id="mainAppScreen">
         <div class="header">
-            <h1>DIP URJA POWER SOLUTIONS</h1>
-            <p>STORE & MATERIAL MANAGEMENT SYSTEM</p>
-            <div class="user-badge">
-                <span>📱 Operator: <b id="displayPhone"></b></span>
-                <span class="logout-link" onclick="logout()">Logout</span>
+            <div class="brand-row">
+                <div class="brand-info">
+                    <h1>DIP URJA POWER SOLUTIONS</h1>
+                    <p>Warehouse & Stock System</p>
+                </div>
+                <div class="operator-pill">
+                    <span>📱 <span id="displayPhone"></span></span>
+                    <span class="logout-btn" onclick="logout()">Logout</span>
+                </div>
             </div>
         </div>
 
         <div class="container">
-            <div class="section-title">Store Dashboard</div>
-
-            <div class="dashboard">
-                <div class="card">
-                    <h3>Total Products</h3>
-                    <div class="number" id="dashTotalItems">0</div>
+            <!-- Summary Stats -->
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <span class="label">Total Products</span>
+                    <span class="value" id="dashTotalItems">0</span>
                 </div>
-                <div class="card">
-                    <h3>Total Stock Units</h3>
-                    <div class="number" id="dashTotalQty">0</div>
+                <div class="stat-card">
+                    <span class="label">Total Inventory Units</span>
+                    <span class="value" id="dashTotalQty" style="color: var(--primary);">0</span>
                 </div>
-                <div class="card">
-                    <h3>Stock In Logs</h3>
-                    <div class="number" id="dashStockInCount">0</div>
+                <div class="stat-card">
+                    <span class="label">Stock In Logged</span>
+                    <span class="value" id="dashStockInCount" style="color: var(--green);">0</span>
                 </div>
-                <div class="card">
-                    <h3>Stock Out Logs</h3>
-                    <div class="number" id="dashStockOutCount">0</div>
+                <div class="stat-card">
+                    <span class="label">Stock Out Logged</span>
+                    <span class="value" id="dashStockOutCount" style="color: var(--red);">0</span>
                 </div>
             </div>
 
-            <div class="section-title" style="margin-top:24px;">Store Operations</div>
+            <!-- Operations Grid -->
+            <div class="ops-grid">
+                <button class="ops-btn" onclick="openModal('modalStockIn')">
+                    <span class="ops-icon" style="background:#ecfdf5; color:var(--green);">➕</span>
+                    <span>Stock In (Receipt)</span>
+                </button>
+                <button class="ops-btn" onclick="openModal('modalStockOut')">
+                    <span class="ops-icon" style="background:#fef2f2; color:var(--red);">➖</span>
+                    <span>Stock Out (Issue)</span>
+                </button>
+                <button class="ops-btn" onclick="openModal('modalItemMaster')">
+                    <span class="ops-icon" style="background:#e0f2fe; color:var(--primary);">📦</span>
+                    <span>Add New Product</span>
+                </button>
+                <button class="ops-btn" onclick="openReportsModal()">
+                    <span class="ops-icon" style="background:#fef3c7; color:var(--accent);">📋</span>
+                    <span>Transaction History</span>
+                </button>
+            </div>
 
-            <div class="menu">
-                <button onclick="openModal('modalItemMaster')">📦 Material Master <span>&rarr;</span></button>
-                <button onclick="openModal('modalStockIn')">➕ Stock In / Material Receipt <span>&rarr;</span></button>
-                <button onclick="openModal('modalStockOut')">➖ Stock Out / Material Issue <span>&rarr;</span></button>
-                <button onclick="openStockBalanceModal()">📊 Stock Balance & Inventory <span>&rarr;</span></button>
-                <button onclick="openReportsModal()">📋 Transaction Log <span>&rarr;</span></button>
+            <!-- Visual Inventory List -->
+            <div class="section-header">
+                <h2>Product Inventory Status</h2>
+            </div>
+
+            <div class="stock-items-list" id="productListContainer">
+                <!-- Dynamically populated product cards -->
             </div>
 
             <div class="footer">
-                DIP URJA POWER SOLUTIONS<br>
-                Digital Store Management System
+                DIP URJA POWER SOLUTIONS • DIGITAL INVENTORY<br>
+                Rooftop Solar & Power Solutions
             </div>
         </div>
     </div>
 
-    <!-- MODALS -->
-    <!-- Modal 1: Master Item -->
+    <!-- MODAL 1: ADD PRODUCT -->
     <div id="modalItemMaster" class="modal">
-        <div class="modal-content">
+        <div class="modal-body">
             <div class="modal-header">
-                <h2>Add Product to Master</h2>
+                <h3>Add New Product</h3>
                 <button class="close-btn" onclick="closeModal('modalItemMaster')">&times;</button>
             </div>
             <div class="form-group">
-                <label>Product / Item Name</label>
-                <input type="text" id="masterItemName" placeholder="e.g. Solar Panel 540W / Lift Inverter">
+                <label>Product Name</label>
+                <input type="text" id="masterItemName" class="form-control" placeholder="e.g. Mono PERC 540W Panel">
             </div>
             <div class="form-group">
                 <label>Category</label>
-                <input type="text" id="masterCategory" placeholder="e.g. Solar / Power Backup / Structure">
+                <select id="masterCategory" class="form-control">
+                    <option value="Solar Panel">Solar Panel</option>
+                    <option value="Inverter / UPS">Inverter / UPS</option>
+                    <option value="Battery">Battery</option>
+                    <option value="Electrical Cable">Electrical Cable</option>
+                    <option value="Mounting Structure">Mounting Structure</option>
+                    <option value="Switchgear & Protection">Switchgear & Protection</option>
+                </select>
             </div>
-            <button class="btn-submit" onclick="saveMasterItem()">Save Product</button>
+            <div class="form-group">
+                <label>Image URL (Optional)</label>
+                <input type="text" id="masterItemImage" class="form-control" placeholder="Paste image link or leave empty">
+            </div>
+            <button class="btn btn-primary" onclick="saveMasterItem()">Save Product to Store</button>
         </div>
     </div>
 
-    <!-- Modal 2: Stock In -->
+    <!-- MODAL 2: STOCK IN -->
     <div id="modalStockIn" class="modal">
-        <div class="modal-content">
+        <div class="modal-body">
             <div class="modal-header">
-                <h2>Stock In / Receipt</h2>
+                <h3>Record Stock In (Receipt)</h3>
                 <button class="close-btn" onclick="closeModal('modalStockIn')">&times;</button>
             </div>
             <div class="form-group">
                 <label>Select Item</label>
-                <select id="stockInSelect"></select>
+                <select id="stockInSelect" class="form-control"></select>
             </div>
             <div class="form-group">
                 <label>Quantity In</label>
-                <input type="number" id="stockInQty" placeholder="Quantity">
+                <input type="number" id="stockInQty" class="form-control" placeholder="Number of units">
             </div>
             <div class="form-group">
-                <label>Invoice / Supplier Reference</label>
-                <input type="text" id="stockInRemarks" placeholder="Invoice No or Supplier Name">
+                <label>Supplier / Invoice Ref</label>
+                <input type="text" id="stockInRemarks" class="form-control" placeholder="e.g. Inv #8492 / WareHouse">
             </div>
-            <button class="btn-submit" style="background:#16a34a;" onclick="recordStock('IN')">Confirm Stock In</button>
+            <button class="btn btn-success" onclick="recordStock('IN')">Confirm Stock Entry</button>
         </div>
     </div>
 
-    <!-- Modal 3: Stock Out -->
+    <!-- MODAL 3: STOCK OUT -->
     <div id="modalStockOut" class="modal">
-        <div class="modal-content">
+        <div class="modal-body">
             <div class="modal-header">
-                <h2>Stock Out / Material Issue</h2>
+                <h3>Record Stock Out (Issue)</h3>
                 <button class="close-btn" onclick="closeModal('modalStockOut')">&times;</button>
             </div>
             <div class="form-group">
                 <label>Select Item</label>
-                <select id="stockOutSelect"></select>
+                <select id="stockOutSelect" class="form-control"></select>
             </div>
             <div class="form-group">
                 <label>Quantity Out</label>
-                <input type="number" id="stockOutQty" placeholder="Quantity">
+                <input type="number" id="stockOutQty" class="form-control" placeholder="Units to issue">
             </div>
             <div class="form-group">
-                <label>Site Name / Team Leader</label>
-                <input type="text" id="stockOutSite" placeholder="Project name or Receiver">
+                <label>Site Name / Project / Technician</label>
+                <input type="text" id="stockOutSite" class="form-control" placeholder="e.g. Gangapur Road Solar Site">
             </div>
-            <button class="btn-submit" style="background:#dc2626;" onclick="recordStock('OUT')">Confirm Stock Out</button>
+            <button class="btn btn-danger" onclick="recordStock('OUT')">Confirm Material Dispatch</button>
         </div>
     </div>
 
-    <!-- Modal 4: Stock Balance -->
-    <div id="modalBalance" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Current Stock Balance</h2>
-                <button class="close-btn" onclick="closeModal('modalBalance')">&times;</button>
-            </div>
-            <table class="stock-table">
-                <thead>
-                    <tr>
-                        <th>Item</th>
-                        <th>Category</th>
-                        <th>Balance</th>
-                    </tr>
-                </thead>
-                <tbody id="stockBalanceTableBody"></tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- Modal 5: Reports -->
+    <!-- MODAL 4: TRANSACTION REPORTS -->
     <div id="modalReports" class="modal">
-        <div class="modal-content">
+        <div class="modal-body" style="max-width: 550px;">
             <div class="modal-header">
-                <h2>Transaction History</h2>
+                <h3>Recent Material Movements</h3>
                 <button class="close-btn" onclick="closeModal('modalReports')">&times;</button>
             </div>
-            <table class="stock-table">
+            <table class="log-table">
                 <thead>
                     <tr>
-                        <th>Date & Time</th>
+                        <th>Date</th>
                         <th>Item</th>
                         <th>Type</th>
                         <th>Qty</th>
-                        <th>Operator</th>
+                        <th>Ref/Site</th>
                     </tr>
                 </thead>
                 <tbody id="reportsTableBody"></tbody>
@@ -516,13 +660,45 @@
 
     <script>
         const AUTH_USER_KEY = 'store_logged_in_phone';
-        const STORE_ITEMS_KEY = 'dip_urja_inventory_items';
-        const STORE_LOGS_KEY = 'dip_urja_inventory_logs';
+        const STORE_ITEMS_KEY = 'dip_urja_inventory_items_v2';
+        const STORE_LOGS_KEY = 'dip_urja_inventory_logs_v2';
 
         let currentGeneratedOtp = null;
         let deferredPrompt;
 
-        // PWA App Installation prompt
+        // Default products with imagery
+        const DEFAULT_PRODUCTS = [
+            {
+                id: 1,
+                name: "Mono PERC 540W Panel",
+                category: "Solar Panel",
+                quantity: 48,
+                image: "https://images.unsplash.com/photo-1509391365360-2e959784a276?w=200&auto=format&fit=crop&q=80"
+            },
+            {
+                id: 2,
+                name: "Pure Sine Wave Inverter 3kVA",
+                category: "Inverter / UPS",
+                quantity: 6,
+                image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=200&auto=format&fit=crop&q=80"
+            },
+            {
+                id: 3,
+                name: "Tubular Solar Battery 150Ah",
+                category: "Battery",
+                quantity: 12,
+                image: "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=200&auto=format&fit=crop&q=80"
+            },
+            {
+                id: 4,
+                name: "4 sq mm DC Solar Cable (100m)",
+                category: "Electrical Cable",
+                quantity: 1,
+                image: "https://images.unsplash.com/photo-1544724569-5f546fd6f2b5?w=200&auto=format&fit=crop&q=80"
+            }
+        ];
+
+        // PWA Installation Hook
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
@@ -541,7 +717,7 @@
             }
         });
 
-        // Authentication State
+        // Initialize Authentication
         window.addEventListener('DOMContentLoaded', () => {
             const loggedInUser = localStorage.getItem(AUTH_USER_KEY);
             if (loggedInUser) {
@@ -558,7 +734,6 @@
                 alert('Please enter a valid 10-digit mobile number.');
                 return;
             }
-
             currentGeneratedOtp = Math.floor(1000 + Math.random() * 9000).toString();
             document.getElementById('boxOtp').innerText = currentGeneratedOtp;
             document.getElementById('phoneStep').style.display = 'none';
@@ -573,7 +748,7 @@
                 localStorage.setItem(AUTH_USER_KEY, phone);
                 showMainApp(phone);
             } else {
-                alert('Incorrect OTP. Please enter the 4 digits shown in the blue box.');
+                alert('Incorrect OTP. Enter the 4 digits displayed.');
             }
         }
 
@@ -588,11 +763,11 @@
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('mainAppScreen').style.display = 'block';
             document.getElementById('displayPhone').innerText = phone;
-            updateDashboard();
+            renderInventory();
         }
 
         function logout() {
-            if (confirm("Log out from the store app?")) {
+            if (confirm("Log out of Dip Urja Store Management?")) {
                 localStorage.removeItem(AUTH_USER_KEY);
                 document.getElementById('userPhone').value = '';
                 document.getElementById('userOTP').value = '';
@@ -602,12 +777,9 @@
             }
         }
 
-        // Data helpers
+        // Data Storage
         function loadItems() {
-            return JSON.parse(localStorage.getItem(STORE_ITEMS_KEY)) || [
-                { id: 1, name: "Solar Panel 540W", category: "Solar", quantity: 0 },
-                { id: 2, name: "Lift Inverter 3kVA", category: "Power Backup", quantity: 0 }
-            ];
+            return JSON.parse(localStorage.getItem(STORE_ITEMS_KEY)) || DEFAULT_PRODUCTS;
         }
 
         function loadLogs() {
@@ -616,24 +788,54 @@
 
         function saveItems(items) {
             localStorage.setItem(STORE_ITEMS_KEY, JSON.stringify(items));
-            updateDashboard();
+            renderInventory();
         }
 
         function saveLogs(logs) {
             localStorage.setItem(STORE_LOGS_KEY, JSON.stringify(logs));
-            updateDashboard();
+            renderInventory();
         }
 
-        function updateDashboard() {
+        function renderInventory() {
             const items = loadItems();
             const logs = loadLogs();
 
+            // Dashboard Counters
             document.getElementById('dashTotalItems').innerText = items.length;
             const totalQty = items.reduce((sum, item) => sum + (item.quantity || 0), 0);
             document.getElementById('dashTotalQty').innerText = totalQty;
 
             document.getElementById('dashStockInCount').innerText = logs.filter(l => l.type === 'IN').length;
             document.getElementById('dashStockOutCount').innerText = logs.filter(l => l.type === 'OUT').length;
+
+            // Product Cards Rendering
+            const container = document.getElementById('productListContainer');
+            container.innerHTML = '';
+
+            items.forEach(item => {
+                const isLow = item.quantity <= 2;
+                const card = document.createElement('div');
+                card.className = 'item-card';
+
+                const fallbackImg = "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=200&auto=format&fit=crop&q=80";
+
+                card.innerHTML = `
+                    <img src="${item.image || fallbackImg}" class="item-img" alt="${item.name}" onerror="this.src='${fallbackImg}'">
+                    <div class="item-details">
+                        <h4>${item.name}</h4>
+                        <p>${item.category}</p>
+                    </div>
+                    <div class="item-stock">
+                        <span class="stock-badge ${isLow ? 'low-stock' : 'in-stock'}">
+                            ${item.quantity} units
+                        </span>
+                        <div style="font-size: 10px; font-weight: 700; color: ${isLow ? 'var(--red)' : 'var(--slate-400)'}; margin-top: 3px;">
+                            ${isLow ? 'LOW STOCK' : 'AVAILABLE'}
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
         }
 
         function openModal(id) {
@@ -656,33 +858,40 @@
             items.forEach(item => {
                 const opt1 = document.createElement('option');
                 opt1.value = item.id;
-                opt1.textContent = `${item.name} (Cur: ${item.quantity})`;
+                opt1.textContent = `${item.name} (Stock: ${item.quantity})`;
                 inSelect.appendChild(opt1);
 
                 const opt2 = document.createElement('option');
                 opt2.value = item.id;
-                opt2.textContent = `${item.name} (Cur: ${item.quantity})`;
+                opt2.textContent = `${item.name} (Stock: ${item.quantity})`;
                 outSelect.appendChild(opt2);
             });
         }
 
         function saveMasterItem() {
             const name = document.getElementById('masterItemName').value.trim();
-            const category = document.getElementById('masterCategory').value.trim() || 'General';
+            const category = document.getElementById('masterCategory').value;
+            const image = document.getElementById('masterItemImage').value.trim();
 
             if (!name) {
-                alert('Please enter a product name');
+                alert('Please enter a valid product name');
                 return;
             }
 
             const items = loadItems();
-            items.push({ id: Date.now(), name: name, category: category, quantity: 0 });
-            saveItems(items);
+            items.push({
+                id: Date.now(),
+                name: name,
+                category: category,
+                quantity: 0,
+                image: image || null
+            });
 
+            saveItems(items);
             document.getElementById('masterItemName').value = '';
-            document.getElementById('masterCategory').value = '';
+            document.getElementById('masterItemImage').value = '';
             closeModal('modalItemMaster');
-            alert('Product added to Master successfully!');
+            alert('Product successfully added to inventory!');
         }
 
         function recordStock(type) {
@@ -694,10 +903,10 @@
             const itemId = parseInt(document.getElementById(selectId).value);
             const qty = parseInt(document.getElementById(qtyId).value);
             const ref = document.getElementById(refId).value.trim();
-            const activeUser = localStorage.getItem(AUTH_USER_KEY) || 'Unknown';
+            const activeUser = localStorage.getItem(AUTH_USER_KEY) || 'Admin';
 
             if (!qty || qty <= 0) {
-                alert('Please enter a valid quantity');
+                alert('Please enter a valid number of units');
                 return;
             }
 
@@ -706,7 +915,7 @@
             if (!item) return;
 
             if (!isEntry && item.quantity < qty) {
-                alert('Insufficient stock! Current stock: ' + item.quantity);
+                alert('Insufficient stock! Currently in warehouse: ' + item.quantity);
                 return;
             }
 
@@ -714,7 +923,7 @@
 
             const logs = loadLogs();
             logs.unshift({
-                date: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+                date: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
                 itemName: item.name,
                 type: type,
                 qty: qty,
@@ -728,21 +937,7 @@
             document.getElementById(qtyId).value = '';
             document.getElementById(refId).value = '';
             closeModal(isEntry ? 'modalStockIn' : 'modalStockOut');
-            alert(`Stock ${type} recorded successfully!`);
-        }
-
-        function openStockBalanceModal() {
-            const items = loadItems();
-            const tbody = document.getElementById('stockBalanceTableBody');
-            tbody.innerHTML = '';
-
-            items.forEach(item => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `<td><b>${item.name}</b></td><td>${item.category}</td><td style="font-weight:bold; color:${item.quantity <= 2 ? 'red' : 'green'}">${item.quantity}</td>`;
-                tbody.appendChild(tr);
-            });
-
-            document.getElementById('modalBalance').style.display = 'flex';
+            alert(`Stock ${type} entry recorded!`);
         }
 
         function openReportsModal() {
@@ -752,7 +947,13 @@
 
             logs.slice(0, 30).forEach(log => {
                 const tr = document.createElement('tr');
-                tr.innerHTML = `<td>${log.date}</td><td>${log.itemName}</td><td style="color:${log.type === 'IN' ? 'green' : 'red'}; font-weight:bold">${log.type}</td><td>${log.qty}</td><td>${log.loggedBy}</td>`;
+                tr.innerHTML = `
+                    <td style="color:var(--slate-600);">${log.date}</td>
+                    <td><b>${log.itemName}</b></td>
+                    <td style="color:${log.type === 'IN' ? 'var(--green)' : 'var(--red)'}; font-weight:800;">${log.type}</td>
+                    <td><b>${log.qty}</b></td>
+                    <td>${log.ref}</td>
+                `;
                 tbody.appendChild(tr);
             });
 
