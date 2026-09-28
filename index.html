@@ -16,7 +16,6 @@
             --primary: #0ea5e9;
             --primary-glow: rgba(14, 165, 233, 0.35);
             --accent-solar: #f59e0b;
-            --accent-solar-glow: rgba(245, 158, 11, 0.3);
             --bg-gradient: radial-gradient(circle at 10% 20%, #0d1b2a 0%, #0f172a 40%, #030712 100%);
             --card-glass: rgba(30, 41, 59, 0.7);
             --card-border: rgba(255, 255, 255, 0.1);
@@ -43,7 +42,6 @@
             padding-bottom: 50px;
         }
 
-        /* Login Screen */
         #loginScreen {
             display: flex;
             min-height: 100vh;
@@ -76,7 +74,6 @@
             justify-content: center;
             font-size: 32px;
             margin-bottom: 14px;
-            box-shadow: 0 8px 20px var(--accent-solar-glow);
         }
 
         .login-card h2 {
@@ -108,7 +105,6 @@
             display: block;
         }
 
-        /* App Header */
         #mainAppScreen {
             display: none;
         }
@@ -171,7 +167,6 @@
             margin: auto;
         }
 
-        /* Dashboard Overview Grid */
         .dashboard-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -216,7 +211,6 @@
             color: #ffffff;
         }
 
-        /* Operations Buttons */
         .ops-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -225,7 +219,7 @@
         }
 
         .ops-btn {
-            background: rgba(30, 41, 59, 0.65);
+            background: rgba(30, 41, 59, 0.75);
             backdrop-filter: blur(10px);
             border: 1px solid var(--card-border);
             border-radius: var(--radius-md);
@@ -237,7 +231,7 @@
             font-weight: 700;
             color: #f8fafc;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-align: left;
         }
 
         .ops-btn:active {
@@ -246,8 +240,8 @@
 
         .ops-icon {
             font-size: 18px;
-            width: 34px;
-            height: 34px;
+            width: 36px;
+            height: 36px;
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -255,7 +249,6 @@
             flex-shrink: 0;
         }
 
-        /* Product Cards */
         .section-header {
             display: flex;
             align-items: center;
@@ -335,7 +328,6 @@
             border: 1px solid rgba(251, 113, 133, 0.3);
         }
 
-        /* Forms */
         .form-group {
             text-align: left;
             margin-bottom: 12px;
@@ -357,20 +349,15 @@
             border: 1px solid var(--card-border);
             border-radius: var(--radius-md);
             font-size: 13px;
-            background: rgba(15, 23, 42, 0.85);
+            background: rgba(15, 23, 42, 0.9);
             color: #ffffff;
             outline: none;
         }
 
-        .form-control:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px var(--primary-glow);
-        }
-
         .form-control[readonly] {
-            background: rgba(30, 41, 59, 0.5);
-            color: #94a3b8;
-            cursor: not-allowed;
+            background: rgba(30, 41, 59, 0.6);
+            color: #38bdf8;
+            font-weight: 700;
         }
 
         .btn {
@@ -390,12 +377,11 @@
         .btn-danger { background: linear-gradient(135deg, #f43f5e, #e11d48); color: white; }
         .btn-ghost { background: rgba(255, 255, 255, 0.08); color: #cbd5e1; margin-top: 8px; border: 1px solid var(--card-border); }
 
-        /* Modals */
         .modal {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(2, 6, 23, 0.8);
+            background: rgba(2, 6, 23, 0.85);
             backdrop-filter: blur(8px);
             z-index: 999;
             align-items: center;
@@ -407,7 +393,7 @@
             background: #0f172a;
             border: 1px solid var(--card-border);
             width: 100%;
-            max-width: 480px;
+            max-width: 520px;
             border-radius: 22px;
             padding: 24px;
             box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8);
@@ -436,32 +422,110 @@
             color: #94a3b8;
         }
 
-        /* Requisition Cards */
+        /* REQUISITION CARD STYLING */
         .req-card {
-            background: rgba(30, 41, 59, 0.7);
+            background: rgba(30, 41, 59, 0.85);
             border: 1px solid var(--card-border);
             border-radius: var(--radius-md);
-            padding: 12px;
-            margin-bottom: 10px;
-            font-size: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            font-size: 13px;
         }
 
         .req-card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
 
-        .req-tag {
-            padding: 2px 8px;
-            border-radius: 12px;
+        .qty-badge {
             font-weight: 800;
-            font-size: 10px;
+            font-size: 14px;
+            padding: 4px 10px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        .tag-pending { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); }
-        .tag-issued { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+        .qty-pending {
+            background: rgba(244, 63, 94, 0.2);
+            color: #fb7185;
+            border: 1px solid #f43f5e;
+        }
+
+        .qty-approved {
+            background: rgba(16, 185, 129, 0.2);
+            color: #34d399;
+            border: 1px solid #10b981;
+        }
+
+        /* Approver Pipeline Box */
+        .approval-pipeline {
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 12px;
+            margin: 12px 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .approval-check-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--card-border);
+            color: #cbd5e1;
+            padding: 8px 10px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .approval-check-btn.signed {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: #10b981;
+            color: #34d399;
+        }
+
+        /* Bottom Approver Stamp List */
+        .approvers-bottom-bar {
+            border-top: 1px dashed rgba(255,255,255,0.15);
+            margin-top: 12px;
+            padding-top: 10px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            text-align: center;
+            font-size: 11px;
+        }
+
+        .approver-tag {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 6px 4px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .approver-tag .role {
+            font-size: 9px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .approver-tag .status {
+            font-weight: 800;
+        }
+
+        .status-red { color: #fb7185; }
+        .status-green { color: #34d399; }
 
         .footer {
             text-align: center;
@@ -479,7 +543,7 @@
         <div class="login-card">
             <div class="brand-badge">⚡</div>
             <h2>DIP URJA STORE</h2>
-            <p>Warehouse & Material Management Access</p>
+            <p>Warehouse & Stock System Access</p>
 
             <div id="phoneStep">
                 <div class="form-group">
@@ -522,7 +586,6 @@
         </div>
 
         <div class="container">
-            <!-- Stat Counters -->
             <div class="dashboard-grid">
                 <div class="stat-card card-1">
                     <span class="label">Total Products</span>
@@ -533,43 +596,40 @@
                     <span class="value" id="dashTotalQty">0</span>
                 </div>
                 <div class="stat-card card-3">
-                    <span class="label">Pending Requisitions</span>
+                    <span class="label">Requisitions</span>
                     <span class="value" id="dashPendingReq">0</span>
                 </div>
                 <div class="stat-card card-4">
-                    <span class="label">Stock Issued Logs</span>
+                    <span class="label">Issued Logs</span>
                     <span class="value" id="dashStockOutCount">0</span>
                 </div>
             </div>
 
             <!-- Operations Grid -->
             <div class="ops-grid">
-                <button class="ops-btn" onclick="openRequisitionModal()">
-                    <span class="ops-icon" style="background:rgba(168,85,247,0.2); color:#c084fc;">📝</span>
+                <button type="button" class="ops-btn" onclick="openRequisitionModal()">
+                    <span class="ops-icon" style="background:rgba(168,85,247,0.25); color:#c084fc;">📝</span>
                     <span>Material Requisition</span>
                 </button>
-                <button class="ops-btn" onclick="openPendingReqModal()">
-                    <span class="ops-icon" style="background:rgba(245,158,11,0.2); color:#fbbf24;">⏳</span>
-                    <span>Issue Pending Stock</span>
+                <button type="button" class="ops-btn" onclick="openPendingReqModal()">
+                    <span class="ops-icon" style="background:rgba(245,158,11,0.25); color:#fbbf24;">⏳</span>
+                    <span>Approvals & Dispatch</span>
                 </button>
-                <button class="ops-btn" onclick="openModal('modalStockIn')">
-                    <span class="ops-icon" style="background:rgba(16,185,129,0.2); color:#34d399;">➕</span>
+                <button type="button" class="ops-btn" onclick="openStockInModal()">
+                    <span class="ops-icon" style="background:rgba(16,185,129,0.25); color:#34d399;">➕</span>
                     <span>Stock In (Receipt)</span>
                 </button>
-                <button class="ops-btn" onclick="openModal('modalItemMaster')">
-                    <span class="ops-icon" style="background:rgba(14,165,233,0.2); color:#38bdf8;">📦</span>
+                <button type="button" class="ops-btn" onclick="openItemMasterModal()">
+                    <span class="ops-icon" style="background:rgba(14,165,233,0.25); color:#38bdf8;">📦</span>
                     <span>Add New Product</span>
                 </button>
             </div>
 
-            <!-- Visual Inventory List -->
             <div class="section-header">
                 <h2>Product Inventory Status</h2>
             </div>
 
-            <div class="stock-items-list" id="productListContainer">
-                <!-- Dynamically populated with product images -->
-            </div>
+            <div class="stock-items-list" id="productListContainer"></div>
 
             <div class="footer">
                 DIP URJA POWER SOLUTIONS • DIGITAL STORE<br>
@@ -578,12 +638,12 @@
         </div>
     </div>
 
-    <!-- MODAL: MATERIAL REQUISITION FORM -->
+    <!-- MODAL 1: MATERIAL REQUISITION FORM -->
     <div id="modalRequisition" class="modal">
         <div class="modal-body">
             <div class="modal-header">
                 <h3>Material Requisition Form</h3>
-                <button class="close-btn" onclick="closeModal('modalRequisition')">&times;</button>
+                <button type="button" class="close-btn" onclick="closeModal('modalRequisition')">&times;</button>
             </div>
             
             <div class="form-group">
@@ -598,11 +658,11 @@
 
             <div class="form-group">
                 <label>Material Requested By</label>
-                <input type="text" id="reqRequestedBy" class="form-control" placeholder="e.g. Team Leader / Technician Name">
+                <input type="text" id="reqRequestedBy" class="form-control" placeholder="e.g. Team Leader / Site Engineer">
             </div>
 
             <div class="form-group">
-                <label>Request Date & Time (Auto-generated)</label>
+                <label>Request Date & Time (Current Live Time)</label>
                 <input type="text" id="reqDateTime" class="form-control" readonly>
             </div>
 
@@ -616,29 +676,27 @@
                 <input type="number" id="reqQty" class="form-control" placeholder="Number of units required">
             </div>
 
-            <button class="btn btn-purple" onclick="submitRequisition()">Submit Requisition</button>
+            <button type="button" class="btn btn-purple" onclick="submitRequisition()">Submit Requisition</button>
         </div>
     </div>
 
-    <!-- MODAL: PENDING REQUISITIONS LIST & ISSUE -->
+    <!-- MODAL 2: APPROVALS & DISPATCH LIST -->
     <div id="modalPendingReq" class="modal">
-        <div class="modal-body" style="max-width: 520px;">
+        <div class="modal-body" style="max-width: 540px;">
             <div class="modal-header">
-                <h3>Pending Site Requisitions</h3>
-                <button class="close-btn" onclick="closeModal('modalPendingReq')">&times;</button>
+                <h3>Requisition Approvals & Dispatch</h3>
+                <button type="button" class="close-btn" onclick="closeModal('modalPendingReq')">&times;</button>
             </div>
-            <div id="pendingReqListContainer">
-                <!-- Requisitions loaded here -->
-            </div>
+            <div id="pendingReqListContainer"></div>
         </div>
     </div>
 
-    <!-- MODAL: ADD PRODUCT -->
+    <!-- MODAL 3: ADD PRODUCT -->
     <div id="modalItemMaster" class="modal">
         <div class="modal-body">
             <div class="modal-header">
                 <h3>Add New Product</h3>
-                <button class="close-btn" onclick="closeModal('modalItemMaster')">&times;</button>
+                <button type="button" class="close-btn" onclick="closeModal('modalItemMaster')">&times;</button>
             </div>
             <div class="form-group">
                 <label>Product Name</label>
@@ -658,16 +716,16 @@
                 <label>Custom Image URL (Optional)</label>
                 <input type="text" id="masterItemImage" class="form-control" placeholder="Paste image link or leave blank">
             </div>
-            <button class="btn btn-primary" onclick="saveMasterItem()">Save Product</button>
+            <button type="button" class="btn btn-primary" onclick="saveMasterItem()">Save Product</button>
         </div>
     </div>
 
-    <!-- MODAL: STOCK IN -->
+    <!-- MODAL 4: STOCK IN -->
     <div id="modalStockIn" class="modal">
         <div class="modal-body">
             <div class="modal-header">
                 <h3>Record Stock In (Receipt)</h3>
-                <button class="close-btn" onclick="closeModal('modalStockIn')">&times;</button>
+                <button type="button" class="close-btn" onclick="closeModal('modalStockIn')">&times;</button>
             </div>
             <div class="form-group">
                 <label>Select Item</label>
@@ -681,19 +739,18 @@
                 <label>Supplier / Invoice Ref</label>
                 <input type="text" id="stockInRemarks" class="form-control" placeholder="e.g. Inv #8492">
             </div>
-            <button class="btn btn-success" onclick="recordStockIn()">Confirm Stock Entry</button>
+            <button type="button" class="btn btn-success" onclick="recordStockIn()">Confirm Stock Entry</button>
         </div>
     </div>
 
     <script>
         const AUTH_USER_KEY = 'store_logged_in_phone';
-        const STORE_ITEMS_KEY = 'dip_urja_inventory_items_v4';
-        const STORE_LOGS_KEY = 'dip_urja_inventory_logs_v4';
-        const STORE_REQ_KEY = 'dip_urja_requisitions_v4';
+        const STORE_ITEMS_KEY = 'dip_urja_inventory_items_v6';
+        const STORE_LOGS_KEY = 'dip_urja_inventory_logs_v6';
+        const STORE_REQ_KEY = 'dip_urja_requisitions_v6';
 
         let currentGeneratedOtp = null;
 
-        // Default Hardware
         const DEFAULT_PRODUCTS = [
             { id: 1, name: "Mono PERC 540W Solar Panel", category: "Solar Panel", quantity: 48, image: "https://images.unsplash.com/photo-1509391365360-2e959784a276?w=300&auto=format&fit=crop&q=80" },
             { id: 2, name: "Lift Inverter 3kVA Pure Sine", category: "Inverter / UPS", quantity: 6, image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=300&auto=format&fit=crop&q=80" },
@@ -701,7 +758,6 @@
             { id: 4, name: "4 sq mm DC Solar Cable (100m)", category: "Electrical Cable", quantity: 4, image: "https://images.unsplash.com/photo-1544724569-5f546fd6f2b5?w=300&auto=format&fit=crop&q=80" }
         ];
 
-        // Format Current Date and Time
         function getFormattedCurrentDateTime() {
             const now = new Date();
             const date = now.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
@@ -709,7 +765,6 @@
             return `${date}, ${time}`;
         }
 
-        // Initialize Authentication
         window.addEventListener('DOMContentLoaded', () => {
             const loggedInUser = localStorage.getItem(AUTH_USER_KEY);
             if (loggedInUser) {
@@ -769,7 +824,6 @@
             }
         }
 
-        // Storage helpers
         function loadItems() { return JSON.parse(localStorage.getItem(STORE_ITEMS_KEY)) || DEFAULT_PRODUCTS; }
         function loadLogs() { return JSON.parse(localStorage.getItem(STORE_LOGS_KEY)) || []; }
         function loadRequisitions() { return JSON.parse(localStorage.getItem(STORE_REQ_KEY)) || []; }
@@ -787,7 +841,7 @@
             const totalQty = items.reduce((sum, item) => sum + (item.quantity || 0), 0);
             document.getElementById('dashTotalQty').innerText = totalQty;
 
-            const pendingCount = reqs.filter(r => r.status === 'PENDING').length;
+            const pendingCount = reqs.filter(r => r.status !== 'DISPATCHED').length;
             document.getElementById('dashPendingReq').innerText = pendingCount;
             document.getElementById('dashStockOutCount').innerText = logs.filter(l => l.type === 'OUT').length;
 
@@ -821,18 +875,17 @@
 
         // ================= REQUISITION LOGIC =================
         function openRequisitionModal() {
-            // Populate Items dropdown
             const items = loadItems();
             const select = document.getElementById('reqItemSelect');
             select.innerHTML = '';
+            
             items.forEach(item => {
                 const opt = document.createElement('option');
                 opt.value = item.id;
-                opt.textContent = `${item.name} (Available: ${item.quantity})`;
+                opt.textContent = `${item.name} (In Store: ${item.quantity})`;
                 select.appendChild(opt);
             });
 
-            // Automatically set current date and time
             document.getElementById('reqDateTime').value = getFormattedCurrentDateTime();
             document.getElementById('modalRequisition').style.display = 'flex';
         }
@@ -870,18 +923,22 @@
                 itemId: item.id,
                 itemName: item.name,
                 qty: qty,
-                status: 'PENDING'
+                accountsApproved: false,
+                accountsName: "Pending",
+                mdApproved: false,
+                mdName: "Pending",
+                storeInchargeName: "Pending",
+                status: 'SUBMITTED' // SUBMITTED -> APPROVED -> DISPATCHED
             });
 
             saveRequisitions(reqs);
 
-            // Reset form
             document.getElementById('reqCustomerName').value = '';
             document.getElementById('reqSiteLocation').value = '';
             document.getElementById('reqRequestedBy').value = '';
             document.getElementById('reqQty').value = '';
             closeModal('modalRequisition');
-            alert('Material Requisition submitted successfully!');
+            alert('Material Requisition created! It is now pending Accounts and MD approval.');
         }
 
         function openPendingReqModal() {
@@ -893,25 +950,84 @@
                 container.innerHTML = '<div style="text-align:center; color:#94a3b8; padding:20px;">No requisitions on record.</div>';
             } else {
                 reqs.forEach(req => {
-                    const isPending = req.status === 'PENDING';
+                    const isFullyApproved = req.accountsApproved && req.mdApproved;
+                    const isDispatched = req.status === 'DISPATCHED';
+
                     const card = document.createElement('div');
                     card.className = 'req-card';
                     card.innerHTML = `
                         <div class="req-card-header">
-                            <span style="font-weight:800; color:#ffffff;">${req.customerName}</span>
-                            <span class="req-tag ${isPending ? 'tag-pending' : 'tag-issued'}">${req.status}</span>
+                            <div>
+                                <span style="font-weight:800; color:#ffffff; font-size:15px;">${req.customerName}</span>
+                                <div style="color:#94a3b8; font-size:11px;">📍 Site: ${req.siteLocation}</div>
+                            </div>
+                            <!-- Quantity Color stays RED until both Accounts and MD approve, then GREEN with TICK -->
+                            <div>
+                                ${isFullyApproved ? `
+                                    <span class="qty-badge qty-approved">
+                                        ${req.qty} Units <span style="font-size:16px;">✅</span>
+                                    </span>
+                                ` : `
+                                    <span class="qty-badge qty-pending">
+                                        ${req.qty} Units (Pending Approval)
+                                    </span>
+                                `}
+                            </div>
                         </div>
-                        <div style="color:#94a3b8; margin-bottom:4px;">📍 <b>Site:</b> ${req.siteLocation}</div>
-                        <div style="color:#cbd5e1; margin-bottom:4px;">📦 <b>Item:</b> ${req.itemName} (<b>${req.qty} units</b>)</div>
-                        <div style="color:#94a3b8;">👷 <b>Requested By:</b> ${req.requestedBy}</div>
-                        <div style="color:#64748b; font-size:11px; margin-top:4px;">🕒 <b>Request Date:</b> ${req.requestDate}</div>
-                        ${req.issueDate ? `<div style="color:#34d399; font-size:11px; margin-top:2px;">✅ <b>Issue Date:</b> ${req.issueDate}</div>` : ''}
 
-                        ${isPending ? `
-                            <button class="btn btn-danger" style="margin-top:10px; padding:8px 12px; font-size:12px;" onclick="issueRequisition(${req.id})">
-                                Approve & Issue Stock (Set Issue Date)
+                        <div style="color:#cbd5e1; margin:6px 0;">📦 <b>Item:</b> ${req.itemName}</div>
+                        <div style="color:#94a3b8;">👷 <b>Requested By:</b> ${req.requestedBy}</div>
+                        <div style="color:#64748b; font-size:11px; margin-top:2px;">🕒 <b>Request Date:</b> ${req.requestDate}</div>
+                        ${req.issueDate ? `<div style="color:#34d399; font-size:11px; margin-top:2px;">🚚 <b>Issue/Dispatch Date:</b> ${req.issueDate}</div>` : ''}
+
+                        <!-- Approvals Row -->
+                        <div class="approval-pipeline">
+                            <button class="approval-check-btn ${req.accountsApproved ? 'signed' : ''}" 
+                                onclick="toggleAccountsApproval(${req.id})" ${isDispatched ? 'disabled' : ''}>
+                                <span>🏦 Accounts Dept</span>
+                                <span>${req.accountsApproved ? 'APPROVED ✓' : 'APPROVE'}</span>
                             </button>
-                        ` : ''}
+                            <button class="approval-check-btn ${req.mdApproved ? 'signed' : ''}" 
+                                onclick="toggleMdApproval(${req.id})" ${isDispatched ? 'disabled' : ''}>
+                                <span>👔 Managing Director</span>
+                                <span>${req.mdApproved ? 'APPROVED ✓' : 'APPROVE'}</span>
+                            </button>
+                        </div>
+
+                        <!-- Store Incharge Dispatch Button -->
+                        ${!isDispatched ? `
+                            <button type="button" class="btn ${isFullyApproved ? 'btn-success' : 'btn-ghost'}" 
+                                style="${!isFullyApproved ? 'opacity:0.6; cursor:not-allowed;' : ''}"
+                                onclick="${isFullyApproved ? `dispatchStock(${req.id})` : `alert('Requisition cannot be issued without both Accounts Dept and MD approvals!')`}">
+                                📦 ${isFullyApproved ? 'Store Incharge: Issue & Dispatch Material' : 'Locked: Awaiting Accounts & MD Approval'}
+                            </button>
+                        ` : `
+                            <div style="text-align:center; padding:8px; background:rgba(16,185,129,0.15); border-radius:8px; color:#34d399; font-weight:800; font-size:12px; margin-top:8px;">
+                                ✅ MATERIAL ISSUED & DISPATCHED
+                            </div>
+                        `}
+
+                        <!-- BOTTOM APPROVER NAMES BAR -->
+                        <div class="approvers-bottom-bar">
+                            <div class="approver-tag">
+                                <div class="role">Accounts Dept</div>
+                                <div class="status ${req.accountsApproved ? 'status-green' : 'status-red'}">
+                                    ${req.accountsApproved ? req.accountsName : '⏳ Not Approved'}
+                                </div>
+                            </div>
+                            <div class="approver-tag">
+                                <div class="role">Managing Director</div>
+                                <div class="status ${req.mdApproved ? 'status-green' : 'status-red'}">
+                                    ${req.mdApproved ? req.mdName : '⏳ Not Approved'}
+                                </div>
+                            </div>
+                            <div class="approver-tag">
+                                <div class="role">Store Incharge</div>
+                                <div class="status ${isDispatched ? 'status-green' : 'status-red'}">
+                                    ${isDispatched ? req.storeInchargeName : '⏳ Pending'}
+                                </div>
+                            </div>
+                        </div>
                     `;
                     container.appendChild(card);
                 });
@@ -920,34 +1036,60 @@
             document.getElementById('modalPendingReq').style.display = 'flex';
         }
 
-        function issueRequisition(reqId) {
+        // Approval toggles
+        function toggleAccountsApproval(reqId) {
             const reqs = loadRequisitions();
             const req = reqs.find(r => r.id === reqId);
             if (!req) return;
+
+            req.accountsApproved = !req.accountsApproved;
+            req.accountsName = req.accountsApproved ? "Accounts Verified" : "Pending";
+            saveRequisitions(reqs);
+            openPendingReqModal();
+        }
+
+        function toggleMdApproval(reqId) {
+            const reqs = loadRequisitions();
+            const req = reqs.find(r => r.id === reqId);
+            if (!req) return;
+
+            req.mdApproved = !req.mdApproved;
+            req.mdName = req.mdApproved ? "MD Approved" : "Pending";
+            saveRequisitions(reqs);
+            openPendingReqModal();
+        }
+
+        // Store Incharge Dispatch
+        function dispatchStock(reqId) {
+            const reqs = loadRequisitions();
+            const req = reqs.find(r => r.id === reqId);
+            if (!req) return;
+
+            if (!req.accountsApproved || !req.mdApproved) {
+                alert('Both Accounts and MD must approve before Store Incharge can issue the material.');
+                return;
+            }
 
             const items = loadItems();
             const item = items.find(i => i.id === req.itemId);
 
             if (!item || item.quantity < req.qty) {
-                alert(`Insufficient stock! In warehouse: ${item ? item.quantity : 0}, Requested: ${req.qty}`);
+                alert(`Insufficient stock in store! In store: ${item ? item.quantity : 0}, Requested: ${req.qty}`);
                 return;
             }
 
-            // Deduct stock
             item.quantity -= req.qty;
-
-            // Automatically record Issue Date & Time
             req.issueDate = getFormattedCurrentDateTime();
-            req.status = 'ISSUED';
+            req.status = 'DISPATCHED';
+            req.storeInchargeName = "Store Dispatched";
 
-            // Add to Stock Out transaction history
             const logs = loadLogs();
             logs.unshift({
                 date: req.issueDate,
                 itemName: req.itemName,
                 type: 'OUT',
                 qty: req.qty,
-                ref: `${req.customerName} (${req.siteLocation})`
+                ref: `${req.customerName} - ${req.siteLocation} (Approved by MD & Accounts)`
             });
 
             saveItems(items);
@@ -955,10 +1097,23 @@
             saveLogs(logs);
 
             openPendingReqModal();
-            alert(`Stock issued successfully on ${req.issueDate}!`);
+            alert(`Stock issued and dispatched on ${req.issueDate}!`);
         }
 
-        // ================= STOCK IN LOGIC =================
+        // Stock IN
+        function openStockInModal() {
+            const items = loadItems();
+            const select = document.getElementById('stockInSelect');
+            select.innerHTML = '';
+            items.forEach(item => {
+                const opt = document.createElement('option');
+                opt.value = item.id;
+                opt.textContent = `${item.name} (Stock: ${item.quantity})`;
+                select.appendChild(opt);
+            });
+            document.getElementById('modalStockIn').style.display = 'flex';
+        }
+
         function recordStockIn() {
             const itemId = parseInt(document.getElementById('stockInSelect').value);
             const qty = parseInt(document.getElementById('stockInQty').value);
@@ -990,7 +1145,11 @@
             document.getElementById('stockInQty').value = '';
             document.getElementById('stockInRemarks').value = '';
             closeModal('modalStockIn');
-            alert(`Stock IN logged successfully at ${getFormattedCurrentDateTime()}!`);
+            alert('Stock In recorded successfully!');
+        }
+
+        function openItemMasterModal() {
+            document.getElementById('modalItemMaster').style.display = 'flex';
         }
 
         function saveMasterItem() {
@@ -1019,25 +1178,9 @@
             alert('Product added successfully!');
         }
 
-        function openModal(id) {
-            if (id === 'modalStockIn') {
-                const items = loadItems();
-                const select = document.getElementById('stockInSelect');
-                select.innerHTML = '';
-                items.forEach(item => {
-                    const opt = document.createElement('option');
-                    opt.value = item.id;
-                    opt.textContent = `${item.name} (Stock: ${item.quantity})`;
-                    select.appendChild(opt);
-                });
-            }
-            document.getElementById(id).style.display = 'flex';
-        }
-
         function closeModal(id) {
             document.getElementById(id).style.display = 'none';
         }
     </script>
 </body>
 </html>
-.
