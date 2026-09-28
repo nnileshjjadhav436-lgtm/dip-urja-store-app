@@ -9,7 +9,9 @@
     <meta name="theme-color" content="#0a0f1d">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Stylish Fonts: Montserrat for Brand Name, Plus Jakarta Sans for App UI -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -43,6 +45,7 @@
             padding-bottom: 50px;
         }
 
+        /* Login Screen */
         #loginScreen {
             display: flex;
             min-height: 100vh;
@@ -62,31 +65,6 @@
             padding: 32px 24px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
             text-align: center;
-        }
-
-        .brand-badge {
-            width: 64px;
-            height: 64px;
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            color: #0f172a;
-            border-radius: 18px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            margin-bottom: 14px;
-        }
-
-        .login-card h2 {
-            font-size: 22px;
-            font-weight: 800;
-            color: #ffffff;
-        }
-
-        .login-card p {
-            font-size: 13px;
-            color: #94a3b8;
-            margin: 6px 0 24px;
         }
 
         .otp-display-box {
@@ -110,37 +88,56 @@
             display: none;
         }
 
+        /* Beautiful Image Background Header */
         .header {
-            background: linear-gradient(180deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.7));
-            backdrop-filter: blur(12px);
-            padding: 24px 20px 20px;
-            border-bottom: 1px solid var(--card-border);
+            /* Loads a beautiful Solar Panel background image with a dark glassy overlay */
+            background: linear-gradient(180deg, rgba(10, 15, 29, 0.88), rgba(10, 15, 29, 0.98)), 
+                        url('https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&q=80&w=1000') center/cover no-repeat;
+            padding: 28px 20px 24px;
+            border-bottom: 2px solid var(--primary);
             position: sticky;
             top: 0;
             z-index: 50;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            text-align: center;
         }
 
-        .brand-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+        .spiritual-text {
+            color: #fbbf24; 
+            font-size: 15px; 
+            font-weight: 800; 
+            letter-spacing: 1.5px; 
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
 
-        .brand-info h1 {
-            font-size: 18px;
-            font-weight: 800;
-            letter-spacing: 0.5px;
-            background: linear-gradient(90deg, #38bdf8, #fbbf24);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .brand-logo-container {
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 12px; 
+            margin-bottom: 2px;
         }
 
-        .brand-info p {
-            font-size: 11px;
-            color: #94a3b8;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 2px;
+        .brand-title {
+            font-family: 'Montserrat', sans-serif; 
+            font-size: 28px; 
+            font-weight: 900; 
+            background: linear-gradient(135deg, #38bdf8, #0ea5e9, #fbbf24); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            margin: 0; 
+            line-height: 1;
+        }
+
+        .brand-subtitle {
+            font-size: 12px; 
+            color: #e2e8f0; 
+            letter-spacing: 4px; 
+            font-weight: 600; 
+            margin: 0 0 16px 0; 
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
 
         .operator-pill {
@@ -148,7 +145,7 @@
             border: 1px solid var(--card-border);
             padding: 6px 14px;
             border-radius: 30px;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 8px;
             font-size: 12px;
@@ -182,35 +179,13 @@
             border: 1px solid var(--card-border);
         }
 
-        .stat-card.card-1 {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(14, 165, 233, 0.15));
-            border-left: 4px solid var(--primary);
-        }
-        .stat-card.card-2 {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(245, 158, 11, 0.15));
-            border-left: 4px solid var(--accent-solar);
-        }
-        .stat-card.card-3 {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(168, 85, 247, 0.15));
-            border-left: 4px solid var(--purple);
-        }
-        .stat-card.card-4 {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(16, 185, 129, 0.15));
-            border-left: 4px solid var(--green);
-        }
+        .stat-card.card-1 { background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(14, 165, 233, 0.15)); border-left: 4px solid var(--primary); }
+        .stat-card.card-2 { background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(245, 158, 11, 0.15)); border-left: 4px solid var(--accent-solar); }
+        .stat-card.card-3 { background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(168, 85, 247, 0.15)); border-left: 4px solid var(--purple); }
+        .stat-card.card-4 { background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(16, 185, 129, 0.15)); border-left: 4px solid var(--green); }
 
-        .stat-card .label {
-            font-size: 12px;
-            font-weight: 600;
-            color: #cbd5e1;
-        }
-
-        .stat-card .value {
-            font-size: 22px;
-            font-weight: 800;
-            margin-top: 6px;
-            color: #ffffff;
-        }
+        .stat-card .label { font-size: 12px; font-weight: 600; color: #cbd5e1; }
+        .stat-card .value { font-size: 22px; font-weight: 800; margin-top: 6px; color: #ffffff; }
 
         .ops-grid {
             display: grid;
@@ -235,9 +210,7 @@
             text-align: left;
         }
 
-        .ops-btn:active {
-            transform: scale(0.97);
-        }
+        .ops-btn:active { transform: scale(0.97); }
 
         .ops-icon {
             font-size: 18px;
@@ -250,22 +223,10 @@
             flex-shrink: 0;
         }
 
-        .section-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin: 22px 0 14px;
-        }
+        .section-header { display: flex; align-items: center; justify-content: space-between; margin: 22px 0 14px; }
+        .section-header h2 { font-size: 17px; font-weight: 800; }
 
-        .section-header h2 {
-            font-size: 17px;
-            font-weight: 800;
-        }
-
-        .stock-items-list {
-            display: grid;
-            gap: 12px;
-        }
+        .stock-items-list { display: grid; gap: 12px; }
 
         .item-card {
             background: rgba(30, 41, 59, 0.7);
@@ -288,62 +249,18 @@
             flex-shrink: 0;
         }
 
-        .item-details {
-            flex-grow: 1;
-        }
+        .item-details { flex-grow: 1; }
+        .item-details h4 { font-size: 15px; font-weight: 700; color: #ffffff; }
+        .item-details p { font-size: 12px; color: #94a3b8; margin-top: 3px; }
+        .item-stock { text-align: right; flex-shrink: 0; }
 
-        .item-details h4 {
-            font-size: 15px;
-            font-weight: 700;
-            color: #ffffff;
-        }
+        .stock-badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 13px; font-weight: 800; }
+        .in-stock { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(52, 211, 153, 0.3); }
+        .low-stock { background: rgba(244, 63, 94, 0.15); color: #fb7185; border: 1px solid rgba(251, 113, 133, 0.3); }
 
-        .item-details p {
-            font-size: 12px;
-            color: #94a3b8;
-            margin-top: 3px;
-        }
-
-        .item-stock {
-            text-align: right;
-            flex-shrink: 0;
-        }
-
-        .stock-badge {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 800;
-        }
-
-        .in-stock {
-            background: rgba(16, 185, 129, 0.15);
-            color: #34d399;
-            border: 1px solid rgba(52, 211, 153, 0.3);
-        }
-
-        .low-stock {
-            background: rgba(244, 63, 94, 0.15);
-            color: #fb7185;
-            border: 1px solid rgba(251, 113, 133, 0.3);
-        }
-
-        .form-group {
-            text-align: left;
-            margin-bottom: 12px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 11px;
-            font-weight: 700;
-            color: #cbd5e1;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
+        .form-group { text-align: left; margin-bottom: 12px; }
+        .form-group label { display: block; font-size: 11px; font-weight: 700; color: #cbd5e1; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
+        
         .form-control {
             width: 100%;
             padding: 11px 12px;
@@ -355,33 +272,14 @@
             outline: none;
         }
 
-        .form-control:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px var(--primary-glow);
-        }
+        .form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-glow); }
+        .form-control[readonly] { background: rgba(30, 41, 59, 0.6); color: #38bdf8; font-weight: 700; }
 
-        .form-control[readonly] {
-            background: rgba(30, 41, 59, 0.6);
-            color: #38bdf8;
-            font-weight: 700;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 13px;
-            border-radius: var(--radius-md);
-            font-size: 14px;
-            font-weight: 700;
-            border: none;
-            cursor: pointer;
-            margin-top: 6px;
-        }
-
+        .btn { width: 100%; padding: 13px; border-radius: var(--radius-md); font-size: 14px; font-weight: 700; border: none; cursor: pointer; margin-top: 6px; }
         .btn-primary { background: linear-gradient(135deg, #0ea5e9, #0284c7); color: white; }
         .btn-purple { background: linear-gradient(135deg, #a855f7, #7e22ce); color: white; }
         .btn-success { background: linear-gradient(135deg, #10b981, #059669); color: white; }
         .btn-danger { background: linear-gradient(135deg, #f43f5e, #e11d48); color: white; }
-        .btn-cyan { background: linear-gradient(135deg, #06b6d4, #0891b2); color: white; }
         .btn-ghost { background: rgba(255, 255, 255, 0.08); color: #cbd5e1; margin-top: 8px; border: 1px solid var(--card-border); }
 
         .modal {
@@ -408,186 +306,48 @@
             overflow-y: auto;
         }
 
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-        }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .modal-header h3 { font-size: 17px; font-weight: 800; color: #ffffff; }
+        .close-btn { font-size: 24px; background: none; border: none; cursor: pointer; color: #94a3b8; }
 
-        .modal-header h3 {
-            font-size: 17px;
-            font-weight: 800;
-            color: #ffffff;
-        }
-
-        .close-btn {
-            font-size: 24px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #94a3b8;
-        }
-
-        /* Dropdown Manage List Items */
         .list-item-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(15, 23, 42, 0.7);
-            padding: 10px 14px;
-            border-radius: 8px;
-            margin-bottom: 6px;
-            border: 1px solid var(--card-border);
-            font-size: 13px;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(15, 23, 42, 0.7); padding: 10px 14px;
+            border-radius: 8px; margin-bottom: 6px; border: 1px solid var(--card-border); font-size: 13px;
         }
 
         .btn-del-sm {
-            background: rgba(244, 63, 94, 0.2);
-            color: #fb7185;
-            border: 1px solid #f43f5e;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 700;
-            cursor: pointer;
+            background: rgba(244, 63, 94, 0.2); color: #fb7185; border: 1px solid #f43f5e;
+            padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; cursor: pointer;
         }
 
         .filter-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            background: rgba(15, 23, 42, 0.7);
-            padding: 12px;
-            border-radius: var(--radius-md);
-            border: 1px solid var(--card-border);
-            margin-bottom: 16px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+            background: rgba(15, 23, 42, 0.7); padding: 12px; border-radius: var(--radius-md);
+            border: 1px solid var(--card-border); margin-bottom: 16px;
         }
 
-        .filter-item label {
-            display: block;
-            font-size: 10px;
-            font-weight: 700;
-            color: #94a3b8;
-            margin-bottom: 4px;
-            text-transform: uppercase;
-        }
+        .filter-item label { display: block; font-size: 10px; font-weight: 700; color: #94a3b8; margin-bottom: 4px; text-transform: uppercase; }
+        .filter-item select, .filter-item input { width: 100%; padding: 8px 10px; background: rgba(30, 41, 59, 0.8); border: 1px solid var(--card-border); color: white; border-radius: 8px; font-size: 12px; }
 
-        .filter-item select, .filter-item input {
-            width: 100%;
-            padding: 8px 10px;
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid var(--card-border);
-            color: white;
-            border-radius: 8px;
-            font-size: 12px;
-        }
+        .record-card { background: rgba(30, 41, 59, 0.8); border: 1px solid var(--card-border); border-radius: var(--radius-md); padding: 14px; margin-bottom: 12px; font-size: 12px; }
+        .record-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
 
-        .record-card {
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid var(--card-border);
-            border-radius: var(--radius-md);
-            padding: 14px;
-            margin-bottom: 12px;
-            font-size: 12px;
-        }
+        .qty-badge { font-weight: 800; font-size: 13px; padding: 4px 10px; border-radius: 8px; display: inline-flex; align-items: center; gap: 6px; }
+        .qty-pending { background: rgba(244, 63, 94, 0.2); color: #fb7185; border: 1px solid #f43f5e; }
+        .qty-approved { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid #10b981; }
 
-        .record-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 6px;
-        }
+        .approval-pipeline { background: rgba(15, 23, 42, 0.85); border: 1px solid var(--card-border); border-radius: 12px; padding: 12px; margin: 12px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .approval-check-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--card-border); color: #cbd5e1; padding: 8px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: space-between; }
+        .approval-check-btn.signed { background: rgba(16, 185, 129, 0.2); border-color: #10b981; color: #34d399; }
 
-        .qty-badge {
-            font-weight: 800;
-            font-size: 13px;
-            padding: 4px 10px;
-            border-radius: 8px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .qty-pending {
-            background: rgba(244, 63, 94, 0.2);
-            color: #fb7185;
-            border: 1px solid #f43f5e;
-        }
-
-        .qty-approved {
-            background: rgba(16, 185, 129, 0.2);
-            color: #34d399;
-            border: 1px solid #10b981;
-        }
-
-        .approval-pipeline {
-            background: rgba(15, 23, 42, 0.85);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 12px;
-            margin: 12px 0;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-        }
-
-        .approval-check-btn {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid var(--card-border);
-            color: #cbd5e1;
-            padding: 8px 10px;
-            border-radius: 8px;
-            font-size: 11px;
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .approval-check-btn.signed {
-            background: rgba(16, 185, 129, 0.2);
-            border-color: #10b981;
-            color: #34d399;
-        }
-
-        .approvers-bottom-bar {
-            border-top: 1px dashed rgba(255,255,255,0.15);
-            margin-top: 10px;
-            padding-top: 8px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 6px;
-            text-align: center;
-            font-size: 10px;
-        }
-
-        .approver-tag {
-            background: rgba(15, 23, 42, 0.6);
-            padding: 6px 4px;
-            border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.06);
-        }
-
-        .approver-tag .role {
-            font-size: 9px;
-            color: #94a3b8;
-            text-transform: uppercase;
-            font-weight: 700;
-            margin-bottom: 2px;
-        }
+        .approvers-bottom-bar { border-top: 1px dashed rgba(255,255,255,0.15); margin-top: 10px; padding-top: 8px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; text-align: center; font-size: 10px; }
+        .approver-tag { background: rgba(15, 23, 42, 0.6); padding: 6px 4px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); }
+        .approver-tag .role { font-size: 9px; color: #94a3b8; text-transform: uppercase; font-weight: 700; margin-bottom: 2px; }
 
         .status-red { color: #fb7185; }
         .status-green { color: #34d399; }
-
-        .footer {
-            text-align: center;
-            margin-top: 36px;
-            font-size: 12px;
-            color: #64748b;
-            line-height: 1.6;
-        }
+        .footer { text-align: center; margin-top: 36px; font-size: 12px; color: #64748b; line-height: 1.6; }
     </style>
 </head>
 <body>
@@ -595,9 +355,19 @@
     <!-- 1. LOGIN SCREEN -->
     <div id="loginScreen">
         <div class="login-card">
-            <div class="brand-badge">⚡</div>
-            <h2>DIP URJA STORE</h2>
-            <p>Warehouse & Stock System Access</p>
+            
+            <!-- Spiritual Header on Login -->
+            <div style="text-align: center; margin-bottom: 18px;">
+                <img src="swami.jpg" alt="Shree Swami Samarth" style="width: 56px; height: 56px; border-radius: 50%; border: 2px solid #fbbf24; object-fit: cover; margin-bottom: 6px; box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/10543/10543085.png';">
+                <div class="spiritual-text">॥ श्री स्वामी समर्थ ॥</div>
+            </div>
+
+            <!-- Brand Name & Logo -->
+            <div class="brand-logo-container">
+                <img src="logo.png" alt="DIP URJA Logo" style="width: 34px; height: 34px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/3563/3563393.png';">
+                <h2 class="brand-title" style="font-size: 24px;">DIP URJA</h2>
+            </div>
+            <p class="brand-subtitle" style="margin-bottom: 24px;">POWER SOLUTIONS</p>
 
             <div id="phoneStep">
                 <div class="form-group">
@@ -611,9 +381,7 @@
                 <div class="otp-display-box">
                     <span style="font-size: 12px; font-weight: 700; color: #38bdf8;">SECURITY CODE</span>
                     <span class="otp-code" id="boxOtp">----</span>
-                    <small style="color: #94a3b8;">Enter the 4-digit code above to authenticate</small>
                 </div>
-
                 <div class="form-group">
                     <label>4-Digit OTP</label>
                     <input type="tel" id="userOTP" class="form-control" placeholder="Enter OTP" maxlength="4" inputmode="numeric">
@@ -626,12 +394,26 @@
 
     <!-- 2. MAIN DASHBOARD -->
     <div id="mainAppScreen">
+        <!-- Beautiful Image Header -->
         <div class="header">
-            <div class="brand-row">
-                <div class="brand-info">
-                    <h1>DIP URJA POWER SOLUTIONS</h1>
-                    <p>Warehouse & Stock System</p>
+            
+            <!-- Spiritual Top Area -->
+            <div style="text-align: center; margin-bottom: 18px;">
+                <img src="swami.jpg" alt="Shree Swami Samarth" style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid #fbbf24; object-fit: cover; margin-bottom: 4px; box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/10543/10543085.png';">
+                <div class="spiritual-text">॥ श्री स्वामी समर्थ ॥</div>
+            </div>
+
+            <!-- Brand Logo and Stylish Name -->
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 18px;">
+                <div class="brand-logo-container">
+                    <img src="logo.png" alt="DIP URJA Logo" style="width: 42px; height: 42px; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6));" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/3563/3563393.png';">
+                    <h1 class="brand-title">DIP URJA</h1>
                 </div>
+                <h2 class="brand-subtitle">POWER SOLUTIONS</h2>
+            </div>
+
+            <!-- Operator Pill Centered at Bottom of Header -->
+            <div style="display: flex; justify-content: center;">
                 <div class="operator-pill">
                     <span>📱 <span id="displayPhone"></span></span>
                     <span class="logout-btn" onclick="logout()">Logout</span>
@@ -677,7 +459,6 @@
                     <span class="ops-icon" style="background:rgba(16,185,129,0.25); color:#34d399;">🚚</span>
                     <span>Dispatch Logs</span>
                 </button>
-                <!-- DYNAMIC DROPDOWN MANAGER BUTTON -->
                 <button type="button" class="ops-btn" onclick="openDropdownManagerModal()">
                     <span class="ops-icon" style="background:rgba(245,158,11,0.25); color:#fbbf24;">⚙️</span>
                     <span>Manage Dropdown Lists</span>
@@ -1158,7 +939,6 @@
 
         // ================= POPULATE REQUISITION DROPDOWNS DYNAMICALLY =================
         function openRequisitionModal() {
-            // Load dynamic customers
             const customers = loadList(LIST_CUSTOMERS_KEY, DEFAULT_CUSTOMERS);
             const custSelect = document.getElementById('reqCustomerSelect');
             custSelect.innerHTML = '';
@@ -1169,7 +949,6 @@
                 custSelect.appendChild(opt);
             });
 
-            // Load dynamic sites
             const sites = loadList(LIST_SITES_KEY, DEFAULT_SITES);
             const siteSelect = document.getElementById('reqSiteSelect');
             siteSelect.innerHTML = '';
@@ -1180,7 +959,6 @@
                 siteSelect.appendChild(opt);
             });
 
-            // Load dynamic requesters
             const requesters = loadList(LIST_REQUESTERS_KEY, DEFAULT_REQUESTERS);
             const reqSelect = document.getElementById('reqRequestedBySelect');
             reqSelect.innerHTML = '';
@@ -1191,7 +969,6 @@
                 reqSelect.appendChild(opt);
             });
 
-            // Load live items
             const items = loadItems();
             const itemSelect = document.getElementById('reqItemSelect');
             itemSelect.innerHTML = '';
