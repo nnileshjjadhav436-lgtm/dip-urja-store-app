@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>DIP URJA POWER SOLUTIONS - Store Management</title>
-
     <style>
         * {
             box-sizing: border-box;
@@ -17,6 +15,7 @@
             font-family: Arial, sans-serif;
             background: #f4f6f8;
             color: #222;
+            padding-bottom: 40px;
         }
 
         .header {
@@ -27,7 +26,7 @@
         }
 
         .header h1 {
-            font-size: 22px;
+            font-size: 20px;
             letter-spacing: 0.5px;
         }
 
@@ -44,9 +43,9 @@
         }
 
         .section-title {
-            font-size: 18px;
+            font-size: 17px;
             font-weight: bold;
-            margin: 10px 0 15px;
+            margin: 14px 0 10px;
         }
 
         .dashboard {
@@ -58,41 +57,142 @@
         .card {
             background: white;
             border-radius: 14px;
-            padding: 18px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
         }
 
         .card h3 {
-            font-size: 14px;
+            font-size: 13px;
             color: #64748b;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .card .number {
             font-size: 22px;
             font-weight: bold;
+            color: #0f172a;
         }
 
         .menu {
-            margin-top: 24px;
+            margin-top: 14px;
             display: grid;
-            gap: 12px;
+            gap: 10px;
         }
 
         .menu button {
             width: 100%;
-            border: none;
-            padding: 16px;
+            border: 1px solid #e2e8f0;
+            padding: 14px 16px;
             border-radius: 12px;
             background: white;
             text-align: left;
             font-size: 15px;
             font-weight: bold;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .menu button:active {
             transform: scale(0.98);
+            background: #f8fafc;
+        }
+
+        /* Modal Overlay */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .modal-header h2 {
+            font-size: 18px;
+        }
+
+        .close-btn {
+            font-size: 24px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            color: #64748b;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 4px;
+            color: #334155;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background: #0284c7;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        .stock-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            margin-top: 10px;
+        }
+
+        .stock-table th, .stock-table td {
+            border: 1px solid #e2e8f0;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .stock-table th {
+            background: #f1f5f9;
         }
 
         .footer {
@@ -100,10 +200,16 @@
             padding: 30px 10px;
             color: #64748b;
             font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .footer a {
+            display: inline-block;
+            margin-top: 8px;
+            text-decoration: none;
         }
     </style>
 </head>
-
 <body>
 
     <div class="header">
@@ -113,64 +219,328 @@
 
     <div class="container">
 
-        <div class="section-title">
-            Store Dashboard
-        </div>
+        <div class="section-title">Store Dashboard</div>
 
         <div class="dashboard">
-
             <div class="card">
-                <h3>Total Stock Items</h3>
-                <div class="number">0</div>
+                <h3>Total Products</h3>
+                <div class="number" id="dashTotalItems">0</div>
             </div>
-
             <div class="card">
-                <h3>Stock In Today</h3>
-                <div class="number">₹ 0</div>
+                <h3>Total Units in Stock</h3>
+                <div class="number" id="dashTotalQty">0</div>
             </div>
-
             <div class="card">
-                <h3>Stock Issued Today</h3>
-                <div class="number">₹ 0</div>
+                <h3>Stock In Logs</h3>
+                <div class="number" id="dashStockInCount">0</div>
             </div>
-
             <div class="card">
-                <h3>Active Projects</h3>
-                <div class="number">0</div>
+                <h3>Stock Out Logs</h3>
+                <div class="number" id="dashStockOutCount">0</div>
             </div>
-
         </div>
 
-        <div class="section-title" style="margin-top:28px;">
-            Store Operations
-        </div>
+        <div class="section-title" style="margin-top:24px;">Store Operations</div>
 
         <div class="menu">
-
-            <button>📦 Material Master</button>
-
-            <button>➕ Stock In / Material Receipt</button>
-
-            <button>➖ Stock Out / Material Issue</button>
-
-            <button>🏗️ Customer & Project Management</button>
-
-            <button>👷 Team Leader Material</button>
-
-            <button>🔄 Material Return</button>
-
-            <button>📊 Stock Balance</button>
-
-            <button>📋 Reports</button>
-
+            <button onclick="openModal('modalItemMaster')">📦 Material Master <span>&rarr;</span></button>
+            <button onclick="openModal('modalStockIn')">➕ Stock In / Material Receipt <span>&rarr;</span></button>
+            <button onclick="openModal('modalStockOut')">➖ Stock Out / Material Issue <span>&rarr;</span></button>
+            <button onclick="openStockBalanceModal()">📊 Stock Balance & Inventory <span>&rarr;</span></button>
+            <button onclick="openReportsModal()">📋 Transaction Log <span>&rarr;</span></button>
         </div>
 
         <div class="footer">
             DIP URJA POWER SOLUTIONS<br>
             Digital Store Management System
+            <div>
+                <a href="https://www.instagram.com/dipurjapower/" target="_blank" rel="noopener noreferrer">
+                    <img src="insta.png" alt="Instagram" style="width: 24px; height: 24px; vertical-align: middle; margin-top: 8px;" onerror="this.style.display='none'">
+                </a>
+            </div>
         </div>
 
     </div>
 
+    <!-- Modal 1: Material Master -->
+    <div id="modalItemMaster" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Product Master</h2>
+                <button class="close-btn" onclick="closeModal('modalItemMaster')">&times;</button>
+            </div>
+            <div class="form-group">
+                <label>Item / Product Name</label>
+                <input type="text" id="masterItemName" placeholder="e.g. Solar Panel 540W / Inverter 1kVA">
+            </div>
+            <div class="form-group">
+                <label>Category</label>
+                <input type="text" id="masterCategory" placeholder="e.g. Solar / Electrical / Structure">
+            </div>
+            <button class="btn-submit" onclick="saveMasterItem()">Save Product</button>
+        </div>
+    </div>
+
+    <!-- Modal 2: Stock In -->
+    <div id="modalStockIn" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Stock In / Receipt</h2>
+                <button class="close-btn" onclick="closeModal('modalStockIn')">&times;</button>
+            </div>
+            <div class="form-group">
+                <label>Select Item</label>
+                <select id="stockInSelect"></select>
+            </div>
+            <div class="form-group">
+                <label>Quantity In</label>
+                <input type="number" id="stockInQty" placeholder="Quantity">
+            </div>
+            <div class="form-group">
+                <label>Remarks / Supplier</label>
+                <input type="text" id="stockInRemarks" placeholder="Invoice No / Supplier Name">
+            </div>
+            <button class="btn-submit" style="background:#16a34a;" onclick="recordStock('IN')">Confirm Stock In</button>
+        </div>
+    </div>
+
+    <!-- Modal 3: Stock Out -->
+    <div id="modalStockOut" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Stock Out / Material Issue</h2>
+                <button class="close-btn" onclick="closeModal('modalStockOut')">&times;</button>
+            </div>
+            <div class="form-group">
+                <label>Select Item</label>
+                <select id="stockOutSelect"></select>
+            </div>
+            <div class="form-group">
+                <label>Quantity Out</label>
+                <input type="number" id="stockOutQty" placeholder="Quantity">
+            </div>
+            <div class="form-group">
+                <label>Issued To / Site Name</label>
+                <input type="text" id="stockOutSite" placeholder="Project name or Team Leader">
+            </div>
+            <button class="btn-submit" style="background:#dc2626;" onclick="recordStock('OUT')">Confirm Stock Out</button>
+        </div>
+    </div>
+
+    <!-- Modal 4: Stock Balance -->
+    <div id="modalBalance" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Stock Balance</h2>
+                <button class="close-btn" onclick="closeModal('modalBalance')">&times;</button>
+            </div>
+            <table class="stock-table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Category</th>
+                        <th>Balance Qty</th>
+                    </tr>
+                </thead>
+                <tbody id="stockBalanceTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal 5: Reports -->
+    <div id="modalReports" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Recent Transactions</h2>
+                <button class="close-btn" onclick="closeModal('modalReports')">&times;</button>
+            </div>
+            <table class="stock-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Item</th>
+                        <th>Type</th>
+                        <th>Qty</th>
+                        <th>Ref/Site</th>
+                    </tr>
+                </thead>
+                <tbody id="reportsTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Storage Keys
+        const STORE_ITEMS_KEY = 'dip_urja_inventory_items';
+        const STORE_LOGS_KEY = 'dip_urja_inventory_logs';
+
+        function loadItems() {
+            return JSON.parse(localStorage.getItem(STORE_ITEMS_KEY)) || [
+                { id: 1, name: "Solar Panel 540W", category: "Solar", quantity: 0 },
+                { id: 2, name: "Lift Inverter 3kVA", category: "Power Backup", quantity: 0 }
+            ];
+        }
+
+        function loadLogs() {
+            return JSON.parse(localStorage.getItem(STORE_LOGS_KEY)) || [];
+        }
+
+        function saveItems(items) {
+            localStorage.setItem(STORE_ITEMS_KEY, JSON.stringify(items));
+            updateDashboard();
+        }
+
+        function saveLogs(logs) {
+            localStorage.setItem(STORE_LOGS_KEY, JSON.stringify(logs));
+            updateDashboard();
+        }
+
+        function updateDashboard() {
+            const items = loadItems();
+            const logs = loadLogs();
+
+            document.getElementById('dashTotalItems').innerText = items.length;
+            const totalQty = items.reduce((sum, item) => sum + (item.quantity || 0), 0);
+            document.getElementById('dashTotalQty').innerText = totalQty;
+
+            const inCount = logs.filter(l => l.type === 'IN').length;
+            const outCount = logs.filter(l => l.type === 'OUT').length;
+            document.getElementById('dashStockInCount').innerText = inCount;
+            document.getElementById('dashStockOutCount').innerText = outCount;
+        }
+
+        function openModal(id) {
+            populateItemDropdowns();
+            document.getElementById(id).style.display = 'flex';
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+
+        function populateItemDropdowns() {
+            const items = loadItems();
+            const inSelect = document.getElementById('stockInSelect');
+            const outSelect = document.getElementById('stockOutSelect');
+
+            inSelect.innerHTML = '';
+            outSelect.innerHTML = '';
+
+            items.forEach(item => {
+                const opt1 = document.createElement('option');
+                opt1.value = item.id;
+                opt1.textContent = `${item.name} (Cur: ${item.quantity})`;
+                inSelect.appendChild(opt1);
+
+                const opt2 = document.createElement('option');
+                opt2.value = item.id;
+                opt2.textContent = `${item.name} (Cur: ${item.quantity})`;
+                outSelect.appendChild(opt2);
+            });
+        }
+
+        function saveMasterItem() {
+            const name = document.getElementById('masterItemName').value.trim();
+            const category = document.getElementById('masterCategory').value.trim() || 'General';
+
+            if (!name) {
+                alert('Please enter an item name');
+                return;
+            }
+
+            const items = loadItems();
+            items.push({
+                id: Date.now(),
+                name: name,
+                category: category,
+                quantity: 0
+            });
+
+            saveItems(items);
+            document.getElementById('masterItemName').value = '';
+            document.getElementById('masterCategory').value = '';
+            closeModal('modalItemMaster');
+            alert('Item added to Master successfully!');
+        }
+
+        function recordStock(type) {
+            const isEntry = type === 'IN';
+            const selectId = isEntry ? 'stockInSelect' : 'stockOutSelect';
+            const qtyId = isEntry ? 'stockInQty' : 'stockOutQty';
+            const refId = isEntry ? 'stockInRemarks' : 'stockOutSite';
+
+            const itemId = parseInt(document.getElementById(selectId).value);
+            const qty = parseInt(document.getElementById(qtyId).value);
+            const ref = document.getElementById(refId).value.trim();
+
+            if (!qty || qty <= 0) {
+                alert('Please enter a valid quantity');
+                return;
+            }
+
+            const items = loadItems();
+            const item = items.find(i => i.id === itemId);
+            if (!item) return;
+
+            if (!isEntry && item.quantity < qty) {
+                alert('Insufficient stock available! Current stock: ' + item.quantity);
+                return;
+            }
+
+            if (isEntry) {
+                item.quantity += qty;
+            } else {
+                item.quantity -= qty;
+            }
+
+            const logs = loadLogs();
+            logs.unshift({
+                date: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+                itemName: item.name,
+                type: type,
+                qty: qty,
+                ref: ref || '-'
+            });
+
+            saveItems(items);
+            saveLogs(logs);
+
+            document.getElementById(qtyId).value = '';
+            document.getElementById(refId).value = '';
+            closeModal(isEntry ? 'modalStockIn' : 'modalStockOut');
+            alert(`Stock ${type} recorded successfully!`);
+        }
+
+        function openStockBalanceModal() {
+            const items = loadItems();
+            const tbody = document.getElementById('stockBalanceTableBody');
+            tbody.innerHTML = '';
+
+            items.forEach(item => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td><b>${item.name}</b></td><td>${item.category}</td><td style="font-weight:bold; color:${item.quantity <= 2 ? 'red' : 'green'}">${item.quantity}</td>`;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('modalBalance').style.display = 'flex';
+        }
+
+        function openReportsModal() {
+            const logs = loadLogs();
+            const tbody = document.getElementById('reportsTableBody');
+            tbody.innerHTML = '';
+
+            logs.slice(0, 30).forEach(log => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td>${log.date}</td><td>${log.itemName}</td><td style="color:${log.type === 'IN' ? 'green' : 'red'}; font-weight:bold">${log.type}</td><td>${log.qty}</td><td>${log.ref}</td>`;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('modalReports').style.display = 'flex';
+        }
+
+        // Initialize dashboard counters on page load
+        updateDashboard();
+    </script>
 </body>
 </html>
