@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>DIP URJA - Store Management System</title>
+    <title>DIP URJA POWER SOLUTIONS - Store Management</title>
     
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0a0f1d">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
-    <!-- Google Fonts: Montserrat (Stylish Brand Font) & Plus Jakarta Sans -->
+    <!-- Google Fonts: Montserrat & Plus Jakarta Sans -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
@@ -60,7 +60,7 @@
             backdrop-filter: blur(16px);
             border: 1px solid var(--card-border);
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
             border-radius: 24px;
             padding: 32px 24px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
@@ -90,9 +90,9 @@
 
         /* Top Header Styling */
         .header {
-            background: linear-gradient(180deg, rgba(10, 15, 29, 0.88), rgba(10, 15, 29, 0.98)), 
+            background: linear-gradient(180deg, rgba(10, 15, 29, 0.90), rgba(10, 15, 29, 0.98)), 
                         url('https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&q=80&w=1000') center/cover no-repeat;
-            padding: 26px 20px 22px;
+            padding: 24px 20px 20px;
             border-bottom: 2px solid var(--primary);
             position: sticky;
             top: 0;
@@ -110,16 +110,17 @@
         }
 
         .brand-logo-container {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 12px;
-            margin-bottom: 2px;
+            margin-bottom: 14px;
+            max-width: 100%;
         }
 
         .brand-title {
             font-family: 'Montserrat', sans-serif;
-            font-size: 28px;
+            font-size: 20px;
             font-weight: 900;
             background: linear-gradient(135deg, #38bdf8, #0ea5e9, #fbbf24);
             -webkit-background-clip: text;
@@ -127,16 +128,8 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             margin: 0;
-            line-height: 1;
-        }
-
-        .brand-subtitle {
-            font-size: 12px;
-            color: #e2e8f0;
-            letter-spacing: 4px;
-            font-weight: 600;
-            margin: 0 0 16px 0;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            line-height: 1.2;
+            text-align: left;
         }
 
         .operator-pill {
@@ -361,12 +354,11 @@
                 <div class="spiritual-text">॥ श्री स्वामी समर्थ ॥</div>
             </div>
 
-            <!-- Brand Logo & Name -->
-            <div class="brand-logo-container">
-                <img src="logo" alt="DIP URJA Logo" style="width: 38px; height: 38px; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));" onerror="this.onerror=null; this.src='logo.png';">
-                <h2 class="brand-title" style="font-size: 24px;">DIP URJA</h2>
+            <!-- Only Logo before App Name -->
+            <div class="brand-logo-container" style="margin-bottom: 20px;">
+                <img src="logo" alt="Logo" style="width: 44px; height: 44px; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));" onerror="this.onerror=null; this.src='logo.png';">
+                <h2 class="brand-title" style="font-size: 18px;">DIP URJA POWER SOLUTIONS</h2>
             </div>
-            <p class="brand-subtitle" style="margin-bottom: 24px;">POWER SOLUTIONS</p>
 
             <div id="phoneStep">
                 <div class="form-group">
@@ -397,18 +389,17 @@
         <div class="header">
             
             <!-- Spiritual Top Area -->
-            <div style="text-align: center; margin-bottom: 14px;">
+            <div style="text-align: center; margin-bottom: 12px;">
                 <img src="swami" alt="श्री स्वामी समर्थ" style="width: 58px; height: 58px; border-radius: 50%; border: 2px solid #fbbf24; object-fit: cover; margin-bottom: 4px; box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);" onerror="this.onerror=null; this.src='swami.jpg';">
                 <div class="spiritual-text">॥ श्री स्वामी समर्थ ॥</div>
             </div>
 
-            <!-- Brand Logo and Stylish Name -->
-            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 16px;">
+            <!-- Only Logo before App Name (No Separate "DIP URJA" Title) -->
+            <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 14px;">
                 <div class="brand-logo-container">
-                    <img src="logo" alt="DIP URJA Logo" style="width: 44px; height: 44px; object-fit: contain; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6));" onerror="this.onerror=null; this.src='logo.png';">
-                    <h1 class="brand-title">DIP URJA</h1>
+                    <img src="logo" alt="Logo" style="width: 46px; height: 46px; object-fit: contain; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6));" onerror="this.onerror=null; this.src='logo.png';">
+                    <h1 class="brand-title">DIP URJA POWER SOLUTIONS</h1>
                 </div>
-                <h2 class="brand-subtitle">POWER SOLUTIONS</h2>
             </div>
 
             <!-- Operator Pill -->
@@ -710,11 +701,10 @@
 
     <script>
         const AUTH_USER_KEY = 'store_logged_in_phone';
-        const STORE_ITEMS_KEY = 'dip_urja_inventory_items_v11';
-        const STORE_LOGS_KEY = 'dip_urja_inventory_logs_v11';
-        const STORE_REQ_KEY = 'dip_urja_requisitions_v11';
+        const STORE_ITEMS_KEY = 'dip_urja_inventory_items_v12';
+        const STORE_LOGS_KEY = 'dip_urja_inventory_logs_v12';
+        const STORE_REQ_KEY = 'dip_urja_requisitions_v12';
 
-        // Keys for customizable dropdown lists
         const LIST_CUSTOMERS_KEY = 'dip_urja_custom_customers';
         const LIST_SITES_KEY = 'dip_urja_custom_sites';
         const LIST_REQUESTERS_KEY = 'dip_urja_custom_requesters';
@@ -820,7 +810,6 @@
             }
         }
 
-        // Storage Handlers
         function loadItems() { return JSON.parse(localStorage.getItem(STORE_ITEMS_KEY)) || DEFAULT_PRODUCTS; }
         function loadLogs() { return JSON.parse(localStorage.getItem(STORE_LOGS_KEY)) || []; }
         function loadRequisitions() { return JSON.parse(localStorage.getItem(STORE_REQ_KEY)) || []; }
