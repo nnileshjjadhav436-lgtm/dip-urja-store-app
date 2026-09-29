@@ -144,6 +144,17 @@
             color: #38bdf8;
         }
 
+        .role-tag-badge {
+            background: #f59e0b;
+            color: #0f172a;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
         .logout-btn {
             color: var(--red);
             font-weight: 700;
@@ -344,23 +355,30 @@
 </head>
 <body>
 
-    <!-- 1. LOGIN SCREEN -->
+    <!-- 1. LOGIN SCREEN WITH ROLE SELECTION -->
     <div id="loginScreen">
         <div class="login-card">
             
-            <!-- Spiritual Header on Login -->
             <div style="text-align: center; margin-bottom: 14px;">
                 <img src="swami" alt="श्री स्वामी समर्थ" style="width: 58px; height: 58px; border-radius: 50%; border: 2px solid #fbbf24; object-fit: cover; margin-bottom: 4px; box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);" onerror="this.onerror=null; this.src='swami.jpg';">
                 <div class="spiritual-text">॥ श्री स्वामी समर्थ ॥</div>
             </div>
 
-            <!-- Only Logo before App Name -->
             <div class="brand-logo-container" style="margin-bottom: 20px;">
                 <img src="logo" alt="Logo" style="width: 44px; height: 44px; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));" onerror="this.onerror=null; this.src='logo.png';">
                 <h2 class="brand-title" style="font-size: 18px;">DIP URJA POWER SOLUTIONS</h2>
             </div>
 
             <div id="phoneStep">
+                <div class="form-group">
+                    <label>Select User Role</label>
+                    <select id="userRoleSelect" class="form-control">
+                        <option value="ACCOUNTANT">Accountant (Accounts Approval)</option>
+                        <option value="MD">Managing Director (MD Approval)</option>
+                        <option value="STOREKEEPER">Store Incharge / Storekeeper (Stock Dispatch)</option>
+                        <option value="ADMIN">Super Admin (Universal Access)</option>
+                    </select>
+                </div>
                 <div class="form-group">
                     <label>Mobile Number</label>
                     <input type="tel" id="userPhone" class="form-control" placeholder="10-digit number" maxlength="10" inputmode="numeric">
@@ -385,16 +403,12 @@
 
     <!-- 2. MAIN DASHBOARD -->
     <div id="mainAppScreen">
-        <!-- Top Image Header -->
         <div class="header">
-            
-            <!-- Spiritual Top Area -->
             <div style="text-align: center; margin-bottom: 12px;">
                 <img src="swami" alt="श्री स्वामी समर्थ" style="width: 58px; height: 58px; border-radius: 50%; border: 2px solid #fbbf24; object-fit: cover; margin-bottom: 4px; box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);" onerror="this.onerror=null; this.src='swami.jpg';">
                 <div class="spiritual-text">॥ श्री स्वामी समर्थ ॥</div>
             </div>
 
-            <!-- Only Logo before App Name (No Separate "DIP URJA" Title) -->
             <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 14px;">
                 <div class="brand-logo-container">
                     <img src="logo" alt="Logo" style="width: 46px; height: 46px; object-fit: contain; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6));" onerror="this.onerror=null; this.src='logo.png';">
@@ -402,10 +416,11 @@
                 </div>
             </div>
 
-            <!-- Operator Pill -->
+            <!-- Operator Pill with Dynamic Role Badge -->
             <div style="display: flex; justify-content: center;">
                 <div class="operator-pill">
                     <span>📱 <span id="displayPhone"></span></span>
+                    <span class="role-tag-badge" id="displayRoleBadge">ROLE</span>
                     <span class="logout-btn" onclick="logout()">Logout</span>
                 </div>
             </div>
@@ -518,7 +533,7 @@
         </div>
     </div>
 
-    <!-- MODAL 2: DROPDOWN MANAGER (ADD/DELETE CUSTOMERS, SITES, PERSONS) -->
+    <!-- MODAL 2: DROPDOWN MANAGER -->
     <div id="modalDropdownManager" class="modal">
         <div class="modal-body" style="max-width: 540px;">
             <div class="modal-header">
@@ -535,7 +550,6 @@
                 </select>
             </div>
 
-            <!-- Add New Item Row -->
             <div style="display:flex; gap:8px; margin-bottom:16px;">
                 <input type="text" id="newListItemInput" class="form-control" placeholder="Type new name to add...">
                 <button type="button" class="btn btn-success" style="width:110px; margin-top:0;" onclick="addNewListItem()">+ Add</button>
@@ -549,9 +563,9 @@
         </div>
     </div>
 
-    <!-- MODAL 3: APPROVALS & DISPATCH LIST -->
+    <!-- MODAL 3: APPROVALS & DISPATCH LIST WITH STRICT ROLE ENFORCEMENT -->
     <div id="modalPendingReq" class="modal">
-        <div class="modal-body" style="max-width: 540px;">
+        <div class="modal-body" style="max-width: 560px;">
             <div class="modal-header">
                 <h3>Requisition Approvals & Dispatch</h3>
                 <button type="button" class="close-btn" onclick="closeModal('modalPendingReq')">&times;</button>
@@ -560,7 +574,7 @@
         </div>
     </div>
 
-    <!-- MODAL 4: MATERIAL RECORD (FILTER DATEWISE, CUSTOMERWISE, REQUESTERWISE) -->
+    <!-- MODAL 4: MATERIAL RECORD -->
     <div id="modalMaterialRecord" class="modal">
         <div class="modal-body" style="max-width: 620px;">
             <div class="modal-header">
@@ -662,7 +676,7 @@
         </div>
     </div>
 
-    <!-- MODAL 8: EDIT / UPDATE STOCK -->
+    <!-- MODAL 8: EDIT PRODUCT -->
     <div id="modalEditProduct" class="modal">
         <div class="modal-body">
             <div class="modal-header">
@@ -701,9 +715,10 @@
 
     <script>
         const AUTH_USER_KEY = 'store_logged_in_phone';
-        const STORE_ITEMS_KEY = 'dip_urja_inventory_items_v12';
-        const STORE_LOGS_KEY = 'dip_urja_inventory_logs_v12';
-        const STORE_REQ_KEY = 'dip_urja_requisitions_v12';
+        const AUTH_ROLE_KEY = 'store_logged_in_role'; // ACCOUNTANT, MD, STOREKEEPER, ADMIN
+        const STORE_ITEMS_KEY = 'dip_urja_inventory_items_v13';
+        const STORE_LOGS_KEY = 'dip_urja_inventory_logs_v13';
+        const STORE_REQ_KEY = 'dip_urja_requisitions_v13';
 
         const LIST_CUSTOMERS_KEY = 'dip_urja_custom_customers';
         const LIST_SITES_KEY = 'dip_urja_custom_sites';
@@ -753,8 +768,9 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             const loggedInUser = localStorage.getItem(AUTH_USER_KEY);
+            const loggedInRole = localStorage.getItem(AUTH_ROLE_KEY) || 'ADMIN';
             if (loggedInUser) {
-                showMainApp(loggedInUser);
+                showMainApp(loggedInUser, loggedInRole);
             } else {
                 document.getElementById('loginScreen').style.display = 'flex';
                 document.getElementById('mainAppScreen').style.display = 'none';
@@ -776,10 +792,12 @@
         function verifyAndLogin() {
             const enteredOtp = document.getElementById('userOTP').value.trim();
             const phone = document.getElementById('userPhone').value.trim();
+            const role = document.getElementById('userRoleSelect').value;
 
             if (enteredOtp === currentGeneratedOtp) {
                 localStorage.setItem(AUTH_USER_KEY, phone);
-                showMainApp(phone);
+                localStorage.setItem(AUTH_ROLE_KEY, role);
+                showMainApp(phone, role);
             } else {
                 alert('Incorrect OTP. Enter the 4 digits displayed.');
             }
@@ -792,16 +810,25 @@
             currentGeneratedOtp = null;
         }
 
-        function showMainApp(phone) {
+        function showMainApp(phone, role) {
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('mainAppScreen').style.display = 'block';
             document.getElementById('displayPhone').innerText = phone;
+            
+            const roleLabels = {
+                'ACCOUNTANT': 'Accountant',
+                'MD': 'Managing Director',
+                'STOREKEEPER': 'Store Incharge',
+                'ADMIN': 'Super Admin'
+            };
+            document.getElementById('displayRoleBadge').innerText = roleLabels[role] || role;
             renderInventory();
         }
 
         function logout() {
             if (confirm("Log out of Store Management?")) {
                 localStorage.removeItem(AUTH_USER_KEY);
+                localStorage.removeItem(AUTH_ROLE_KEY);
                 document.getElementById('userPhone').value = '';
                 document.getElementById('userOTP').value = '';
                 changePhoneNumber();
@@ -810,6 +837,7 @@
             }
         }
 
+        // Storage Handlers
         function loadItems() { return JSON.parse(localStorage.getItem(STORE_ITEMS_KEY)) || DEFAULT_PRODUCTS; }
         function loadLogs() { return JSON.parse(localStorage.getItem(STORE_LOGS_KEY)) || []; }
         function loadRequisitions() { return JSON.parse(localStorage.getItem(STORE_REQ_KEY)) || []; }
@@ -1014,10 +1042,13 @@
             alert('Requisition generated! Pending Accounts & MD approvals.');
         }
 
+        // ================= APPROVALS & DISPATCH (STRICT ROLE CONTROL) =================
         function openPendingReqModal() {
             const reqs = loadRequisitions();
             const container = document.getElementById('pendingReqListContainer');
             container.innerHTML = '';
+
+            const activeRole = localStorage.getItem(AUTH_ROLE_KEY) || 'ADMIN';
 
             if (reqs.length === 0) {
                 container.innerHTML = '<div style="text-align:center; color:#94a3b8; padding:20px;">No requisitions on record.</div>';
@@ -1052,24 +1083,26 @@
                         <div style="color:#64748b; font-size:11px; margin-top:2px;">🕒 <b>Request Date:</b> ${req.requestDate}</div>
                         ${req.issueDate ? `<div style="color:#34d399; font-size:11px; margin-top:2px;">🚚 <b>Dispatched On:</b> ${req.issueDate}</div>` : ''}
 
+                        <!-- Approval Buttons with Role Status Tooltips -->
                         <div class="approval-pipeline">
                             <button class="approval-check-btn ${req.accountsApproved ? 'signed' : ''}" 
                                 onclick="toggleAccountsApproval(${req.id})" ${isDispatched ? 'disabled' : ''}>
-                                <span>🏦 Accounts</span>
+                                <span>🏦 Accounts Dept</span>
                                 <span>${req.accountsApproved ? 'APPROVED ✓' : 'APPROVE'}</span>
                             </button>
                             <button class="approval-check-btn ${req.mdApproved ? 'signed' : ''}" 
                                 onclick="toggleMdApproval(${req.id})" ${isDispatched ? 'disabled' : ''}>
-                                <span>👔 MD</span>
+                                <span>👔 Managing Director</span>
                                 <span>${req.mdApproved ? 'APPROVED ✓' : 'APPROVE'}</span>
                             </button>
                         </div>
 
+                        <!-- Store Incharge Dispatch Button (Locked until MD Approved + Accounts Approved) -->
                         ${!isDispatched ? `
                             <button type="button" class="btn ${isFullyApproved ? 'btn-success' : 'btn-ghost'}" 
                                 style="${!isFullyApproved ? 'opacity:0.6; cursor:not-allowed;' : ''}"
-                                onclick="${isFullyApproved ? `dispatchStock(${req.id})` : `alert('Requisition cannot be issued without both Accounts Dept and MD approvals!')`}">
-                                📦 ${isFullyApproved ? 'Store Incharge: Issue & Dispatch Material' : 'Locked: Awaiting Accounts & MD Approval'}
+                                onclick="dispatchStock(${req.id})">
+                                📦 ${isFullyApproved ? 'Storekeeper: Issue & Dispatch Material' : 'Locked: Requires Accounts & MD Approvals'}
                             </button>
                         ` : `
                             <div style="text-align:center; padding:8px; background:rgba(16,185,129,0.15); border-radius:8px; color:#34d399; font-weight:800; font-size:12px; margin-top:8px;">
@@ -1079,15 +1112,15 @@
 
                         <div class="approvers-bottom-bar">
                             <div class="approver-tag">
-                                <div class="role">Accounts</div>
+                                <div class="role">Accounts Approval</div>
                                 <div class="${req.accountsApproved ? 'status-green' : 'status-red'}">${req.accountsApproved ? req.accountsName : '⏳ Pending'}</div>
                             </div>
                             <div class="approver-tag">
-                                <div class="role">MD</div>
+                                <div class="role">MD Approval</div>
                                 <div class="${req.mdApproved ? 'status-green' : 'status-red'}">${req.mdApproved ? req.mdName : '⏳ Pending'}</div>
                             </div>
                             <div class="approver-tag">
-                                <div class="role">Store Incharge</div>
+                                <div class="role">Storekeeper Status</div>
                                 <div class="${isDispatched ? 'status-green' : 'status-red'}">${isDispatched ? req.storeInchargeName : '⏳ Pending'}</div>
                             </div>
                         </div>
@@ -1099,35 +1132,71 @@
             document.getElementById('modalPendingReq').style.display = 'flex';
         }
 
+        // 1. Accountant Role Approval Function
         function toggleAccountsApproval(reqId) {
+            const activeRole = localStorage.getItem(AUTH_ROLE_KEY) || '';
+            const userPhone = localStorage.getItem(AUTH_USER_KEY) || 'User';
+
+            // Only Accountant and Admin can approve
+            if (activeRole !== 'ACCOUNTANT' && activeRole !== 'ADMIN') {
+                alert('⛔ Permission Denied: Only users logged in as "Accountant" or "Admin" can approve Accounts.');
+                return;
+            }
+
             const reqs = loadRequisitions();
             const req = reqs.find(r => r.id === reqId);
             if (!req) return;
 
             req.accountsApproved = !req.accountsApproved;
-            req.accountsName = req.accountsApproved ? "Accounts Verified" : "Pending";
+            req.accountsName = req.accountsApproved ? `Verified by (${userPhone})` : "Pending";
             saveRequisitions(reqs);
             openPendingReqModal();
         }
 
+        // 2. MD Role Approval Function
         function toggleMdApproval(reqId) {
+            const activeRole = localStorage.getItem(AUTH_ROLE_KEY) || '';
+            const userPhone = localStorage.getItem(AUTH_USER_KEY) || 'User';
+
+            // Only MD and Admin can approve
+            if (activeRole !== 'MD' && activeRole !== 'ADMIN') {
+                alert('⛔ Permission Denied: Only users logged in as "Managing Director (MD)" or "Admin" can grant MD approval.');
+                return;
+            }
+
             const reqs = loadRequisitions();
             const req = reqs.find(r => r.id === reqId);
             if (!req) return;
 
             req.mdApproved = !req.mdApproved;
-            req.mdName = req.mdApproved ? "MD Approved" : "Pending";
+            req.mdName = req.mdApproved ? `MD Approved (${userPhone})` : "Pending";
             saveRequisitions(reqs);
             openPendingReqModal();
         }
 
+        // 3. Storekeeper Dispatch Function (Requires MD & Accounts Approval)
         function dispatchStock(reqId) {
+            const activeRole = localStorage.getItem(AUTH_ROLE_KEY) || '';
+            const userPhone = localStorage.getItem(AUTH_USER_KEY) || 'User';
+
+            // Only Storekeeper and Admin can dispatch
+            if (activeRole !== 'STOREKEEPER' && activeRole !== 'ADMIN') {
+                alert('⛔ Permission Denied: Only users logged in as "Storekeeper / Store Incharge" or "Admin" can dispatch material.');
+                return;
+            }
+
             const reqs = loadRequisitions();
             const req = reqs.find(r => r.id === reqId);
             if (!req) return;
 
-            if (!req.accountsApproved || !req.mdApproved) {
-                alert('Both Accounts and MD must approve before Store Incharge can issue the material.');
+            // Strict workflow check: MD and Accounts MUST approve first
+            if (!req.mdApproved) {
+                alert('⛔ Action Blocked: Storekeeper can only dispatch after Managing Director (MD) has approved this request!');
+                return;
+            }
+
+            if (!req.accountsApproved) {
+                alert('⛔ Action Blocked: Accounts Dept approval is also required before dispatching material.');
                 return;
             }
 
@@ -1142,7 +1211,7 @@
             item.quantity -= req.qty;
             req.issueDate = getFormattedCurrentDateTime();
             req.status = 'DISPATCHED';
-            req.storeInchargeName = "Dispatched by Store";
+            req.storeInchargeName = `Dispatched (${userPhone})`;
 
             const logs = loadLogs();
             logs.unshift({
